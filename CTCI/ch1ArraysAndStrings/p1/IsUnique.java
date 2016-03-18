@@ -1,11 +1,10 @@
 public class IsUnique {
     public static void main (String[] args) {
-        boolean result = stringIsUnique("loae");
-        System.out.println(result);
+        runTests();
     }
     
     public static boolean stringIsUnique(String str) {
-        boolean[] tracker = new boolean[26];
+        boolean[] letterExists = new boolean[26];
         char[] stringArr = str.toCharArray();
         
         for (int i = 0; i < stringArr.length; i++) {
@@ -16,14 +15,29 @@ public class IsUnique {
                 continue;
             }
             
-            if (tracker[mapChar]) {
+            if (letterExists[mapChar]) {
                 return false;
             }
             else {
-                tracker[mapChar] = true;
+                letterExists[mapChar] = true;
             }
         }
         
         return true;
+    }
+    
+    public static void runTests() {
+        boolean testsPassed = true;
+        testsPassed &= stringIsUnique("loae");
+        testsPassed &= !stringIsUnique("lol");
+        testsPassed &= !stringIsUnique("hello");
+        testsPassed &= stringIsUnique("bye");
+        
+        if (testsPassed) {
+            System.out.println("All tests passed!");
+        }
+        else {
+            System.out.println("One or more tests failed...");      
+        }
     }
 }
