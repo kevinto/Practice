@@ -1,7 +1,6 @@
 public class CheckPerm {
     public static void main (String[] args) {
-        System.out.println(isPerm("abc", "bac"));
-        System.out.println(isPerm("abc", "bace"));
+        runTests();
     }
     
     public static boolean isPerm(String s1, String s2) {
@@ -41,5 +40,20 @@ public class CheckPerm {
         }
         
         return true;
+    }
+    
+    public static void runTests() {
+        boolean result = true;
+        
+        result &= isPerm("abc", "bac");
+        result &= !isPerm("abc", "bace");
+        result &= !isPerm("abc", "bae");
+        
+        if (result) {
+            System.out.println("All tests passed!");
+        }
+        else {
+            System.out.println("One or more tests failed...");
+        }
     }
 }
