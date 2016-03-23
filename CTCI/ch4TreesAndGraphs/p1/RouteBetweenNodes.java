@@ -1,6 +1,11 @@
+import java.util.LinkedList;
+
 public class RouteBetweenNodes {
     public static void main (String args[]) {
-        
+        // Implemented an adjacency list
+        // AdjacencyList adjList = new AdjacencyList(1);
+        // adjList.add(1, 2);
+        // adjList.add(1, 3);
     }
     
     // Route Between Nodes: Given a directed graph, design an algorithm 
@@ -24,4 +29,34 @@ public class RouteBetweenNodes {
         
         return;
     } 
+}
+
+class AdjacencyList {
+    private final LinkedList<Integer>[] adjacencyList; 
+    
+    public AdjacencyList(int vertices) {
+        adjacencyList = (LinkedList<Integer>[]) new LinkedList<Integer>[vertices];
+        for(int i = 0; i < adjacencyList.length; i++) {
+            adjacencyList[i] = new LinkedList<>();
+        }
+    }
+    
+    public void addEdge(int startVertex, int endVertex) {
+        adjacencyList[startVertex].add(endVertex);
+    }
+    
+    public void printAdjacencyList() {
+        int i = 0;
+        
+        for(LinkedList<Integer> list : adjacencyList) {
+            System.out.print("adjacencyList[" + i + "] -> ");
+            
+            for (int edge : list) {
+                System.out.print("(" + edge + ")");
+            }
+            
+            i++;
+            System.out.println();
+        }
+    }
 }
