@@ -10,15 +10,18 @@ public class RouteBetweenNodes {
         
         // insert neighbors into list for vertex 0 
         adjLists.get(0).add(1);
-        adjLists.get(0).add(2);
         
         // insert neighbors into list for vertex 1 
         adjLists.get(1).add(2);
-        adjLists.get(1).add(3);
+        
+        // insert neighbors into list for vertex 2
+        adjLists.get(2).add(0);
+        adjLists.get(2).add(3);
         
         // testing
         System.out.println("vertex 0: " + adjLists.get(0));
         System.out.println("vertex 1: " + adjLists.get(1));
+        System.out.println("vertex 2: " + adjLists.get(2));
     }
     
     // Route Between Nodes: Given a directed graph, design an algorithm 
