@@ -1,11 +1,24 @@
-import java.util.LinkedList;
+import java.util.*;
 
 public class RouteBetweenNodes {
     public static void main (String args[]) {
-        // Implemented an adjacency list
-        // AdjacencyList adjList = new AdjacencyList(1);
-        // adjList.add(1, 2);
-        // adjList.add(1, 3);
+        ArrayList<ArrayList<Integer>> adjLists = new ArrayList<ArrayList<Integer>>();
+        
+        for(int i = 0; i < 6; i++) {
+            adjLists.add(new ArrayList<Integer>());
+        }
+        
+        // insert neighbors into list for vertex 0 
+        adjLists.get(0).add(1);
+        adjLists.get(0).add(2);
+        
+        // insert neighbors into list for vertex 1 
+        adjLists.get(1).add(2);
+        adjLists.get(1).add(3);
+        
+        // testing
+        System.out.println("vertex 0: " + adjLists.get(0));
+        System.out.println("vertex 1: " + adjLists.get(1));
     }
     
     // Route Between Nodes: Given a directed graph, design an algorithm 
@@ -25,38 +38,6 @@ public class RouteBetweenNodes {
                     // return true
                 // if node is unvisited
                     // add n to the queue
-                
-        
         return;
     } 
-}
-
-class AdjacencyList {
-    private final LinkedList<Integer>[] adjacencyList; 
-    
-    public AdjacencyList(int vertices) {
-        adjacencyList = (LinkedList<Integer>[]) new LinkedList<Integer>[vertices];
-        for(int i = 0; i < adjacencyList.length; i++) {
-            adjacencyList[i] = new LinkedList<>();
-        }
-    }
-    
-    public void addEdge(int startVertex, int endVertex) {
-        adjacencyList[startVertex].add(endVertex);
-    }
-    
-    public void printAdjacencyList() {
-        int i = 0;
-        
-        for(LinkedList<Integer> list : adjacencyList) {
-            System.out.print("adjacencyList[" + i + "] -> ");
-            
-            for (int edge : list) {
-                System.out.print("(" + edge + ")");
-            }
-            
-            i++;
-            System.out.println();
-        }
-    }
 }
