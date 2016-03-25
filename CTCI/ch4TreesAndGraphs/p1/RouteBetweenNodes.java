@@ -23,32 +23,32 @@ public class RouteBetweenNodes {
         System.out.println("vertex 1: " + adjList.get(1));
         System.out.println("vertex 2: " + adjList.get(2));
         
-        routeExists(adjList, 0, 3);        
+        System.out.println("Route exists: " + routeExists(adjList, 0, 3));
     }
     
-    // Route Between Nodes: Given a directed graph, design an algorithm 
-    // to find out whether there is a route between two nodes.
-    // Assume I am given the Adjacency list.
-    // Assume I am given the start point and the end point.
-    public static void routeExists(ArrayList<ArrayList<Integer>> adjList, int start, int end) {
-        // Add start to an empty queue. Here the linked list implementation is already a queue.
+    public static boolean routeExists(ArrayList<ArrayList<Integer>> adjList, int start, int end) {
+        if (start == end) {
+            return true;
+        } 
+        
         Queue<Integer> queue = new LinkedList<Integer>();
         queue.add(start);
-        // System.out.println(queue.size());
         
-        // While the queue is not empty:
-            // Set the current element to a dequeued
-            
-            // for each node n that is adjacent to current:
-                // if node is what we are looking for
-                    // return true
-                // if node is unvisited
-                    // add n to the queue
         while(queue.size() > 0) {
             int currentElement = queue.remove();
-            // System.out.println(currentElement);
-            break;
+            ArrayList<Integer> adjNodes = adjList.get(currentElement);
+            
+            for(int i = 0; i < adjNodes.size(); i++) {
+                int currAdjNode = adjNodes.get(i);
+                
+                if (currAdjNode == end) {
+                    return true;
+                }
+                
+                queue.add(currAdjNode);
+            }
         }
-        return;
+        
+        return false;
     } 
 }
