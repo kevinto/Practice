@@ -29,11 +29,21 @@ public class titleToNumber {
         str = str.toUpperCase(); 
         int strLen = str.length();
         
+        if (strLen == 1) {
+            return ((int)(str.charAt(0)) % 65) + 1;
+        }
+       
         int columnNum = 0; 
         for (int i = 0; i < strLen; i++) {
             char currChar = str.charAt(i);
-            columnNum *= 26;
-            columnNum += ((int)currChar % 65) + 1;
+            int currCharValue = ((int)currChar % 65) + 1;
+            
+            if (i == strLen - 1) {
+                columnNum += currCharValue; 
+            }
+            else {
+                columnNum += Math.pow(26, strLen - i - 1) * currCharValue;
+            }
         }
         
         return columnNum;
