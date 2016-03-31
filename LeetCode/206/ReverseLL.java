@@ -3,27 +3,40 @@
 Link: https://leetcode.com/problems/reverse-linked-list/
 Problem: Reverse a singly linked list.
 
-1. Do we want to reverse in place?
+1. Do we want to reverse in place? YES
 2. 
 */
-import java.util.LinkedList;
 public class ReverseLL {
     public static void main(String[] args) {
-        // LinkedList<String> ll = new LinkedList<String>();
-        // ll.add("A");
-        // ll.add("B");
-        // ll.add("C");
+        LinkNode l1  = new LinkNode(1);
+        LinkNode l2  = new LinkNode(2);
+        LinkNode l3  = new LinkNode(3);
+        l1.next = l2;
+        l2.next = l3;
+        l3.next = null;
         
-        // Test whether an object copy is made or the reference is copied
-        // LinkNode n  = new LinkNode();
-        // n.here = true;
-        // LinkNode m = n;
-        // System.out.println(n.here);
-        // m.here = false;
-        // System.out.println(n.here);
-        
-        LinkNode n  = new LinkNode(1);
-        System.out.println(n.value);
+        LinkNode reversedList = reverse(l1);
+        // System.out.println(l3.next.next.value);
+        printList(reversedList);
+    }
+    
+    // 1 -> 2 -> 3
+    public static LinkNode reverse(LinkNode head) {
+        LinkNode previous = null;
+        while (head != null) {
+            LinkNode next = head.next;
+            head.next = previous;
+            previous = head;
+            head = next;
+        }
+        return previous;
+    }
+    
+    public static void printList(LinkNode head) {
+        while (head != null) {
+            System.out.println(head.value);
+            head = head.next;
+        }
     }
 }
 
