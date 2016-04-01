@@ -15,13 +15,23 @@ public class ReverseLL {
         l2.next = l3;
         l3.next = null;
         
-        LinkNode reversedList = reverse(l1);
-        // System.out.println(l3.next.next.value);
-        printList(reversedList);
+        System.out.println("Running iterative tests: ");
+        LinkNode reversedList1 = reverseIterative(l1);
+        printList(reversedList1);
+        
+        LinkNode k1  = new LinkNode(1);
+        LinkNode k2  = new LinkNode(2);
+        LinkNode k3  = new LinkNode(3);
+        k1.next = k2;
+        k2.next = k3;
+        k3.next = null;
+        
+        System.out.println("Running recursive tests: ");
+        LinkNode reversedList2 = reverseRecursive(k1);
+        printList(reversedList2);
     }
     
-    // 1 -> 2 -> 3
-    public static LinkNode reverse(LinkNode head) {
+    public static LinkNode reverseIterative(LinkNode head) {
         LinkNode previous = null;
         while (head != null) {
             LinkNode next = head.next;
@@ -30,6 +40,30 @@ public class ReverseLL {
             head = next;
         }
         return previous;
+    }
+    
+    // 1 -> 2 -> 3
+    public static LinkNode reverseRecursive(LinkNode head) {
+        // Base case
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+        
+        // Bug: This only returns the last element of the linked list.
+        // LinkNode temp = reverseRecursive(head.next);
+        // temp.next = head;
+        // head.next = null;
+        
+        // This is correct
+        LinkNode secondElement = head.next;
+        head.next = null;
+        LinkNode reverseRest = reverseRecursive(secondElement);
+        secondElement.next = head;
+        
+        return reverseRest;
     }
     
     public static void printList(LinkNode head) {
