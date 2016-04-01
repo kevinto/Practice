@@ -58,6 +58,7 @@ public class ReverseLL {
         // head.next = null;
         
         // This is correct
+        // Explanation: http://stackoverflow.com/questions/354875/reversing-a-linked-list-in-java-recursively
         LinkNode secondElement = head.next;
         head.next = null;
         LinkNode reverseRest = reverseRecursive(secondElement);
