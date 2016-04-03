@@ -10,6 +10,9 @@ public class MergeSort {
     
     // Sort in ascending order    
     public static void mergeSort() {
-        System.out.println("hello1");
+        // case 1: if array size is 1 return 1
     }
 }
+
+abc, bac, 
+
