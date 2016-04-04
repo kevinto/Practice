@@ -13,8 +13,9 @@ package p235;
  *
  * 1. Do i need to optimize for space or time?
  *
- * Initial solution:
- *
+ * Brainstorm solutions:
+ *      - Track the paths to both nodes. See if there are any common ancestors. Return
+ *        the lowest common ancestor.
  *
  */
 
