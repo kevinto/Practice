@@ -13,6 +13,3 @@ public class MergeSort {
         // case 1: if array size is 1 return 1
     }
 }
-
-abc, bac, 
-

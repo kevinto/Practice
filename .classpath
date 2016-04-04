@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="ch5BitManipulation/" kind="src" path="ctci"/>
+	<classpathentry kind="src" path="ctci/ch5BitManipulation"/>
+	<classpathentry kind="src" path="interviewCake"/>
+	<classpathentry kind="src" path="leetCode"/>
+	<classpathentry kind="src" path="misc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
