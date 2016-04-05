@@ -4,18 +4,19 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         System.out.println("Running tests for binary search iterative:");
-        System.out.println(binarySearchIterative(1) == true);
-        System.out.println(binarySearchIterative(8) == true);
-        System.out.println(binarySearchIterative(2) == true);
-        System.out.println(binarySearchIterative(7) == true);
+        System.out.println(binarySearchIterative(1) );
+        System.out.println(binarySearchIterative(8));
+        System.out.println(binarySearchIterative(2));
+        System.out.println(binarySearchIterative(7));
 
         System.out.println("Running tests for binary search recursive:");
-        System.out.println(binarySearchRecursive(1, 0, size - 1) == true);
-        System.out.println(binarySearchRecursive(8, 0, size - 1) == true);
-        System.out.println(binarySearchRecursive(2, 0, size - 1) == true);
-        System.out.println(binarySearchRecursive(7, 0, size - 1) == true);
+        System.out.println(binarySearchRecursive(1, 0, size - 1));
+        System.out.println(binarySearchRecursive(8, 0, size - 1));
+        System.out.println(binarySearchRecursive(2, 0, size - 1));
+        System.out.println(binarySearchRecursive(7, 0, size - 1));
     }
 
+    // Reference: http://www.cs.toronto.edu/~reid/search/bincode.html
     private static boolean binarySearchIterative(int key) {
         int low = 0;
         int high = size - 1;
