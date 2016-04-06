@@ -8,23 +8,54 @@ Linked list operations:
 
 public class LinkedList {
     public static void main(String[] args) {
-        // Sample linked list: 1 -> 2 -> 3 -> 4 -> 5
-        // Create methods to modify a single node
-
         System.out.println("New list created: ");
-        LinkedListDs ll = new LinkedListDs();
-        ll.add(1);
-        ll.add(2);
-        ll.add(3);
-        ll.add(4);
-        ll.add(5);
+        LinkedListDs ll = createTestLinkedList();
         ll.printList();
         System.out.println("size: " + ll.size);
+
+        runDeleteTests();
+    }
+
+    public static void runDeleteTests() {
+        LinkedListDs ll = createTestLinkedList();
 
         System.out.println("Deleting head: ");
         ll.delete(1);
         ll.printList();
         System.out.println("size: " + ll.size);
+
+        System.out.println("Deleting tail: ");
+        ll.delete(5);
+        ll.printList();
+        System.out.println("size: " + ll.size);
+
+        System.out.println("Deleting middle of list: ");
+        ll.delete(3);
+        ll.printList();
+        System.out.println("size: " + ll.size);
+
+        System.out.println("Deleting non-existent element: ");
+        ll.delete(5);
+        ll.printList();
+        System.out.println("size: " + ll.size);
+
+        System.out.println("Deleting all elements: ");
+        ll.delete(2);
+        ll.delete(4);
+        ll.printList();
+        System.out.println("size: " + ll.size);
+    }
+
+    public static LinkedListDs createTestLinkedList() {
+        LinkedListDs ll = new LinkedListDs();
+
+        ll.add(1);
+        ll.add(2);
+        ll.add(3);
+        ll.add(4);
+        ll.add(5);
+
+        return ll;
     }
 }
 
@@ -47,13 +78,36 @@ class LinkedListDs {
     }
 
     public void delete(int value) {
-        node temp = head;
-        while(temp != null) {
-            if (temp.value == value) {
+//         pn    dn   nn
+//        1 -> 2 -> 3
+        // case deleting head:
+            // point head to next.next
+        // case deleting middle node:
+            // point the previous node to the node after the middle node
+        // case deleting the tail:
+            // point the previous node to null
+        // case when list is null
+        // case when we cannot find the node to delete
+
+        if (head == null) {
+            return;
+        }
+
+        // start with the head first
+        if (head.value == value) {
+            size--;
+            head = head.next;
+            return;
+        }
+
+        node previous = head;
+        while (previous.next != null) {
+            if (previous.next.value == value) {
                 size--;
-                head = temp.next;
+                previous.next = previous.next.next;
+                break;
             }
-            temp = temp.next;
+            previous = previous.next;
         }
     }
 
