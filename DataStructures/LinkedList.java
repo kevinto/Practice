@@ -14,6 +14,51 @@ public class LinkedList {
         System.out.println("size: " + ll.size);
 
         runDeleteTests();
+        runSearchTests();
+    }
+
+    public static void runSearchTests() {
+        LinkedListDs ll = createTestLinkedList();
+
+        // Search for head
+        System.out.print("Search for head: ");
+        node foundHead = ll.find(1);
+        if (foundHead.value == 1) {
+            System.out.println("passed");
+        }
+        else {
+            System.out.println("failed");
+        }
+
+        // Search for tail
+        System.out.print("Search for tail: ");
+        node foundTail = ll.find(5);
+        if (foundTail.value == 5) {
+            System.out.println("passed");
+        }
+        else {
+            System.out.println("failed");
+        }
+
+        // Search for mid list item
+        System.out.print("Search for mid item: ");
+        node foundMid = ll.find(3);
+        if (foundMid.value == 3) {
+            System.out.println("passed");
+        }
+        else {
+            System.out.println("failed");
+        }
+
+        // Search for non-existent item
+        System.out.print("Search for non-existent item: ");
+        node foundNon = ll.find(6);
+        if (foundNon == null) {
+            System.out.println("passed");
+        }
+        else {
+            System.out.println("failed");
+        }
     }
 
     public static void runDeleteTests() {
@@ -78,8 +123,6 @@ class LinkedListDs {
     }
 
     public void delete(int value) {
-//         pn    dn   nn
-//        1 -> 2 -> 3
         // case deleting head:
             // point head to next.next
         // case deleting middle node:
@@ -109,6 +152,18 @@ class LinkedListDs {
             }
             previous = previous.next;
         }
+    }
+
+    public node find(int value) {
+        node curr = head;
+        while (curr != null) {
+            if (curr.value == value) {
+                break;
+            }
+            curr = curr.next;
+        }
+
+        return curr;
     }
 
     public void printList() {
