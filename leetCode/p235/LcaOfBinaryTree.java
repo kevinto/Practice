@@ -1,5 +1,8 @@
 package p235;
 
+import java.util.Collections;
+import java.util.Vector;
+
 /**
  * Created by Kevin on 4/4/16.
  * Link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
@@ -51,25 +54,53 @@ public class LcaOfBinaryTree {
         node8.left = node7;
         node8.right = node9;
 
-        System.out.println(findLca(root, 2, 8));
+        System.out.println("lca of 5,7 is " + findLca(root, 5, 7));
+        System.out.println("lca of 2,8 is " + findLca(root, 2, 8));
+        System.out.println("lca of 2,4 is " + findLca(root, 2, 4));
+
+        // TODO: convert routine to conform to leetcode specs
     }
 
-    private static int findLca(BinaryTreeNode root, int firstNode, int secondNode) {
-        // Track path to first node.
-            // Do a binary search
+    private static int findLca(BinaryTreeNode root, int firstNodeValue, int secondNodeValue) {
+        Vector<Integer> v1 = new Vector<>();
+        Vector<Integer> v2 = new Vector<>();
 
-        // Track path to second node.
+        binarySearch(root, firstNodeValue, v1);
+        binarySearch(root, secondNodeValue, v2);
 
-        return 0;
+        // sort both vectors and find the lowest common vector
+        Collections.sort(v1);
+        Collections.sort(v2);
+
+        for (int itemList1 : v1) {
+            if (v2.contains(itemList1)) {
+                return itemList1;
+            }
+        }
+        return -1;
     }
 
-    public static void binarySearch(BinaryTreeNode root, int start, int end) {
+    public static void binarySearch(BinaryTreeNode root, int value, Vector<Integer> path) {
+        if (root == null) {
+            return;
+        }
 
+        path.add(root.value);
+        if (root.value == value) {
+            return;
+        }
+
+        if (value > root.value) {
+            binarySearch(root.right, value, path);
+        }
+        else {
+            binarySearch(root.left, value, path);
+        }
     }
 }
 
 class BinaryTreeNode {
-    private int value;
+    public int value;
     BinaryTreeNode left;
     BinaryTreeNode right;
     BinaryTreeNode(int x) { value = x; }
