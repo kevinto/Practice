@@ -33,15 +33,15 @@ import java.util.Vector;
 
 public class LcaOfBinaryTree {
     public static void main(String[] args) {
-        BinaryTreeNode root = new BinaryTreeNode(6);
-        BinaryTreeNode node2 = new BinaryTreeNode(2);
-        BinaryTreeNode node8 = new BinaryTreeNode(8);
-        BinaryTreeNode node0 = new BinaryTreeNode(0);
-        BinaryTreeNode node4 = new BinaryTreeNode(4);
-        BinaryTreeNode node7 = new BinaryTreeNode(7);
-        BinaryTreeNode node9 = new BinaryTreeNode(9);
-        BinaryTreeNode node3 = new BinaryTreeNode(3);
-        BinaryTreeNode node5 = new BinaryTreeNode(5);
+        TreeNode root = new TreeNode(6);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node8 = new TreeNode(8);
+        TreeNode node0 = new TreeNode(0);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node7 = new TreeNode(7);
+        TreeNode node9 = new TreeNode(9);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node5 = new TreeNode(5);
 
         root.left = node2;
         root.right = node8;
@@ -54,54 +54,62 @@ public class LcaOfBinaryTree {
         node8.left = node7;
         node8.right = node9;
 
-        System.out.println("lca of 5,7 is " + findLca(root, 5, 7));
-        System.out.println("lca of 2,8 is " + findLca(root, 2, 8));
-        System.out.println("lca of 2,4 is " + findLca(root, 2, 4));
+        System.out.println("lca of 5,7 is " + lowestCommonAncestor(root, node5, node7).value);
+        System.out.println("lca of 2,8 is " + lowestCommonAncestor(root, node2, node8).value);
+        System.out.println("lca of 2,4 is " + lowestCommonAncestor(root, node2, node4).value);
+        System.out.println("lca of 3,5 is " + lowestCommonAncestor(root, node3, node5).value);
 
-        // TODO: convert routine to conform to leetcode specs
+        // TODO: fix bug. proposed here : https://leetcode.com/discuss/81725/lca-of-3-5-in-the-given-example-is-2-right
     }
 
-    private static int findLca(BinaryTreeNode root, int firstNodeValue, int secondNodeValue) {
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+    private static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         Vector<Integer> v1 = new Vector<>();
         Vector<Integer> v2 = new Vector<>();
 
-        binarySearch(root, firstNodeValue, v1);
-        binarySearch(root, secondNodeValue, v2);
+        binarySearch(root, p, v1);
+        binarySearch(root, q, v2);
 
         // sort both vectors and find the lowest common vector
         Collections.sort(v1);
         Collections.sort(v2);
 
+        int lcaValue = 0;
         for (int itemList1 : v1) {
             if (v2.contains(itemList1)) {
-                return itemList1;
+                lcaValue = itemList1;
+                break;
             }
         }
-        return -1;
+
+        TreeNode objNode = new TreeNode(lcaValue);
+
+        return binarySearch(root, objNode, v1);
     }
 
-    public static void binarySearch(BinaryTreeNode root, int value, Vector<Integer> path) {
+    public static TreeNode binarySearch(TreeNode root, TreeNode objNode, Vector<Integer> path) {
         if (root == null) {
-            return;
+            return null;
         }
 
         path.add(root.value);
-        if (root.value == value) {
-            return;
+        if (root.value == objNode.value) {
+            return root;
         }
 
-        if (value > root.value) {
-            binarySearch(root.right, value, path);
+        if (objNode.value > root.value) {
+            return binarySearch(root.right, objNode, path);
         }
         else {
-            binarySearch(root.left, value, path);
+            return binarySearch(root.left, objNode, path);
         }
     }
 }
 
-class BinaryTreeNode {
+class TreeNode {
     public int value;
-    BinaryTreeNode left;
-    BinaryTreeNode right;
-    BinaryTreeNode(int x) { value = x; }
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { value = x; }
 }
