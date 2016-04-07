@@ -8,3 +8,13 @@
  */
 public class StackClass {
 }
+
+class Stack {
+
+}
+
+class Node {
+    int value;
+    Node next;
+    Node(int x) { value = x; }
+}
