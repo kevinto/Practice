@@ -71,14 +71,18 @@ public class LcaOfBinaryTree {
         binarySearch(root, p, v1);
         binarySearch(root, q, v2);
 
-        // sort both vectors and find the lowest common vector
-        Collections.sort(v1);
-        Collections.sort(v2);
+        int lcaValue = -1;
+        for (int i = v1.size() - 1; i >= 0; i--) {
+            for (int j = v2.size() - 1; j >= 0; j--) {
+                int v1Value = v1.get(i);
+                int v2Value = v2.get(j);
+                if ( v1Value == v2Value ) {
+                    lcaValue = v1.get(i);
+                    break;
+                }
+            }
 
-        int lcaValue = 0;
-        for (int itemList1 : v1) {
-            if (v2.contains(itemList1)) {
-                lcaValue = itemList1;
+            if (lcaValue != -1) {
                 break;
             }
         }
