@@ -92,7 +92,7 @@ public class LcaOfBinaryTree {
         return binarySearch(root, objNode, v1);
     }
 
-    public static TreeNode binarySearch(TreeNode root, TreeNode objNode, Vector<Integer> path) {
+    private static TreeNode binarySearch(TreeNode root, TreeNode objNode, Vector<Integer> path) {
         if (root == null) {
             return null;
         }

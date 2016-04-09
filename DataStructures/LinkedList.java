@@ -17,7 +17,7 @@ public class LinkedList {
         runSearchTests();
     }
 
-    public static void runSearchTests() {
+    private static void runSearchTests() {
         LinkedListDs ll = createTestLinkedList();
 
         // Search for head
@@ -61,7 +61,7 @@ public class LinkedList {
         }
     }
 
-    public static void runDeleteTests() {
+    private static void runDeleteTests() {
         LinkedListDs ll = createTestLinkedList();
 
         System.out.println("Deleting head: ");
@@ -91,7 +91,7 @@ public class LinkedList {
         System.out.println("size: " + ll.size);
     }
 
-    public static LinkedListDs createTestLinkedList() {
+    private static LinkedListDs createTestLinkedList() {
         LinkedListDs ll = new LinkedListDs();
 
         ll.add(1);
@@ -115,22 +115,13 @@ class LinkedListDs {
             head = new node(value);
             tail = head;
         }
-        else {
-            node newNode = new node(value);
-            tail.next = newNode;
-            tail = newNode;
-        }
+
+        node newNode = new node(value);
+        tail.next = newNode;
+        tail = newNode;
     }
 
     public void delete(int value) {
-        // case deleting head:
-            // point head to next.next
-        // case deleting middle node:
-            // point the previous node to the node after the middle node
-        // case deleting the tail:
-            // point the previous node to null
-        // case when list is null
-        // case when we cannot find the node to delete
 
         if (head == null) {
             return;
