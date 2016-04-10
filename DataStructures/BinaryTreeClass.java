@@ -36,10 +36,12 @@ public class BinaryTreeClass {
         System.out.println("Search for left node passed: " + (searchBinaryTree(root, 3).value == 3));
         System.out.println("Search for right node passed: " + (searchBinaryTree(root, 9).value == 9));
 
+        // TODO: Think about balanced binary trees
         // Add test
         System.out.println("Add 10 passed: " + addNode(root, 10));
 
-
+        // Delete test
+        System.out.println("Add 10 passed: " + deleteNode(root, 10));
     }
 
     private static BinaryTreeNode searchBinaryTree(BinaryTreeNode root, int value) {
@@ -86,6 +88,10 @@ public class BinaryTreeClass {
             }
         }
 
+        return false;
+    }
+
+    public static boolean deleteNode(BinaryTreeNode root, int value) {
         return false;
     }
 }

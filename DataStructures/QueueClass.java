@@ -12,10 +12,16 @@
 public class QueueClass {
     public static void main(String[] args) {
         Queuex q = new Queuex();
+
+        System.out.println("Creating new queue: ");
         q.enqueue(1);
         q.enqueue(2);
         q.enqueue(3);
 
+        q.printQueue();
+
+        System.out.println("Get first item from queue: " + q.dequeue().value);
+        System.out.println("Rest of the queue: ");
         q.printQueue();
     }
 }
@@ -38,7 +44,14 @@ class Queuex {
     }
 
     public Node dequeue() {
-        return null;
+        if (head == null || tail == null) {
+            return null;
+        }
+        else {
+            Node top = head;
+            head = head.next;
+            return top;
+        }
     }
 
     public void printQueue() {
