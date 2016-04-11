@@ -1,5 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Created by Kevin on 4/6/16.
  *
@@ -20,10 +18,14 @@ public class StackClass {
 }
 
 class Stackx {
-    public int size = 0;
+    private int size = 0;
     private Node head;
 
-    public void push(int value) {
+    int getSize() {
+        return size;
+    }
+
+    void push(int value) {
         if (head == null) {
             head = new Node(value);
             size++;
@@ -36,7 +38,7 @@ class Stackx {
         }
     }
 
-    public Node pop() {
+    Node pop() {
         if (head == null) {
             return null;
         }
@@ -48,17 +50,11 @@ class Stackx {
     }
 
     // For debugging
-    public void printStack() {
+    void printStack() {
         Node currPtr = head;
         while (currPtr != null) {
             System.out.println(currPtr.value);
             currPtr = currPtr.next;
         }
     }
-}
-
-class Node {
-    int value;
-    Node next;
-    Node(int x) { value = x; }
 }

@@ -27,10 +27,10 @@ public class QueueClass {
 }
 
 class Queuex {
-    Node head = null;
-    Node tail = null;
+    private Node head = null;
+    private Node tail = null;
 
-    public void enqueue(int x) {
+    void enqueue(int x) {
         Node newNode = new Node(x);
 
         if (head == null) {
@@ -43,7 +43,7 @@ class Queuex {
         }
     }
 
-    public Node dequeue() {
+    Node dequeue() {
         if (head == null || tail == null) {
             return null;
         }
@@ -54,7 +54,7 @@ class Queuex {
         }
     }
 
-    public void printQueue() {
+    void printQueue() {
         Node temp = head;
         while (temp != null) {
             System.out.println(temp.value);

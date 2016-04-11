@@ -41,7 +41,7 @@ public class BinaryTreeClass {
         System.out.println("Add 10 passed: " + addNode(root, 10));
 
         // Delete test
-        System.out.println("Add 10 passed: " + deleteNode(root, 10));
+        System.out.println("Add 10 passed: " + deleteNode(root, 5).value);
     }
 
     private static BinaryTreeNode searchBinaryTree(BinaryTreeNode root, int value) {
@@ -91,10 +91,40 @@ public class BinaryTreeClass {
         return false;
     }
 
-    public static boolean deleteNode(BinaryTreeNode root, int value) {
+    private static BinaryTreeNode deleteNode(BinaryTreeNode root, int value) {
         // find the node before the node we want to delete
         // point that node to the node after the node we want to delete
-        return false;
+        if (root == null) {
+            throw new RuntimeException("cannot delete");
+        }
+        else if (root.value < value) {
+            root.left = deleteNode(root.left, value);
+        }
+        else if (root.value > value) {
+            root.right = deleteNode(root.right, value);
+
+        }
+        else {
+            if (root.left == null) {
+                return root.right;
+            }
+            else if (root.right == null) {
+                return root.left;
+            }
+            else {
+                root.value = retrieveData(root.left);
+                root.left = deleteNode(root.left, root.value);
+            }
+        }
+        return root;
+    }
+
+    private static int retrieveData(BinaryTreeNode root) {
+        while (root.right != null) {
+            root = root.right;
+        }
+
+        return root.value;
     }
 }
 
