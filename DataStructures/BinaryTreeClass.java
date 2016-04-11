@@ -92,6 +92,8 @@ public class BinaryTreeClass {
     }
 
     public static boolean deleteNode(BinaryTreeNode root, int value) {
+        // find the node before the node we want to delete
+        // point that node to the node after the node we want to delete
         return false;
     }
 }
