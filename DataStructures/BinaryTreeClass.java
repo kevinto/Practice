@@ -106,9 +106,11 @@ public class BinaryTreeClass {
         }
         else {
             if (root.left == null) {
+                // Why return right node here? What if its null?
                 return root.right;
             }
             else if (root.right == null) {
+                // Why return left node here? what if its null?
                 return root.left;
             }
             else {
