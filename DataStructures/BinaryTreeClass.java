@@ -92,8 +92,6 @@ public class BinaryTreeClass {
     }
 
     private static BinaryTreeNode deleteNode(BinaryTreeNode root, int value) {
-        // find the node before the node we want to delete
-        // point that node to the node after the node we want to delete
         if (root == null) {
             throw new RuntimeException("cannot delete");
         }
