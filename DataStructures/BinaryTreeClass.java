@@ -16,6 +16,7 @@
  */
 public class BinaryTreeClass {
     public static void main(String[] args) {
+        // TODO: create an insert method
         BinaryTreeNode root = new BinaryTreeNode(6);
         root.left = new BinaryTreeNode(2);
         root.right = new BinaryTreeNode(8);
