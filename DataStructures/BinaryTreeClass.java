@@ -16,22 +16,15 @@
  */
 public class BinaryTreeClass {
     public static void main(String[] args) {
-        // TODO: create an insert method
         BinaryTreeNode root = new BinaryTreeNode(6);
-        root.left = new BinaryTreeNode(2);
-        root.right = new BinaryTreeNode(8);
-
-        BinaryTreeNode node2 = root.left;
-        node2.left = new BinaryTreeNode(0);
-        node2.right = new BinaryTreeNode(4);
-
-        BinaryTreeNode node8 = root.right;
-        node8.left = new BinaryTreeNode(7);
-        node8.right = new BinaryTreeNode(9);
-
-        BinaryTreeNode node4 = node2.right;
-        node4.left = new BinaryTreeNode(3);
-        node4.right = new BinaryTreeNode(5);
+        insertNode(root, 2);
+        insertNode(root, 8);
+        insertNode(root, 0);
+        insertNode(root, 4);
+        insertNode(root, 7);
+        insertNode(root, 9);
+        insertNode(root, 3);
+        insertNode(root, 5);
 
         // Search test
         System.out.println("Search for left node passed: " + (searchBinaryTree(root, 3).value == 3));
@@ -39,7 +32,7 @@ public class BinaryTreeClass {
 
         // TODO: Think about balanced binary trees
         // Add test
-        System.out.println("Add 10 passed: " + addNode(root, 10));
+        System.out.println("Add 10 passed: " + insertNode(root, 10));
 
         // Delete test
         System.out.println("Add 10 passed: " + deleteNode(root, 5).value);
@@ -62,7 +55,7 @@ public class BinaryTreeClass {
         }
     }
 
-    private static boolean addNode(BinaryTreeNode root, int value) {
+    private static boolean insertNode(BinaryTreeNode root, int value) {
         if (root == null) {
             return false;
         }
@@ -76,7 +69,7 @@ public class BinaryTreeClass {
                 return true;
             }
             else {
-                return addNode(root.right,value);
+                return insertNode(root.right,value);
             }
         }
         else if (value < root.value) {
@@ -85,7 +78,7 @@ public class BinaryTreeClass {
                 return true;
             }
             else {
-                return addNode(root.left,value);
+                return insertNode(root.left,value);
             }
         }
 
