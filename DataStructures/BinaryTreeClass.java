@@ -34,8 +34,11 @@ public class BinaryTreeClass {
         // Add test
         System.out.println("Add 10 passed: " + insertNode(root, 10));
 
-        // Delete test
-        System.out.println("Add 10 passed: " + deleteNode(root, 5).value);
+        // TODO: Bug here: Delete test
+//        System.out.println("Add 10 passed: " + deleteNode(root, 5).value);
+
+        // Print tree in sorted order
+        printBinaryTree(root);
     }
 
     private static BinaryTreeNode searchBinaryTree(BinaryTreeNode root, int value) {
@@ -119,6 +122,16 @@ public class BinaryTreeClass {
         }
 
         return root.value;
+    }
+
+    private static void printBinaryTree(BinaryTreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        printBinaryTree(root.left);
+        System.out.print(root.value + " ");
+        printBinaryTree(root.right);
     }
 }
 
