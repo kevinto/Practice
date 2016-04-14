@@ -33,11 +33,11 @@ public class BinaryTreeClass {
         // TODO: Think about balanced binary trees
         // Add test
         System.out.println("Add 10 passed: " + insertNode(root, 10));
+        printBinaryTree(root);
+        System.out.println("");
 
         // TODO: Bug here: Delete test
-//        System.out.println("Add 10 passed: " + deleteNode(root, 5).value);
-
-        // Print tree in sorted order
+        System.out.println("Delete 10 passed: " + deleteKey(root, 10).value);
         printBinaryTree(root);
     }
 
@@ -88,16 +88,18 @@ public class BinaryTreeClass {
         return false;
     }
 
+    private static BinaryTreeNode deleteKey(BinaryTreeNode root, int key) {
+        return root = deleteNode(root, key);
+    }
+
     private static BinaryTreeNode deleteNode(BinaryTreeNode root, int value) {
-        if (root == null) {
-            throw new RuntimeException("cannot delete");
-        }
-        else if (root.value < value) {
+        if (root == null) return root;
+
+        else if (value < root.value) {
             root.left = deleteNode(root.left, value);
         }
-        else if (root.value > value) {
+        else if (value > root.value) {
             root.right = deleteNode(root.right, value);
-
         }
         else {
             if (root.left == null) {
@@ -109,19 +111,21 @@ public class BinaryTreeClass {
                 return root.left;
             }
             else {
-                root.value = retrieveData(root.left);
-                root.left = deleteNode(root.left, root.value);
+                root.value = minValue(root.right);
+                root.right = deleteNode(root.right, root.value);
             }
         }
         return root;
     }
 
-    private static int retrieveData(BinaryTreeNode root) {
-        while (root.right != null) {
-            root = root.right;
+    private static int minValue(BinaryTreeNode root) {
+        int minValue = root.value;
+        while (root.left != null) {
+            minValue = root.value;
+            root = root.left;
         }
 
-        return root.value;
+        return minValue;
     }
 
     private static void printBinaryTree(BinaryTreeNode root) {
