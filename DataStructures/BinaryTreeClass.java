@@ -40,9 +40,15 @@ public class BinaryTreeClass {
         printBinaryTree(root);
     }
 
+    // TODO: I need to pass in a node not a value
     private static BinaryTreeNode getSuccessor(int value) {
         // if right is not null get the min of the right
-        // if right is null
+
+        // if right is null, return the lowest ancestor of x
+        // whose left child is also an ancestor of x. if we pick
+        // 5 from above the successor is 6 because 6 is an
+        // ancestor whose left child, 2, is an ancestor of 5.
+
         return null;
     }
 
