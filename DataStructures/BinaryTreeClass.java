@@ -36,9 +36,14 @@ public class BinaryTreeClass {
         printBinaryTree(root);
         System.out.println("");
 
-        // TODO: Bug here: Delete test
         System.out.println("Delete 10 passed: " + deleteKey(root, 10).value);
         printBinaryTree(root);
+    }
+
+    private static BinaryTreeNode getSuccessor(int value) {
+        // if right is not null get the min of the right
+        // if right is null
+        return null;
     }
 
     private static BinaryTreeNode searchBinaryTree(BinaryTreeNode root, int value) {
@@ -69,6 +74,7 @@ public class BinaryTreeClass {
         else if (value > root.value) {
             if (root.right == null) {
                 root.right = new BinaryTreeNode(value);
+                root.right.parent = root;
                 return true;
             }
             else {
@@ -78,6 +84,7 @@ public class BinaryTreeClass {
         else if (value < root.value) {
             if (root.left == null) {
                 root.left = new BinaryTreeNode(value);
+                root.left.parent = root;
                 return true;
             }
             else {
@@ -141,6 +148,7 @@ public class BinaryTreeClass {
 
 class BinaryTreeNode {
     public int value;
+    BinaryTreeNode parent;
     BinaryTreeNode left;
     BinaryTreeNode right;
     BinaryTreeNode(int x) { value = x; }
