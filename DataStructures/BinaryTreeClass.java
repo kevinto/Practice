@@ -24,7 +24,7 @@ public class BinaryTreeClass {
         insertNode(root, 7);
         insertNode(root, 9);
         insertNode(root, 3);
-        insertNode(root, 5);
+        BinaryTreeNode nodeForSuccessor = insertNode(root, 5);
 
         // Search test
         System.out.println("Search for left node passed: " + (searchBinaryTree(root, 3).value == 3));
@@ -38,18 +38,31 @@ public class BinaryTreeClass {
 
         System.out.println("Delete 10 passed: " + deleteKey(root, 10).value);
         printBinaryTree(root);
+        System.out.println("");
+
+        System.out.println("Min value:  " + minValue(root));
+
+        System.out.println("Successor for node 5:  " + getSuccessor(nodeForSuccessor).value);
     }
 
     // TODO: I need to pass in a node not a value
-    private static BinaryTreeNode getSuccessor(int value) {
+    private static BinaryTreeNode getSuccessor(BinaryTreeNode node) {
         // if right is not null get the min of the right
+        if (node.right != null) {
+            return minNode(node.right);
+        }
 
         // if right is null, return the lowest ancestor of x
         // whose left child is also an ancestor of x. if we pick
         // 5 from above the successor is 6 because 6 is an
         // ancestor whose left child, 2, is an ancestor of 5.
+        BinaryTreeNode lowestAncestor = node.parent;
+        while (lowestAncestor != null && node == lowestAncestor.right) {
+            node = lowestAncestor;
+            lowestAncestor = lowestAncestor.parent;
+        }
 
-        return null;
+        return lowestAncestor;
     }
 
     private static BinaryTreeNode searchBinaryTree(BinaryTreeNode root, int value) {
@@ -69,19 +82,19 @@ public class BinaryTreeClass {
         }
     }
 
-    private static boolean insertNode(BinaryTreeNode root, int value) {
+    private static BinaryTreeNode insertNode(BinaryTreeNode root, int value) {
         if (root == null) {
-            return false;
+            return null;
         }
 
         if (root.value == value) {
-            return false;
+            return root;
         }
         else if (value > root.value) {
             if (root.right == null) {
                 root.right = new BinaryTreeNode(value);
                 root.right.parent = root;
-                return true;
+                return root.right;
             }
             else {
                 return insertNode(root.right,value);
@@ -91,14 +104,14 @@ public class BinaryTreeClass {
             if (root.left == null) {
                 root.left = new BinaryTreeNode(value);
                 root.left.parent = root;
-                return true;
+                return root.left;
             }
             else {
                 return insertNode(root.left,value);
             }
         }
 
-        return false;
+        return root;
     }
 
     private static BinaryTreeNode deleteKey(BinaryTreeNode root, int key) {
@@ -133,12 +146,22 @@ public class BinaryTreeClass {
 
     private static int minValue(BinaryTreeNode root) {
         int minValue = root.value;
-        while (root.left != null) {
+        while (root != null) {
             minValue = root.value;
             root = root.left;
         }
 
         return minValue;
+    }
+
+    private static BinaryTreeNode minNode(BinaryTreeNode root) {
+        BinaryTreeNode minNode = root;
+        while (root != null) {
+            minNode = root;
+            root = root.left;
+        }
+
+        return minNode;
     }
 
     private static void printBinaryTree(BinaryTreeNode root) {
