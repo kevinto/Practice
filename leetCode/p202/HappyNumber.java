@@ -1,15 +1,42 @@
 package p202;
 
+import java.util.HashMap;
+
 /**
  * Created by kevint on 4/18/2016.
  */
 public class HappyNumber {
     public static void main(String[] args) {
-        System.out.println();
+        System.out.println(isHappy(18));
     }
 
     public static boolean isHappy(int n) {
-        // convert number to string
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        int squaredNum = 0;
+        int currNum = n;
+        while (squaredNum != 1) {
+            squaredNum = 0;
+            String numStr = Integer.toString(currNum);
+
+            for (int i = 0; i < numStr.length(); i++) {
+                String currString = Character.toString(numStr.charAt(i));
+                squaredNum += Math.pow(Integer.parseInt(currString), 2);
+            }
+
+            if (squaredNum == 1) {
+                return true;
+            } else if (map.get(squaredNum) != null) {
+                System.out.println(squaredNum);
+                return false;
+            } else {
+                System.out.println(squaredNum);
+                map.put(squaredNum, 1);
+            }
+
+            currNum = squaredNum;
+        }
+
         // check hash table to see if it exists
         // for each digit in the string convert to int and square and sum
         // convert to string and repeat
