@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 /**
- * Created by Kevin on 4/20/16.
+ * Created by Kevin on 4/20/16..
  */
 public class TrieClass {
     public static void main(String[] args) {
