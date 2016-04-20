@@ -7,7 +7,10 @@ import java.util.HashMap;
  */
 public class HappyNumber {
     public static void main(String[] args) {
-        System.out.println(isHappy(18));
+//        System.out.println(isHappy(18));
+
+        System.out.println(isHappy2(18));
+        System.out.println(isHappy2(19));
     }
 
     public static boolean isHappy(int n) {
@@ -41,5 +44,35 @@ public class HappyNumber {
         // for each digit in the string convert to int and square and sum
         // convert to string and repeat
         return false;
+    }
+
+    // TODO: Need to understand the proof here: https://leetcode.com/discuss/71625/explanation-those-posted-algorithms-mathematically-valid
+    public static boolean isHappy2(int n) {
+        // This algorithm is based off the Floyd Cycle detection algorithm
+        int slow, fast;
+        slow = fast = n;
+
+        do {
+            slow = digitSquareSum(slow);
+            fast = digitSquareSum(fast);
+            fast = digitSquareSum(fast);
+        } while (slow != fast);
+
+        if (slow == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static int digitSquareSum(int n) {
+        int sum = 0, tmp;
+        while (n != 0) {
+            tmp = n % 10;
+            sum += tmp * tmp;
+            n /= 10;
+        }
+        return sum;
     }
 }
