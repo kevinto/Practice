@@ -9,7 +9,9 @@ public class ArrayListClass {
     public static void main(String[] args) {
         ArrayL arrL = new ArrayL();
 
-        arrL.add(1);
+        for (int i = 0; i < 34; i++) {
+            arrL.add(i);
+        }
         arrL.print();
     }
 }
@@ -27,16 +29,32 @@ class ArrayL {
 
     void add(int val) {
         if (emptyIdx + 1 > size) {
-            // We need to double
+            createDoubledArr();
+            arr[emptyIdx] = val;
         }
         else {
             arr[emptyIdx] = val;
         }
+
+        emptyIdx++;
     }
 
     void print() {
         for (int i = 0; i < size; i++) {
             System.out.println(arr[i]);
+        }
+    }
+
+    private void createDoubledArr() {
+        int[] tempArr = new int[size * 2];
+        copy(arr, tempArr);
+        size *= 2;
+        arr = tempArr;
+    }
+
+    private void copy(int[] src, int[] dest) {
+        for (int i = 0; i < src.length; i++) {
+            dest[i] = src[i];
         }
     }
 }
