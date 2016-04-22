@@ -9,9 +9,11 @@ public class ArrayListClass {
     public static void main(String[] args) {
         ArrayL arrL = new ArrayL();
 
-        for (int i = 0; i < 34; i++) {
+        for (int i = 0; i < 10; i++) {
             arrL.add(i);
         }
+
+        arrL.deleteAt(2);
         arrL.print();
     }
 }
@@ -39,8 +41,20 @@ class ArrayL {
         emptyIdx++;
     }
 
+    void deleteAt(int idx) {
+        if (idx > size - 1) {
+            return;
+        }
+
+        for (int i = idx; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+
+        emptyIdx--;
+    }
+
     void print() {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < emptyIdx; i++) {
             System.out.println(arr[i]);
         }
     }
