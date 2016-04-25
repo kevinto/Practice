@@ -56,18 +56,42 @@ public class NumRoutes {
         System.out.println(numberOfRoutes(6, 6));
     }
 
-    public static BigInteger numberOfRoutes(long n, long m) {
-        BigInteger upper = BigInteger.ONE;
+        public static BigInteger numberOfRoutes (int m, int n) {
+            BigInteger numRoutes = BigInteger.ONE;
+            long max = Math.max(m, n);
+            long min = Math.min(m, n);
 
-        long highest = Math.max(n, m);
-        long lowest = Math.min(n,m);
+            for (long i = max + 1; i <= max + min; i++) {
+                numRoutes = numRoutes.multiply(BigInteger.valueOf(i));
+            }
 
-        for (long i = highest + 1; i <= highest + lowest; i++) {
-            upper = upper.multiply(BigInteger.valueOf(i));
+            return numRoutes.divide(factorial(min));
         }
 
-        return upper.divide(factorialRecursive(BigInteger.valueOf(lowest)));
-    }
+        public static BigInteger factorial(long val) {
+            BigInteger product = BigInteger.ONE;
+            BigInteger multiplier = BigInteger.valueOf(val);
+
+            while (multiplier.compareTo(BigInteger.ZERO) >= 0) {
+                product = product.multiply(multiplier);
+                multiplier.subtract(BigInteger.ONE);
+            }
+
+            return product;
+        }
+
+//    public static BigInteger numberOfRoutes(long n, long m) {
+//        BigInteger upper = BigInteger.ONE;
+//
+//        long highest = Math.max(n, m);
+//        long lowest = Math.min(n,m);
+//
+//        for (long i = highest + 1; i <= highest + lowest; i++) {
+//            upper = upper.multiply(BigInteger.valueOf(i));
+//        }
+//
+//        return upper.divide(factorialRecursive(BigInteger.valueOf(lowest)));
+//    }
 
     public static BigInteger factorialIterative(BigInteger number) {
         BigInteger sum = BigInteger.ONE;
