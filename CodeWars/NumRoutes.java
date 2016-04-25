@@ -34,8 +34,19 @@ import java.math.BigInteger;
  * that the UPs are the same.
  *
  * The problem is solved in two ways:
- * 5 C 2 -> Choosing 2 ups
+ * 5 C 2 -> Choosing 2 ups = (5!) / (2! * (8-2)!)
  * 5 C 3 -> Choosing 3 downs
+ * How many ways can you choose 3U's and 2R's in 5 steps?
+ *
+ * For 5c2, it spells out how many ways can you choose 2 ups
+ * from 5 steps
+ *
+ * Lets say you have 5 spaces. Let's name those spaces:
+ * _1_ _2_ _3_ _4_ _5_
+ *  Choose 2 of these spaces to put "U". This is a combo
+ *  because 1,2 is the same as 2,1.
+ *
+ *  (m+n)c(m) = (m+n)!/(m! (n)!)
  *
  */
 public class NumRoutes {
