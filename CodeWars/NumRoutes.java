@@ -1,5 +1,3 @@
-import com.sun.tools.internal.xjc.reader.dtd.bindinfo.BIAttribute;
-
 import java.math.BigInteger;
 
 /**
@@ -53,34 +51,50 @@ import java.math.BigInteger;
  */
 public class NumRoutes {
     public static void main(String[] args) {
-        System.out.println(numberOfRoutes(3, 2));
+        System.out.println(numberOfRoutes(3, 3));
+        System.out.println(numberOfRoutes(2, 3));
         System.out.println(numberOfRoutes(6, 6));
     }
 
     public static BigInteger numberOfRoutes(long n, long m) {
-//        BigInteger upper = BigInteger.ONE;
+        BigInteger upper = BigInteger.ONE;
 
-        BigInteger upper = factorial(BigInteger.valueOf(m + n));
-        BigInteger lower = factorial(BigInteger.valueOf(m)).multiply(factorial(BigInteger.valueOf(n)));
-//        long highest = (m > n) ? m : n;
-//        long lowest = (m < n) ? m : n;
-//
-//        for (long i = highest + 1; i <= highest + lowest; i++) {
-//            upper = upper.multiply(BigInteger.valueOf(i));
-//        }
+        long highest = Math.max(n, m);
+        long lowest = Math.min(n,m);
 
-//        return upper.divide(factorial(BigInteger.valueOf(lowest)));
-        return upper.divide(lower);
+        for (long i = highest + 1; i <= highest + lowest; i++) {
+            upper = upper.multiply(BigInteger.valueOf(i));
+        }
+
+        return upper.divide(factorialRecursive(BigInteger.valueOf(lowest)));
     }
 
-    public static BigInteger factorial(BigInteger number) {
+    public static BigInteger factorialIterative(BigInteger number) {
+        BigInteger sum = BigInteger.ONE;
+        while (number.compareTo(BigInteger.ZERO) != 0) {
+            sum = sum.multiply(number);
+            number = number.subtract(BigInteger.ONE);
+        }
 
+        return sum;
+    }
+
+    public static BigInteger factorialRecursive(BigInteger number) {
         if (number.compareTo(BigInteger.ONE) == -1) {
-            // number passed in is less than 1
             return BigInteger.ONE;
         }
         else {
-            return number.multiply(factorial(number.subtract(BigInteger.ONE)));
+            return number.multiply(factorialIterative(number.subtract(BigInteger.ONE)));
         }
+    }
+
+    // This implementation is simple to read but it does unncessary work.
+    // The numberator is doing a (m+n)! when it only needs to to
+    // (m+n)!/(m+n-m)!
+    public static BigInteger numberOfRoutes2(long n, long m) {
+        BigInteger upper = factorialIterative(BigInteger.valueOf(m + n));
+        BigInteger lower = factorialIterative(BigInteger.valueOf(m)).multiply(factorialIterative(BigInteger.valueOf(n)));
+
+        return upper.divide(lower);
     }
 }

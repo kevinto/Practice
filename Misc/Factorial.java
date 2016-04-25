@@ -1,6 +1,6 @@
 /*
 Link: http://www.cs.utah.edu/~germain/PPS/Topics/recursion.html
-Problem: What is a recursive solution to a factorial?
+Problem: What is a recursive solution to a factorialIterative?
 
 Sample: 5! = 5 * 4 * 3 * 2 * 1 = 120
 */
