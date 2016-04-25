@@ -1,3 +1,5 @@
+import com.sun.tools.internal.xjc.reader.dtd.bindinfo.BIAttribute;
+
 import java.math.BigInteger;
 
 /**
@@ -56,15 +58,19 @@ public class NumRoutes {
     }
 
     public static BigInteger numberOfRoutes(long n, long m) {
-        BigInteger upper = BigInteger.ONE;
-        long highest = (m > n) ? m : n;
-        long lowest = (m < n) ? m : n;
+//        BigInteger upper = BigInteger.ONE;
 
-        for (long i = highest + 1; i <= highest + lowest; i++) {
-            upper = upper.multiply(BigInteger.valueOf(i));
-        }
+        BigInteger upper = factorial(BigInteger.valueOf(m + n));
+        BigInteger lower = factorial(BigInteger.valueOf(m)).multiply(factorial(BigInteger.valueOf(n)));
+//        long highest = (m > n) ? m : n;
+//        long lowest = (m < n) ? m : n;
+//
+//        for (long i = highest + 1; i <= highest + lowest; i++) {
+//            upper = upper.multiply(BigInteger.valueOf(i));
+//        }
 
-        return upper.divide(factorial(BigInteger.valueOf(lowest)));
+//        return upper.divide(factorial(BigInteger.valueOf(lowest)));
+        return upper.divide(lower);
     }
 
     public static BigInteger factorial(BigInteger number) {
