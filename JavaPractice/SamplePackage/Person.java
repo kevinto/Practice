@@ -3,8 +3,9 @@ package SamplePackage;
  * Created by kevint on 4/21/2016.
  */
 public class Person {
-    public Person(String name, int age, int height, int weight, String eyeColor, String gender) {
-        this.name = name;
+    public Person(String firstName, String lastName, int age, int height, int weight, String eyeColor, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
         this.height = height;
         this.weight = weight;
@@ -12,7 +13,8 @@ public class Person {
         this.gender = gender;
     }
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private int age;
     private int weight;
     private int height;
@@ -20,11 +22,7 @@ public class Person {
     private String gender;
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return firstName.concat(" ").concat(lastName);
     }
 
     public int getAge() {
@@ -65,5 +63,13 @@ public class Person {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

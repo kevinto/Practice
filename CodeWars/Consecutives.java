@@ -17,19 +17,22 @@ public class Consecutives {
     }
 
     public static List<Integer> sumConsecutive(List<Integer> s) {
+        // null check
         if (s == null) {
             return null;
         }
 
+        // 0 or 1 check
         if (s.size() < 2) {
             return s;
         }
 
-        ArrayList<Integer> retList = new ArrayList<>();
-        int previous = s.get(0);
+        // meaty check
         int count = 0;
+        int previous = s.get(0);
+        ArrayList<Integer> retList = new ArrayList<>();
         for (int element : s) {
-            if (!(previous == element)) {
+            if (previous != element) {
                 retList.add(previous * count);
                 count = 0;
             }
