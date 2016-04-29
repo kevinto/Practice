@@ -1,9 +1,13 @@
+import java.util.Stack;
+
 /**
  * Created by kevint on 4/27/2016.
  */
 public class Explore {
     public static void main(String[] args) {
-        System.out.println(reverseString("hello"));
+        Stack<Integer> s = new Stack<>();
+        int val = s.pop();
+        System.out.println(val);
     }
 
     public static String reverseString(String s) {
