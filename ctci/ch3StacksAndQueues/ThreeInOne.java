@@ -31,6 +31,28 @@ public class ThreeInOne {
         try {
             FixedMultiStack fs = new FixedMultiStack(3);
             fs.push(0, 1);
+            fs.push(0, 2);
+            fs.push(0, 3);
+
+            fs.push(1, 4);
+            fs.push(1, 5);
+            fs.push(1, 6);
+
+            fs.push(2, 7);
+            fs.push(2, 8);
+            fs.push(2, 9);
+
+            System.out.println(fs.pop(0) == 3);
+            System.out.println(fs.pop(0) == 2);
+            System.out.println(fs.pop(0) == 1);
+
+            System.out.println(fs.pop(1) == 6);
+            System.out.println(fs.pop(1) == 5);
+            System.out.println(fs.pop(1) == 4);
+
+            System.out.println(fs.pop(2) == 9);
+            System.out.println(fs.pop(2) == 8);
+            System.out.println(fs.pop(2) == 7);
         }
         catch(Exception ex) {
         }
@@ -39,15 +61,15 @@ public class ThreeInOne {
 }
 
 class FixedMultiStack {
-    private int numberOfStacks = 3;
-    private int stackCapacity;
-    private int[] values;
-    private int[] sizes;
+    int numStacks = 3;
+    int stackCapacity;
+    int[] values;
+    int[] sizes;
 
     public FixedMultiStack(int stackSize) {
         stackCapacity = stackSize;
-        values = new int[stackSize * numberOfStacks];
-        sizes = new int[numberOfStacks];
+        values = new int[stackCapacity * numStacks];
+        sizes = new int[numStacks];
     }
 
     public void push(int stackNum, int value) throws FullStackException {
@@ -55,8 +77,9 @@ class FixedMultiStack {
             throw new FullStackException();
         }
 
+        int addIdx = getTop(stackNum) + 1;
+        values[addIdx] = value;
         sizes[stackNum]++;
-        values[indexOfTop(stackNum)] = value;
     }
 
     public int pop(int stackNum) {
@@ -64,29 +87,22 @@ class FixedMultiStack {
             throw new EmptyStackException();
         }
 
+        int retValue = values[getTop(stackNum)];
         sizes[stackNum]--;
-        return values[indexOfTop(stackNum)];
+        return retValue;
     }
 
-    public int peek(int stackNum) {
-        if (isEmpty(stackNum)) {
-            throw new EmptyStackException();
-        }
-        return values[indexOfTop(stackNum)];
-    }
-
-    private boolean isFull(int stackNum) {
+    public boolean isFull(int stackNum) {
         return sizes[stackNum] == stackCapacity;
     }
 
-    private int indexOfTop(int stackNum) {
-        int offset = stackNum * stackCapacity;
-        int size = sizes[stackNum];
-        return offset + size - 1;
+    public boolean isEmpty(int stackNum) {
+        return sizes[stackNum] == 0;
     }
 
-    private boolean isEmpty(int stackNum) {
-        return sizes[stackNum] == 0;
+    public int getTop(int stackNum) {
+        int offset = stackNum * stackCapacity;
+        return offset + sizes[stackNum] - 1;
     }
 }
 
