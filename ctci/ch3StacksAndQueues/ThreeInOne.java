@@ -1,4 +1,4 @@
-package ch2StacksAndQueues;
+package ch3StacksAndQueues;
 
 import java.util.EmptyStackException;
 
