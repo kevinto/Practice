@@ -11,10 +11,14 @@ public class BitShifting {
 //        int val = 0x2222; //what does this mean? This is in hex
 //        System.out.println(val & bitMask);
 
-        Person p = new Person("Joe", "Author", 42, 173, 82, "Brown", "MALE");
+//        Person p = new Person("Joe", "Author", 42, 173, 82, "Brown", "MALE");
 //        p.setName("kevin");
-        System.out.println(p.getName());
+//        System.out.println(p.getName());
 
-        Logger logger = Logger.getLogger(p.getName());
+//        Logger logger = Logger.getLogger(p.getName());
+
+        for (int i = 0; i <= 6; i++) {
+            System.out.println(i + ": " + Math.pow(i, 4));
+        }
     }
 }
