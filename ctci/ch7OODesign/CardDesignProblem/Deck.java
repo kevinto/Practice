@@ -5,11 +5,19 @@ import java.util.ArrayList;
 /**
  * Created by Kevin on 4/30/16.
  */
+
+// What does extends do?
+    // Means that the declared class is a subclass of a what ever is after "extends"
+    // This whole statement "<T extends Card>" means that the deck will take any types
+    // that are the subclasses of card.
 public class Deck <T extends Card> {
-    // TODO: What does T do? What does extends mean?
+    // T here denotes a generic type. Meaning you can pass in any
+    // type argument you want.
     private ArrayList<T> cards;
     private int dealtIndex = 0;
 
+    // We are only going to set a list of cards that are subclasses of the main card
+    // class
     public void setDeckOfCards(ArrayList<T> deckOfCards) {
         cards = deckOfCards;
     }
@@ -28,6 +36,8 @@ public class Deck <T extends Card> {
         return cards.size() - dealtIndex;
     }
 
+    // We are going to return an array of generic type defined in the
+    // class definition
     public T[] dealHand(int number) {
         if (remainingCards() < number) {
             return null;
@@ -69,7 +79,7 @@ public class Deck <T extends Card> {
     }
 
     private int randomInt(int n) {
-        // TODO: Look up with math random exactly returns
+        // Math.random returns a decimal between 0 and 1, inclusive
         return (int) (Math.random() * n);
     }
 }

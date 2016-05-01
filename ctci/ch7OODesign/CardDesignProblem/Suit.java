@@ -9,7 +9,7 @@ public enum Suit {
     Heart (2),
     Spade (3);
 
-    // TODO: How do you use these enums?
+    // You use this enum by calling getSuitFromValue
     private int value;
     private Suit(int v) {
         value = v;

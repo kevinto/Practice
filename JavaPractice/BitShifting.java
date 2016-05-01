@@ -16,6 +16,9 @@ public class BitShifting {
 //        System.out.println(p.getName());
 
 //        Logger logger = Logger.getLogger(p.getName());
+        for ( int i = 0; i < 20; i++ ) {
+            System.out.println(Math.random());
+        }
         Pair<String, Integer> p1 = new OrderedPair<>("Even", 8);
         Pair<String, String> p2 = new OrderedPair<>("hello", "world");
         Pair<String, OrderedPair<String, String>> p3 = new OrderedPair<>("good", new OrderedPair<>("bye", "to you"));

@@ -5,7 +5,7 @@ package ch7OODesign.CardDesignProblem;
  */
 public class BlackJackCard extends Card{
     public BlackJackCard(int c, Suit s) {
-        // TODO: What is super?
+        // Calls the parent constructor
         super(c, s);
     }
 
