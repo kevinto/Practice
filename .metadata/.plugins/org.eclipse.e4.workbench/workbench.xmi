@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList/>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_HRnPwvobEeWwj5FCXMi88w" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_H5CcIPobEeWwj5FCXMi88w" label="%trimmedwindow.label.eclipseSDK" x="42" y="80" width="1024" height="768">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_HRnPwvobEeWwj5FCXMi88w" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_H5CcIPobEeWwj5FCXMi88w" label="%trimmedwindow.label.eclipseSDK" T="42" y="80" width="1024" height="768">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -1152,7 +1152,7 @@
         <children xmi:id="_HTBlJvobEeWwj5FCXMi88w" elementId="org.eclipse.jdt.debug.ui.debugging" name="Debugging Java" description="Debugging Java programs"/>
       </children>
       <children xmi:id="_HTBlKPobEeWwj5FCXMi88w" elementId="org.eclipse.egit.ui.ReflogView" name="In Git Reflog View"/>
-      <children xmi:id="_HTBlKfobEeWwj5FCXMi88w" elementId="org.eclipse.tm.terminal.TerminalContext" name="Terminal Typing Connected" description="Override ALT+x menu access keys while typing into the Terminal"/>
+      <children xmi:id="_HTBlKfobEeWwj5FCXMi88w" elementId="org.eclipse.tm.terminal.TerminalContext" name="Terminal Typing Connected" description="Override ALT+T menu access keys while typing into the Terminal"/>
       <children xmi:id="_HTBlLfobEeWwj5FCXMi88w" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" name="In Tasks View"/>
       <children xmi:id="_HTCME_obEeWwj5FCXMi88w" elementId="org.eclipse.egit.ui.RepositoriesView" name="In Git Repositories View"/>
     </children>
@@ -2834,7 +2834,7 @@
   <categories xmi:id="_HSfZk_obEeWwj5FCXMi88w" elementId="org.eclipse.compare.ui.category.compare" name="Compare" description="Compare command category"/>
   <categories xmi:id="_HSfZlPobEeWwj5FCXMi88w" elementId="org.eclipse.rse.ui.commands.category" name="Remote Systems"/>
   <categories xmi:id="_HSfZlfobEeWwj5FCXMi88w" elementId="org.eclipse.ui.category.window" name="Window"/>
-  <categories xmi:id="_HSgAkPobEeWwj5FCXMi88w" elementId="org.eclipse.datatools.enablement.sybase.asa.schemaobjecteditor.examples.tableschemaedtor.10x" name="ASA 9.x table schema editor"/>
+  <categories xmi:id="_HSgAkPobEeWwj5FCXMi88w" elementId="org.eclipse.datatools.enablement.sybase.asa.schemaobjecteditor.examples.tableschemaedtor.10x" name="ASA 9.T table schema editor"/>
   <categories xmi:id="_HSgAkfobEeWwj5FCXMi88w" elementId="org.eclipse.jdt.ui.category.refactoring" name="Refactor - Java" description="Java Refactoring Actions"/>
   <categories xmi:id="_HSgAkvobEeWwj5FCXMi88w" elementId="org.eclipse.emf.codegen.ecore.ui.Commands" name="EMF Code Generation" description="Commands for the EMF code generation tools"/>
   <categories xmi:id="_HSgAk_obEeWwj5FCXMi88w" elementId="org.eclipse.ui.category.help" name="Help"/>
