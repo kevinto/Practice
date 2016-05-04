@@ -7,39 +7,43 @@ public class QuickSortRecursive {
     public static void main(String[] args) {
         int[] test1 = {10, 7, 8, 9, 1, 5};
 
+        System.out.println("Before: " + Arrays.toString(test1));
         QSort qSort = new QSort();
         qSort.sort(test1, 0, test1.length - 1);
-        System.out.println(Arrays.toString(test1));
+        System.out.println("After: " + Arrays.toString(test1));
     }
 }
 
 class QSort {
     void sort(int arr[], int low, int high) {
         if (low < high) {
-            int partititioningIdx = partition(arr, low, high);
+            int partitioningIdx = partition(arr, low, high);
 
-            sort(arr, low, partititioningIdx - 1);
-            sort(arr, partititioningIdx + 1, high);
+            sort(arr, low, partitioningIdx - 1);
+            sort(arr, partitioningIdx + 1, high);
         }
     }
 
     int partition(int arr[], int low, int high) {
         int pivot = arr[high];
-        int i = low - 1; // Idx of smaller element
+        int i = (low - 1);
+
         for (int j = low; j <= high - 1; j++) {
             if (arr[j] <= pivot) {
                 i++;
 
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+                swap(arr, i, j);
             }
         }
 
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
+        swap(arr, i + 1, high);
 
         return i + 1;
+    }
+
+    void swap(int[] arr, int swapIdx1, int swapIdx2) {
+        int temp = arr[swapIdx1];
+        arr[swapIdx1] = arr[swapIdx2];
+        arr[swapIdx2] = temp;
     }
 }
