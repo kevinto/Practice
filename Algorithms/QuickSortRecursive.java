@@ -3,7 +3,7 @@ import java.util.Arrays;
 /**
  * Created by kevint on 4/27/2016.
  */
-public class QuickSort {
+public class QuickSortRecursive {
     public static void main(String[] args) {
         int[] test1 = {10, 7, 8, 9, 1, 5};
 
