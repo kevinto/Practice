@@ -26,7 +26,8 @@ class QSort {
 
     int partition(int arr[], int low, int high) {
         int pivot = arr[high];
-        int i = (low - 1);
+        int i = (low - 1); // Tracks all the elements that
+                           // are less than the pivot.
 
         for (int j = low; j <= high - 1; j++) {
             if (arr[j] <= pivot) {
@@ -36,6 +37,10 @@ class QSort {
             }
         }
 
+        // i tracks the last element that was smaller than
+        // the pivot. Here, we swap the pivot with the number
+        // directly after the last number that was smaller
+        // than the pivot.
         swap(arr, i + 1, high);
 
         return i + 1;
