@@ -2,13 +2,15 @@ import java.util.Arrays;
 
 /**
  * Created by kevint on 4/27/2016.
+ * Useful References:
+ * http://stackoverflow.com/questions/15034897/in-place-quick-sort-has-on-or-ologn-space-complexity
+ * http://geeksquiz.com/quick-sort/
  *
  * Alternatives to picking the pivot:
  *  1. Pick the first element of the array.
  *  2. Pick the last element of the array.
  *  3. Pick a random element as pivot.
  *  4. Pick median as pivot.
- *
  *
  * Runtime analysis: O(n log(n))
  * Memory analysis: If it was just the space taken up in the original array
