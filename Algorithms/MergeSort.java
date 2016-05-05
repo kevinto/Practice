@@ -1,6 +1,23 @@
 import java.util.*;
 
-// Reference: http://howtodoinjava.com/algorithm/merge-sort-java-example/
+/*
+ * Runtime complexity: O(n log(n))
+ * More info: https://www.khanacademy.org/computing/computer-science/algorithms/merge-sort/a/analysis-of-merge-sort
+ * - If we draw out the recursion tree we can see that each level
+ *   takes n amount of work to merge. There is (log n) amount of
+ *   levels, we get (n log n).
+ *
+ * Space complexity: O(n)
+ *
+ * Basic Structure:
+ * 1. Find the middle point to divide the array into two halves.
+ * 2. Recursively call merge sort on the first half.
+ * 3. Recursively call merge sort on the second half.
+ * 4. Merge the two halves from step 2 and 3.
+ *
+ *
+ */
+
 public class MergeSort {
     public static void main(String[] args) {
         Integer[] arr = { 2, 6, 3, 5, 1 };
@@ -34,6 +51,8 @@ public class MergeSort {
         int iSecond = 0;
         int iMerged = 0;
 
+        // we have temp to hold the array content in order to
+        // safely copy over elements to the original array.
         while(iFirst < first.length && iSecond < second.length) {
             if (first[iFirst].compareTo(second[iSecond]) < 0) {
                 result[iMerged] = first[iFirst];
