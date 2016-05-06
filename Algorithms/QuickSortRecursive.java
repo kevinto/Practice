@@ -72,7 +72,7 @@ class QSortRecursive {
 
         // i tracks the last element that was smaller than
         // the pivot. Here, we swap the pivot with the number
-        // directly after the last number that was smaller
+        // directly after tThe last number that was smaller
         // than the pivot. If the pivot is already in the
         // correct place, then i is already equal to high.
         swap(arr, i, high);

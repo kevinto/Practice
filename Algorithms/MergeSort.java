@@ -8,6 +8,7 @@ import java.util.*;
  *   levels, we get (n log n).
  *
  * Space complexity: O(n)
+ * - On each
  *
  * Basic Structure:
  * 1. Find the middle point to divide the array into two halves.
@@ -20,52 +21,18 @@ import java.util.*;
 
 public class MergeSort {
     public static void main(String[] args) {
-        Integer[] arr = { 2, 6, 3, 5, 1 };
+        int[] arr = { 2, 6, 3, 5, 1 };
 
-        mergeSort(arr);
+        mergeSort(arr, 0, arr.length - 1);
 
         System.out.println(Arrays.toString(arr));
     }
 
-    @SuppressWarnings("rawtypes")
-    private static Comparable[] mergeSort(Comparable[] list) {
-        if (list.length <= 1) {
-            return list;
+    public static void mergeSort(int arr[], int low, int high) {
+        if ( low < high ) {
+            // (high - low) can potentially cause overflow especially for
+            // very large inputs.
+            int mid = low + ((high - low) / 2);
         }
-
-        Comparable[] first = new Comparable[list.length / 2];
-        Comparable[] second = new Comparable[list.length - first.length];
-        System.arraycopy(list, 0, first, 0, first.length);
-        System.arraycopy(list, first.length, second, 0, second.length);
-
-        mergeSort(first);
-        mergeSort(second);
-
-        merge(first, second, list);
-        return list;
-    }
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private static void merge(Comparable[] first, Comparable[] second, Comparable[] result) {
-        int iFirst = 0;
-        int iSecond = 0;
-        int iMerged = 0;
-
-        // we have temp to hold the array content in order to
-        // safely copy over elements to the original array.
-        while(iFirst < first.length && iSecond < second.length) {
-            if (first[iFirst].compareTo(second[iSecond]) < 0) {
-                result[iMerged] = first[iFirst];
-                iFirst++;
-            }
-            else {
-                result[iMerged] = second[iSecond];
-                iSecond++;
-            }
-            iMerged++;
-        }
-
-        System.arraycopy(first, iFirst, result, iMerged, first.length - iFirst);
-        System.arraycopy(second, iSecond, result, iMerged, second.length - iSecond);
     }
 }
