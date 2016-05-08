@@ -1,5 +1,10 @@
 package p347CURRENT;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Kevin on 5/6/16.
  * Problem Link: https://leetcode.com/problems/top-k-frequent-elements/
@@ -17,4 +22,26 @@ package p347CURRENT;
  *
  */
 public class TopK {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 1, 1, 2, 2, 3};
+        System.out.println(topKFrequent(arr1, 2).toString());
+    }
+
+    public static List<Integer> topKFrequent(int[] nums, int k) {
+        int[] occurs = new int[nums.length];
+
+        for(int i = 0; i < nums.length; i++) {
+            occurs[nums[i]]++;
+        }
+
+        Arrays.sort(occurs);
+
+        List<Integer> returnList = new ArrayList<>();
+        for(int i = nums.length - 1; i > nums.length - k - 1; i--) {
+            //TODO bug here we need to return the numbers
+            returnList.add(occurs[i]);
+        }
+
+        return returnList;
+    }
 }
