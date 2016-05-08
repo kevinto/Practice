@@ -18,6 +18,8 @@ import java.util.Map;
  *    Sort the temp array using quick sort.
  *    Time complexity: O(n) + (n log n)
  * 3. Use bucket sort.
+ *    Iterate through the given array and map the number of
+ *    occurrences. Iterate through the map and
  *    Time complexity: O(n)
  *
  * Q1: Will I ever get an empty array? Based on the assumption, no.
@@ -33,8 +35,13 @@ public class TopK {
     }
 
     public static List<Integer> topKFrequent(int[] nums, int k) {
+        // Bucket is initialized to (nums.length + 1) because
+        // there needs arrays are zero indexed. Buckets indexes
+        // are supposed to represent the frequency numbers. If
+        // we have an array with only when element, then the
+        // frequency is 1, and bucket needs to have 2 open elements.
         List<Integer>[] bucket = new List[nums.length + 1];
-        HashMap<Integer, Integer> freqMap = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
 
         // Create a map with keys as the number and values as the number of
         // occurrences
@@ -49,6 +56,10 @@ public class TopK {
             if (bucket[freq] == null) {
                 bucket[freq] = new ArrayList<>();
             }
+
+            // bucket index represents the number frequency
+            // the bucket element value represents the key
+            // we want to return.
             bucket[freq].add(key);
         }
 
