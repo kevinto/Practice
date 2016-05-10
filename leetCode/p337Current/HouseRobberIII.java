@@ -6,36 +6,36 @@ package p337Current;
  */
 public class HouseRobberIII {
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(1);
-        root.right = new TreeNode(2);
+        TreeNode root1 = new TreeNode(3);
+        root1.left = new TreeNode(1);
+        root1.right = new TreeNode(2);
 
-        System.out.println(rob(root));
+        System.out.println(rob(root1));
+
+        TreeNode root2 = new TreeNode(3);
+        root2.left = new TreeNode(1);
+        root2.left.left = new TreeNode(2);
+        root2.left.left.left = new TreeNode(4);
+
+        System.out.println(rob(root2));
     }
 
     public static int rob(TreeNode root) {
-        int[] sumArr = new int[2];
-
-        robHelper(root, 0, true, sumArr);
-        robHelper(root, 0, false, sumArr);
-
-        return Math.max(sumArr[0], sumArr[1]);
-    }
-
-    public static void robHelper(TreeNode node, int depth, boolean countEvens, int[] sumArr) {
-        if (node == null) {
-            return;
+        if (root == null) {
+            return 0;
         }
 
-        if (countEvens && depth % 2 == 0) {
-            sumArr[0] += node.val;
-        }
-        else if (!countEvens && depth % 2 != 0) {
-            sumArr[1] += node.val;
+        int value = 0;
+
+        if (root.left != null) {
+            value += rob(root.left.left) + rob(root.left.right);
         }
 
-        robHelper(node.right, depth + 1, countEvens, sumArr);
-        robHelper(node.left, depth + 1, countEvens, sumArr);
+        if (root.right != null) {
+            value += rob(root.right.left) + rob(root.right.right);
+        }
+
+        return Math.max(value + root.val, rob(root.left) + rob(root.right));
     }
 }
 
