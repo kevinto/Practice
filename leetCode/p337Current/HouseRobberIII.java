@@ -20,6 +20,9 @@ public class HouseRobberIII {
         System.out.println(rob(root2));
     }
 
+    // We can get the max value by either choosing the the current node value
+    // plus the grandchildren's values OR getting the values from the current
+    // nodes children.
     public static int rob(TreeNode root) {
         if (root == null) {
             return 0;
@@ -35,6 +38,11 @@ public class HouseRobberIII {
             value += rob(root.right.left) + rob(root.right.right);
         }
 
+        // (value + root.val)
+            // - Means the max value we found by traversing the grandchildren
+            //   of this current node plus the value of the current node.
+        // (rob(root.left) + rob(root.right))
+            // - The max value we can get from robbing the children nodes.
         return Math.max(value + root.val, rob(root.left) + rob(root.right));
     }
 }
