@@ -8,47 +8,44 @@ import java.util.List;
  */
 public class ReverseVowel {
     public static void main(String[] args) {
-        System.out.println(reverseVowels("hello"));
+        System.out.println(reverseVowels("leetcode"));
     }
 
     public static String reverseVowels(String s) {
-        if (s.length() < 2) {
+        // Null and length check
+        if (s == null || s.length() < 2) {
             return s;
         }
 
-        List<Integer> vPos = new ArrayList<>();
-        getVowelPos(vPos, s);
+        String vowels = "aeiouAEIOU";
+        char[] chars = s.toCharArray();
+        int start = 0;
+        int end = s.length() - 1;
 
-        int vPosSize = vPos.size();
-        for (int i = 0; i < vPosSize; i++) {
-            if (i >= vPosSize - i - 1) {
-                break;
+        while (start < end) {
+
+            // Get index of vowel starting from the left side of array
+            while (start < end && vowels.indexOf(chars[start]) == -1) {
+                start++;
             }
 
-            s = swap(s, vPos.get(i), vPos.get(vPosSize - i - 1));
-        }
-        return s;
-    }
-
-    private static void getVowelPos(List<Integer> vPos, String s) {
-        int len = s.length();
-        String lowerS = s.toLowerCase();
-        for (int i = 0; i < len; i++) {
-            char currChar = lowerS.charAt(i);
-            if (currChar == 'a' || currChar == 'e' || currChar == 'i'||
-                    currChar == 'u' || currChar == 'o') {
-                vPos.add(i);
+            // Get index of vowel starting from the right side of array
+            while (start < end && vowels.indexOf(chars[end]) == -1) {
+                end--;
             }
+
+            // Do the swap
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+
+            // Move on to the next character after the current
+            start++;
+            end--;
         }
+
+        return new String(chars);
     }
 
-    private static String swap(String s, int p1, int p2) {
-        StringBuilder returnValue = new StringBuilder(s);
 
-        char temp = s.charAt(p1);
-        returnValue.setCharAt(p1, s.charAt(p2));
-        returnValue.setCharAt(p2, temp);
-
-        return returnValue.toString();
-    }
 }
