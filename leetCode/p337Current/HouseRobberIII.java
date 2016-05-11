@@ -1,7 +1,5 @@
 package p337Current;
 
-import sun.reflect.generics.tree.Tree;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +13,14 @@ public class HouseRobberIII {
         root1.left = new TreeNode(1);
         root1.right = new TreeNode(2);
 
-        System.out.println(rob2(root1));
+        System.out.println(rob3(root1));
 
         TreeNode root2 = new TreeNode(3);
         root2.left = new TreeNode(1);
         root2.left.left = new TreeNode(2);
         root2.left.left.left = new TreeNode(4);
 
-        System.out.println(rob2(root2));
+        System.out.println(rob3(root2));
     }
 
     // We can get the max value by either choosing the the current node value
@@ -77,6 +75,34 @@ public class HouseRobberIII {
         map.put(root, maxVal);
 
         return maxVal;
+    }
+
+    public static int rob3(TreeNode root) {
+        int[] res = robSub3(root);
+        return Math.max(res[0], res[1]);
+    }
+
+    public static int[] robSub3(TreeNode root) {
+        // The first element: If we robbed the children, instead of the current node.
+        // The second element: If we robbed the root and the grandchildren, instead of the children
+        if (root == null) {
+            return new int[2];
+        }
+
+        int[] left = robSub3(root.left);
+        int[] right = robSub3(root.right);
+
+        int[] res = new int[2];
+
+        // Here we didn't rob the current node. We figure out whether we have
+        // a max of robbing the left or not robbing the left. Same for the right.
+        res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+
+        // Here we robbed the current, and we take the max values for not robbing
+        // the children
+        res[1] = root.val + left[0] + right[0];
+
+        return res;
     }
 }
 
