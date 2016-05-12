@@ -1,4 +1,4 @@
-package p337Current;
+package p337;
 
 import java.util.HashMap;
 import java.util.Map;
