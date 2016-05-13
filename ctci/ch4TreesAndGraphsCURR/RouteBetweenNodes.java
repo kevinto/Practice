@@ -1,4 +1,4 @@
-package ch4TreesAndGraphs;
+package ch4TreesAndGraphsCURR;
 
 /*
  * Problem 4.1 Statement:
@@ -19,7 +19,7 @@ public class RouteBetweenNodes {
             return true;
         } 
         
-        Queue<Integer> queue = new LinkedList<Integer>();
+        Queue<Integer> queue = new LinkedList<>();
         queue.add(start);
         
         boolean[] visited = new boolean[adjList.size()];

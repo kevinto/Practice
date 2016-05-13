@@ -1,19 +1,8 @@
-package p326Curr;
+package p326;
 
 /**
  * Created by kevint on 5/12/2016.
  * Link: https://leetcode.com/problems/power-of-three/
- *
- * 9 true
- * 10 false
- *
- * 6 isnt a pow of 3, but it is a multiple
- * prop 6/3
- *
- * while (n != 0)
- *
- * 3
- * 6
  */
 public class PowerOfThree {
     public static void main(String[] args) {
