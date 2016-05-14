@@ -13,8 +13,45 @@ package p334CURR;
  *          Examples:
  *          1. [1, 2, 3, 4, 5] = true
  *          2. [5, 2, 3, 4, 1] = true
- *          3. [1,1,1,5] = false
+ *          3. [1, 1, 1, 5] = false
  *          4. [5, 4, 3, 2, 1] = false
+ *          5. [7,1,2,3,6,5] = true
+ *
+ *  1. Start from first element and check the next two elements. O(n) time, O(1) space.O(n) time, O(1) space.O(n) time, O(1) space.O(n) time, O(1) space.
+ *  2.
  */
 public class IncreasingTripletSubsequence {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4 ,5};
+        System.out.println(increasingTriplet(arr1));
+
+        int[] arr2 = {5, 2, 3, 4, 1};
+        System.out.println(increasingTriplet(arr2));
+
+        int[] arr3 = {1, 1, 1, 5};
+        System.out.println(increasingTriplet(arr3));
+
+        int[] arr4 = {5, 4, 3, 2, 1};
+        System.out.println(increasingTriplet(arr4));
+
+        int[] arr5 = {7, 1, 2, 3, 6, 5};
+        System.out.println(increasingTriplet(arr5));
+
+        int[] arr6 = {2, 1 ,5 ,0, 4, 6};
+        System.out.println(increasingTriplet(arr6));
+    }
+
+    public static boolean increasingTriplet(int[] nums) {
+        if (nums.length < 3) {
+            return false;
+        }
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] < nums[i + 1] && nums[i + 1] < nums[i + 2]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
