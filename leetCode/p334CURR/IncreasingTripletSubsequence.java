@@ -17,8 +17,7 @@ package p334CURR;
  *          4. [5, 4, 3, 2, 1] = false
  *          5. [7,1,2,3,6,5] = true
  *
- *  1. Start from first element and check the next two elements. O(n) time, O(1) space.O(n) time, O(1) space.O(n) time, O(1) space.O(n) time, O(1) space.
- *  2.
+ *  1. Start from first element and check the next two elements. O(n) time, O(1) space.O(n) time
  */
 public class IncreasingTripletSubsequence {
     public static void main(String[] args) {
