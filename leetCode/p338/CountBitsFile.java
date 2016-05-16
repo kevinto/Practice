@@ -7,26 +7,17 @@ import java.util.Arrays;
  */
 public class CountBitsFile {
     public static void main(String[] args) {
-        for (int i = 0; i <=16; i++) {
-            System.out.println(i + ": " + Integer.toBinaryString(i));
-        }
         System.out.println(Arrays.toString(countBits(5)));
     }
 
     public static int[] countBits(int num) {
         int[] ret = new int[num+1];
-        int pow = 1;
-
-        // Set the first element of the array since we are not
-        // going to iterate over it in the for loop
         ret[0] = 0;
-
-        // t goes back to the beginning of the array every time
-        // we hit a power of 2.
+        int pow = 1;
         for(int i = 1, t = 0; i <= num; i++, t++) {
             if(i == pow) {
                 pow *= 2;
-                t = 0; // Reset the range back to the beginning of the array
+                t = 0;
             }
             ret[i] = ret[t] + 1;
         }

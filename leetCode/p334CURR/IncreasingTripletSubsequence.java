@@ -46,8 +46,16 @@ public class IncreasingTripletSubsequence {
             return false;
         }
 
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (nums[i] < nums[i + 1] && nums[i + 1] < nums[i + 2]) {
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] <= low) {
+                low = nums[i];
+            }
+            else if (nums[i] <= high) {
+                high = nums[i];
+            }
+            else {
                 return true;
             }
         }
