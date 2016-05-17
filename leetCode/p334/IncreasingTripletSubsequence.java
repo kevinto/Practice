@@ -1,4 +1,4 @@
-package p334CURR;
+package p334;
 
 /**
  * Created by Kevin on 5/14/16.
