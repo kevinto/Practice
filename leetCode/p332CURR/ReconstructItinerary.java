@@ -27,47 +27,24 @@ public class ReconstructItinerary {
         String[][] teststr = {{"MUC","LHR"}, {"JFK","MUC"},{"SFO","SJC"},{"LHR","SFO"}};
         List<String> result = findItinerary(teststr);
 
-        String[][] teststr1 = {{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
-        List<String> result1 = findItinerary(teststr1);
+//        String[][] teststr1 = {{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
+//        List<String> result1 = findItinerary(teststr1);
         return;
     }
 
     public static List<String> findItinerary(String[][] tickets) {
-        // Construct adjacency list contructed via hash map
-        // because we only need the first element
-        HashMap<String, String> map = new HashMap<>();
-        for (String[] tix : tickets) {
-            if (!map.containsKey(tix[0])) {
-                map.put(tix[0], tix[1]);
-            }
-            else {
-                List<String> list = new ArrayList<String>();
-                list.add(map.get(tix[0]));
-                list.add(tix[1]);
-                java.util.Collections.sort(list);
-                map.put(tix[0], list.get(0));
-            }
-        }
+        for (String[] ticket : tickets)
+            targets.computeIfAbsent(ticket[0], k -> new PriorityQueue()).add(ticket[1]);
+        visit("JFK");
+        return route;
+    }
 
-        // Find the element position of JFK
-        // Add JFK to the queue
-        List<String> itinerary = new ArrayList<>();
-        Queue<String> q = new LinkedList<>();
-        q.add(map.get("JFK"));
-        itinerary.add("JFK");
-        String currAirPort;
+    public static Map<String, PriorityQueue<String>> targets = new HashMap<>();
+    public static List<String> route = new LinkedList();
 
-        // While queue is not empty
-            // dequeue first element and add it to the return list
-            // Add the first dest of added element to the list
-        while (!q.isEmpty()) {
-            currAirPort = q.remove();
-            if (currAirPort != null) {
-                itinerary.add(currAirPort);
-                q.add(map.get(currAirPort));
-            }
-        }
-
-        return itinerary;
+    public static void visit(String airport) {
+        while(targets.containsKey(airport) && !targets.get(airport).isEmpty())
+            visit(targets.get(airport).poll());
+        route.add(0, airport);
     }
 }
