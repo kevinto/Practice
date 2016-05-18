@@ -24,23 +24,28 @@ import java.util.*;
 
 public class ReconstructItinerary {
     public static void main(String[] args) {
+        String[][] teststr = {{"MUC","LHR"}, {"JFK","MUC"},{"SFO","SJC"},{"LHR","SFO"}};
+        List<String> result = findItinerary(teststr);
 
+        String[][] teststr1 = {{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
+        List<String> result1 = findItinerary(teststr1);
+        return;
     }
 
-    public List<String> findItinerary(String[][] tickets) {
+    public static List<String> findItinerary(String[][] tickets) {
         // Construct adjacency list contructed via hash map
         // because we only need the first element
         HashMap<String, String> map = new HashMap<>();
         for (String[] tix : tickets) {
-            if (!map.containsKey(tix[1])) {
-                map.put(tix[1], tix[2]);
+            if (!map.containsKey(tix[0])) {
+                map.put(tix[0], tix[1]);
             }
             else {
                 List<String> list = new ArrayList<String>();
-                list.add(map.get(tix[1]));
-                list.add(tix[2]);
+                list.add(map.get(tix[0]));
+                list.add(tix[1]);
                 java.util.Collections.sort(list);
-                map.put(tix[1], list.get(0));
+                map.put(tix[0], list.get(0));
             }
         }
 
@@ -49,6 +54,7 @@ public class ReconstructItinerary {
         List<String> itinerary = new ArrayList<>();
         Queue<String> q = new LinkedList<>();
         q.add(map.get("JFK"));
+        itinerary.add("JFK");
         String currAirPort;
 
         // While queue is not empty
