@@ -12,41 +12,44 @@ package p328Curr1;
  *  return 1->3->2->4->NULL.
  */
 public class OddEvenLinkedList {
-
-
-    public ListNode oddEvenList(ListNode head) {
-        // set param head to odd list
-        // create new even head
-        // create new tail for even head
-
-        // set currOddNode to first list item
-        // set currEvenNode to second list item
-        // while currEvenNode != null
-            // if even head is null
-                // set even head to currEvenNode
-                // set even tail to head
-            // else
-                // set even tail.next = currEvenNode
-
-            // currEvenNode = currEvenNode.next.next;
-
-            // currOddNode.next = currOddNode.next.next;
-            // currOddNode = currOddNode.next;
-
-       //    o  e
-//           1->2->3->4->5->NULL
-
-        //         o
-//           1->2->3->4->5->NULL
-        return null;
+    public static void main(String[] args) {
+        ListNode root = new ListNode(1);
+        root.next = new ListNode(2);
+        root.next.next = new ListNode(3);
+        ListNode testRoot = oddEvenList(root);
+        printList(testRoot);
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
+    public static ListNode oddEvenList(ListNode head) {
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = even;
 
-        ListNode(int x) {
-            val = x;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
         }
+
+        odd.next = evenHead;
+        return head;
+    }
+
+    public static void printList(ListNode root) {
+        ListNode currNode = root;
+        while (currNode != null) {
+            System.out.println(currNode.val);
+            currNode = currNode.next;
+        }
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+        val = x;
     }
 }
