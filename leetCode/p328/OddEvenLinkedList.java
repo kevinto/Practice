@@ -1,4 +1,4 @@
-package p328Curr1;
+package p328;
 
 /**
  * Created by Kevin on 5/19/16.
