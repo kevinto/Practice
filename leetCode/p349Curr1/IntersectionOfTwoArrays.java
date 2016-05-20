@@ -1,22 +1,40 @@
 package p349Curr1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Kevin on 5/20/16.
  * Link: https://leetcode.com/problems/intersection-of-two-arrays/
  *
- * TODO: Bug when duplicates
  */
 public class IntersectionOfTwoArrays {
     public static void main(String[] args) {
         int[] testArr1 = {1, 2, 2, 1};
         int[] testArr2 = {2, 2, 1, 2};
-        int[] retArr = intersection(testArr1, testArr2);
+        int[] retArr = intersectionUsingSet(testArr1, testArr2);
         System.out.print(Arrays.toString(retArr));
+    }
+
+    public static int[] intersectionUsingSet(int[] nums1, int[] nums2) {
+        Set<Integer> referenceSet = new HashSet<>();
+        Set<Integer> resultSet = new HashSet<>();
+
+        for (int num1 : nums1) {
+            referenceSet.add(num1);
+        }
+
+        for (int num2 : nums2) {
+            if (referenceSet.contains(num2)) {
+                resultSet.add(num2);
+            }
+        }
+
+        int i = 0;
+        int[] resultArray = new int[resultSet.size()];
+        for (int num : resultSet) {
+            resultArray[i++] = num;
+        }
+        return resultArray;
     }
 
     public static int[] intersection(int[] nums1, int[] nums2) {
