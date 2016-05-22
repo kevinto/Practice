@@ -9,10 +9,14 @@ import java.util.*;
  */
 public class IntersectionOfTwoArrays {
     public static void main(String[] args) {
-        int[] testArr1 = {1, 2, 2, 1};
-        int[] testArr2 = {2, 2, 1, 2};
-        int[] retArr = intersectionUsingSet(testArr1, testArr2);
-        System.out.print(Arrays.toString(retArr));
+        LinkedList<String> test = new LinkedList<>();
+        System.out.println(test.size());
+
+        return;
+//        int[] testArr1 = {1, 2, 2, 1};
+//        int[] testArr2 = {2, 2, 1, 2};
+//        int[] retArr = intersectionUsingSet(testArr1, testArr2);
+//        System.out.print(Arrays.toString(retArr));
     }
 
     public static int[] intersectionUsingSet(int[] nums1, int[] nums2) {
