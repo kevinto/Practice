@@ -5,17 +5,9 @@ import java.util.Stack;
  */
 public class Explore {
     public static void main(String[] args) {
-//        Stack<Integer> s = new Stack<>();
-//        int val = s.pop();
-//        System.out.println(val);
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-        }
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-        }
+        Stack<Integer> s = new Stack<>();
+        int val = s.pop();
+        System.out.println(val);
     }
 
     public static String reverseString(String s) {
