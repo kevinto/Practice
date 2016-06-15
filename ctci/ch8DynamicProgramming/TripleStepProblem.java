@@ -33,7 +33,7 @@ import java.util.Arrays;
  */
 public class TripleStepProblem {
     public static void main(String[] args) {
-        System.out.println("Tests for brute force:");
+        System.out.println("Tests for brute force with base case at 0:");
         System.out.println(findStepsBrute(0) == 1);
         System.out.println(findStepsBrute(1) == 1);
         System.out.println(findStepsBrute(2) == 2);
@@ -44,6 +44,18 @@ public class TripleStepProblem {
         System.out.println(findStepsBrute(7) == 44);
         System.out.println(findStepsBrute(8) == 81);
         System.out.println(findStepsBrute(9) == 149);
+
+        System.out.println("Tests for brute force with tri base cases:");
+        System.out.println(findStepsBruteWithMoreBaseCases(0) == 0);
+        System.out.println(findStepsBruteWithMoreBaseCases(1) == 1);
+        System.out.println(findStepsBruteWithMoreBaseCases(2) == 2);
+        System.out.println(findStepsBruteWithMoreBaseCases(3) == 4);
+        System.out.println(findStepsBruteWithMoreBaseCases(4) == 7);
+        System.out.println(findStepsBruteWithMoreBaseCases(5) == 13);
+        System.out.println(findStepsBruteWithMoreBaseCases(6) == 24);
+        System.out.println(findStepsBruteWithMoreBaseCases(7) == 44);
+        System.out.println(findStepsBruteWithMoreBaseCases(8) == 81);
+        System.out.println(findStepsBruteWithMoreBaseCases(9) == 149);
 
         System.out.println("Tests for memoization:");
         System.out.println(findStepsDp(0) == 1);
@@ -69,19 +81,19 @@ public class TripleStepProblem {
         }
     }
     // Assumes 0 steps mean 0 combos
-//    public static int findStepsBrute(int n) {
-//        if (n <= 0) {
-//            return 0;
-//        } else if (n == 1){
-//            return 1;
-//        } else if (n == 2) {
-//            return 2;
-//        } else if (n == 3) {
-//            return 4;
-//        } else {
-//            return findStepsBrute(n - 1) + findStepsBrute(n - 2) + findStepsBrute(n - 3);
-//        }
-//    }
+    public static int findStepsBruteWithMoreBaseCases(int n) {
+        if (n <= 0) {
+            return 0;
+        } else if (n == 1){
+            return 1;
+        } else if (n == 2) {
+            return 2;
+        } else if (n == 3) {
+            return 4;
+        } else {
+            return findStepsBrute(n - 1) + findStepsBrute(n - 2) + findStepsBrute(n - 3);
+        }
+    }
 
     public static int findStepsDp(int n) {
         int[] memo = new int[n + 1];
