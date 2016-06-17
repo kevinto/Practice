@@ -14,11 +14,11 @@ public class ComparatorPractice {
 
         // Sorts by natural ordering. Uses the defined compareTo()
         // for the comparable interface
-        Collections.sort(list);
-        for (Dog d : list) {
-            System.out.print(d.getDogName() + ", ");
-        }
-        System.out.println();
+//        Collections.sort(list);
+//        for (Dog d : list) {
+//            System.out.print(d.getDogName() + ", ");
+//        }
+//        System.out.println();
 
         // Sorts by age. Defined in the compare() for the
         // comparable interface
@@ -29,7 +29,8 @@ public class ComparatorPractice {
     }
 }
 
-class Dog implements Comparator<Dog>, Comparable<Dog> {
+//class Dog implements Comparator<Dog>, Comparable<Dog> {
+class Dog implements Comparator<Dog> {
     private String name;
     private int age;
 
@@ -48,9 +49,9 @@ class Dog implements Comparator<Dog>, Comparable<Dog> {
         return age;
     }
 
-    public int compareTo(Dog d) {
-        return (this.name).compareTo(d.name);
-    }
+//    public int compareTo(Dog d) {
+//        return (this.name).compareTo(d.name);
+//    }
 
     // Overrride for the comparator
     public int compare(Dog d1, Dog d2) {
