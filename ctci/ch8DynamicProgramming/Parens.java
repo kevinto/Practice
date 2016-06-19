@@ -10,7 +10,13 @@ import java.util.Iterator;
 public class Parens {
     public static void main(String args[]) {
         int n = 3;
-        System.out.println(getParens(3));
+        System.out.println(getParens(n));
+
+        n = 2;
+        System.out.println(getParens(n));
+
+        n = 1;
+        System.out.println(getParens(n));
     }
 
     public static ArrayList<String> getParens(int n) {
