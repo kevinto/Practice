@@ -8,7 +8,14 @@ import java.util.Collection;
  */
 public class SortedMatrixSearch {
     public static void main(String[] args) {
+        int[][] test = {
+                {1,2,3},
+                {4,5,6},
+                {7,8,9}
+        };
 
+        Coordinate cor = findElement(test, 3);
+        System.out.println("row: " + cor.row + ", col: " + cor.column);
     }
 
     public static Coordinate findElement(int[][] matrix, int x) {
@@ -61,7 +68,7 @@ public class SortedMatrixSearch {
     public static Coordinate partitionAndSearch(int[][] matrix, Coordinate origin, Coordinate dest,
                                                 Coordinate pivot, int x) {
         Coordinate lowerLeftOrigin = new Coordinate(pivot.row, origin.column);
-        Coordinate lowerLeftDest = new Coordinate(dest.row, pivot.column);
+        Coordinate lowerLeftDest = new Coordinate(dest.row, pivot.column - 1);
         Coordinate upperRightOrigin = new Coordinate(origin.row, pivot.column);
         Coordinate upperRightDest = new Coordinate(pivot.row - 1, dest.column);
 

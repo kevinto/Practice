@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.*;
+import java.util.regex.Pattern;
 
 
 /**
@@ -8,60 +9,13 @@ import java.util.*;
  */
 public class Explore {
     public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> matix = new ArrayList<>();
-        ArrayList<Integer> zeroRow =  new ArrayList<>();
-        zeroRow.add(1);
-        zeroRow.add(0);
-        zeroRow.add(1);
-        ArrayList<Integer> firstRow =  new ArrayList<>();
-        firstRow.add(1);
-        firstRow.add(1);
-        firstRow.add(1);
-        ArrayList<Integer> secondRow =  new ArrayList<>();
-        secondRow.add(1);
-        secondRow.add(0);
-        secondRow.add(1);
-//        ArrayList<Integer> thirdRow =  new ArrayList<>();
-//        thirdRow.add(13);
-//        thirdRow.add(14);
-//        thirdRow.add(15);
-//        thirdRow.add(16);
-//
-        matix.add(zeroRow);
-        matix.add(firstRow);
-        matix.add(secondRow);
-//        matix.add(thirdRow);
-//        rotate(matix);
-//        System.out.println(matix);
-
-        setZeroes(matix);
-        System.out.println(matix);
-
-        String[] test = new String[4];
-        test[0] = "hello";
-        test[1] = "good";
-        test[2] = "bye";
-        test[3] = "ybe";
-
-        System.out.println(test[0] + getValue(test[0]));
-        System.out.println(test[1] + getValue(test[1]));
-        System.out.println(test[2] + getValue(test[2]));
-        System.out.println(test[3] + getValue(test[3]));
-
-        answer(test);
-        System.out.println(Arrays.toString(test));
-
-        System.out.println("Printing iterator");
-        List<Integer> newIntArr = new ArrayList<>();
-        newIntArr.add(1);
-        newIntArr.add(2);
-        newIntArr.add(3);
-        Iterator<Integer> itr = newIntArr.iterator();
-        while (itr.hasNext()) {
-            System.out.println(itr.next());
-        }
-
-        Map<Integer, Integer> map1 = new HashMap<>();
+        String s1 = Pattern.quote("begin M`@```/\\````8`````P```\"@=`0````````````````````````````8```#9M`0``,C$X,S4T````````3D92(]D!%@`!:`'T`?0!``#_G0`!``;_&`86ML`/M!8`*R6`*!W>0\"L$.\"(:5'F$3!8,72:$.!HN94J$8!G:3?N$0!(&.G4$.!HT.MFD()#Y8E^<(6\"8<J#4,4!X^0`L,*$)$H'B,-#)(C.<,)&8JIC:,6`X8RI>,.M!YI3[:,%*HU-\\2,&,8P_!:0-\"J!(2N0)\"(\\T7602\"HM/A@0'!I(^IJ0.\")$WMU@01\"XX&(`$#`A+_`?+_____!?$\"!Q7_________`/(!`!+_`_$&!\"((_]\\`M_Q__!?'_\"?@&`C$&!Q/___\\!`C(#!33_________\"?D'`V$$`!0#!30)\"E<'M_R\\!!%,#!F(*\"VP(_Y\\,\"R+_____`?X'\"I0.%#H*\"#8&!5G___\\.#Q@,\"&0&M!7L)_S\\(!RP&#-$/$A(-_R\\/$1H-\"S$'!KP*#F82$1?___\\(\"U(,#S,)_S__M____%/</#(82$S81#*$'\"M@.%(+_____\"/H-$6$3%5/_$/'_\"/H-$G@3%4+_M$_01#(,/#CL4%E'_%?(1#4,/$F06_U\\7%B03$I4*#G?_________$?(3%BC_J______\\3$E$/%\"07_R____\\3%O(4_R____\\!!$W5XP8`!P`$````````` ===end");
+        String s2 = Pattern.quote("begin M`0```%D````M````!````*A;`0````````````````````````````(```#(M````,3$`````````````05!2.0<!`%D``/\\\\M`1H`&`````!`4'0?5%ST#AQBM-!Z*::-0`CGHT$'V,.`!TH.@/M]R$`D[DI`W2ZM02'?@D'::P\"91%S\")4?0B(UM#,8N^0--.!4=$T[5\"KE8E00::7GD;W&2E%#UJ90ISCC4`GY`I$QJ8]0E_G$4.MU;25!7S&\"0Y_V*4&8>R5!X+LZ04W[C49\\\\AQF!JTFIA8/+O88PCCJ!S@\\\\M@?VG2DH7MDRJ\")E0EA246*83D6;&'G!R2A7FAF88P::;V&,JFAA@`````` ===end");
+        String common = s1.replaceAll("[" + s2 + "]", "");
+//        common += s2.replaceAll("[" + s1 + "]", "");
+        System.out.println(common);
+//        String result = s1.replaceAll("[" + common + "]","");
+//        System.out.println(result);
     }
 
     public static void setZeroes(ArrayList<ArrayList<Integer>> a) {
