@@ -19,8 +19,8 @@ public class SortedMatrixSearch {
     }
 
     public static Coordinate findElement(int[][] matrix, int x) {
-        Coordinate origin = new Coordinate(0, 0);
-        Coordinate dest = new Coordinate(matrix.length - 1, matrix[0].length - 1);
+        Coordinate origin = new Coordinate(0, 0); // Origin set to top left of matrix
+        Coordinate dest = new Coordinate(matrix.length - 1, matrix[0].length - 1); // Dest set to bottom right of matrix
         return findElement(matrix, origin, dest, x);
     }
 
@@ -33,6 +33,7 @@ public class SortedMatrixSearch {
         if(matrix[origin.row][origin.column] == x) {
             return origin;
         } else if(!origin.isBefore(dest)) {
+            // Remember we are going along the diagonal
             return null;
         }
 
@@ -43,19 +44,19 @@ public class SortedMatrixSearch {
         Coordinate start = (Coordinate) origin.clone();
         int diagDist = Math.min(dest.row - origin.row, dest.column - origin.column);
         Coordinate end = new Coordinate(start.row + diagDist, start.column + diagDist);
-        Coordinate p = new Coordinate(0, 0);
+        Coordinate middlePoint = new Coordinate(0, 0);
 
         /*
         Do binary search on the diagonal, looking for the first element > x
          */
         while(start.isBefore(end)) {
-            p.SetToAvg(start, end);
-            if (x > matrix[p.row][p.column]) {
-                start.row = p.row + 1;
-                start.column = p.column + 1;
+            middlePoint.SetToAvg(start, end);
+            if (x > matrix[middlePoint.row][middlePoint.column]) {
+                start.row = middlePoint.row + 1;
+                start.column = middlePoint.column + 1;
             } else {
-                end.row = p.row - 1;
-                end.column = p.column - 1;
+                end.row = middlePoint.row - 1;
+                end.column = middlePoint.column - 1;
             }
         }
 
@@ -100,6 +101,8 @@ class Coordinate implements Cloneable {
         return new Coordinate(row, column);
     }
 
+    // Sets the current coordinate to be in the middle between
+    // two specified coordinates
     public void SetToAvg(Coordinate min, Coordinate max) {
         row = ((max.row - min.row) / 2) + min.row;
         column = ((max.column - min.column) / 2) + min.column;
