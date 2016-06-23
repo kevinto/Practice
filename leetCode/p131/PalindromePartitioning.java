@@ -27,6 +27,8 @@ public class PalindromePartitioning {
                 if(isPal(s,pos,i)){
                     list.add(s.substring(pos,i+1));
                     dfs(s,i+1,list,res);
+
+                    // Remove the last added element
                     list.remove(list.size()-1);
                 }
             }
