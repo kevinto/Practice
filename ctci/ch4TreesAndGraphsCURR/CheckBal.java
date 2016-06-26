@@ -5,15 +5,19 @@ package ch4TreesAndGraphsCURR;
  */
 public class CheckBal {
     public static void main(String[] args) {
-        BalNode root = new BalNode(5);
-        root.left = new BalNode(6);
+//        BalNode root = new BalNode(5);
+//        root.left = new BalNode(6);
 //        root.left.left = new BalNode(7);
 //        root.left.left.left = new BalNode(8);
 //        root.right = new BalNode(9);
 
+        BalNode root = new BalNode(1);
+        root.right = new BalNode(2);
+        root.right.right = new BalNode(3);
         System.out.println(balanced(root));
     }
 
+    // This implementation is wrong we need to check if each subtree is balanced also.!!!
     private static boolean balanced(BalNode root) {
         if (root == null) {
             return true;
