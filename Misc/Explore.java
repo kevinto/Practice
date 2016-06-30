@@ -9,13 +9,50 @@ import java.util.regex.Pattern;
  */
 public class Explore {
     public static void main(String[] args) {
-        String s1 = Pattern.quote("begin M`@```/\\````8`````P```\"@=`0````````````````````````````8```#9M`0``,C$X,S4T````````3D92(]D!%@`!:`'T`?0!``#_G0`!``;_&`86ML`/M!8`*R6`*!W>0\"L$.\"(:5'F$3!8,72:$.!HN94J$8!G:3?N$0!(&.G4$.!HT.MFD()#Y8E^<(6\"8<J#4,4!X^0`L,*$)$H'B,-#)(C.<,)&8JIC:,6`X8RI>,.M!YI3[:,%*HU-\\2,&,8P_!:0-\"J!(2N0)\"(\\T7602\"HM/A@0'!I(^IJ0.\")$WMU@01\"XX&(`$#`A+_`?+_____!?$\"!Q7_________`/(!`!+_`_$&!\"((_]\\`M_Q__!?'_\"?@&`C$&!Q/___\\!`C(#!33_________\"?D'`V$$`!0#!30)\"E<'M_R\\!!%,#!F(*\"VP(_Y\\,\"R+_____`?X'\"I0.%#H*\"#8&!5G___\\.#Q@,\"&0&M!7L)_S\\(!RP&#-$/$A(-_R\\/$1H-\"S$'!KP*#F82$1?___\\(\"U(,#S,)_S__M____%/</#(82$S81#*$'\"M@.%(+_____\"/H-$6$3%5/_$/'_\"/H-$G@3%4+_M$_01#(,/#CL4%E'_%?(1#4,/$F06_U\\7%B03$I4*#G?_________$?(3%BC_J______\\3$E$/%\"07_R____\\3%O(4_R____\\!!$W5XP8`!P`$````````` ===end");
-        String s2 = Pattern.quote("begin M`0```%D````M````!````*A;`0````````````````````````````(```#(M````,3$`````````````05!2.0<!`%D``/\\\\M`1H`&`````!`4'0?5%ST#AQBM-!Z*::-0`CGHT$'V,.`!TH.@/M]R$`D[DI`W2ZM02'?@D'::P\"91%S\")4?0B(UM#,8N^0--.!4=$T[5\"KE8E00::7GD;W&2E%#UJ90ISCC4`GY`I$QJ8]0E_G$4.MU;25!7S&\"0Y_V*4&8>R5!X+LZ04W[C49\\\\AQF!JTFIA8/+O88PCCJ!S@\\\\M@?VG2DH7MDRJ\")E0EA246*83D6;&'G!R2A7FAF88P::;V&,JFAA@`````` ===end");
-        String common = s1.replaceAll("[" + s2 + "]", "");
-//        common += s2.replaceAll("[" + s1 + "]", "");
-        System.out.println(common);
-//        String result = s1.replaceAll("[" + common + "]","");
-//        System.out.println(result);
+        System.out.println(1 % -3);
+        ArrayList<Integer> test1 = new ArrayList<>();
+        test1.add(1);
+        test1.add(2);
+        test1.add(3);
+        System.out.println(rotateArray(test1, 1));
+    }
+
+    public static int[] rotateArray(ArrayList<Integer> A, int B) {
+        //(index-B) % 6 = new position
+//        ArrayList<Integer> ret = new ArrayList<>(A.size());
+        int[] ret = new int[A.size()];
+        for (int i = 0; i < A.size(); i++) {
+            int newIndex = Math.abs((i - B) % (A.size()));
+            ret[newIndex] = A.get(i);
+        }
+
+        return ret;
+    }
+
+    public static boolean wordPattern(String pattern, String str) {
+        HashMap<Character, String> map = new HashMap<>();
+        HashMap<String, Character> inverseMap = new HashMap<>();
+        String[] arr = str.split(" ");
+        if (pattern.length() != arr.length) {
+            return false;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            char letter = pattern.charAt(i);
+            if (!map.containsKey(letter)) {
+                if (!inverseMap.containsKey(arr[i])) {
+                    map.put(letter, arr[i]);
+                    inverseMap.put(arr[i], letter);
+                } else {
+                    // we were trying to input a word that has already been mapped
+                    return false;
+                }
+            } else if (map.get(letter).compareTo(arr[i]) != 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static void setZeroes(ArrayList<ArrayList<Integer>> a) {
