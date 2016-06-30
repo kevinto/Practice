@@ -22,17 +22,17 @@ public class FlattenHashMap {
             return result;
         }
 
-        flatten(original, result, "", null);
+        flatten(original, result, "");
         return result;
     }
 
     public static void flatten(HashMap<String, Object> original, HashMap<String, Object> result,
-    String oldKey, Object item) {
+    String oldKey) {
         for (String key : original.keySet()) {
             Object currObj = original.get(key);
             if (currObj instanceof HashMap) {
                 HashMap newMap = (HashMap)currObj;
-                flatten(newMap, result, oldKey + key, null);
+                flatten(newMap, result, oldKey + key);
             } else {
                 result.put(oldKey + key, currObj);
             }
