@@ -9,12 +9,14 @@ import java.util.regex.Pattern;
  */
 public class Explore {
     public static void main(String[] args) {
-        System.out.println(1 % -3);
-        ArrayList<Integer> test1 = new ArrayList<>();
-        test1.add(1);
-        test1.add(2);
-        test1.add(3);
-        System.out.println(rotateArray(test1, 1));
+        int count = 0;
+        int n = 8;
+        while (n != 0) {
+            if ((n & 1) == 1) {
+                count++;
+            }
+            n = n >> 1;
+        }
     }
 
     public static int[] rotateArray(ArrayList<Integer> A, int B) {
