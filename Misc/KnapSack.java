@@ -1,9 +1,10 @@
+import java.util.HashSet;
 import static java.lang.System.*;
 
 /**
  * Created by Kevin on 7/6/16.
  *
- * Solves the knapsack problem. If we assume that we can have duplicate items
+ * Solves the knapsack problem. This implementation assumes that we do not keep duplicate items
  */
 public class KnapSack {
     private static int memo[];
@@ -11,6 +12,7 @@ public class KnapSack {
     private int capacity;
     private int[] val;
     private int[] weights;
+    private HashSet<Integer> possibleItems;
 
     public static void main(String[] args) {
         int numItems = 3;
@@ -36,6 +38,7 @@ public class KnapSack {
         this.val = val;
         this.weights = weights;
         this.capacity = capacity;
+        this.possibleItems = new HashSet<>(numItems);
     }
 
     private int findMaxVal() {
@@ -44,6 +47,7 @@ public class KnapSack {
         }
 
         initMemo();
+        initPossibleItems();
 
         return findMaxVal(capacity, 0);
     }
@@ -53,8 +57,11 @@ public class KnapSack {
         if (memo[currWeight] != -1) return memo[currWeight];
 
         int result = currVal;
-        for (int i = 0; i < numItems; i++) {
-            result = Math.max(findMaxVal(currWeight - weights[i], currVal + val[i]), result);
+        HashSet<Integer> tracker = new HashSet<>(possibleItems);
+        for (int item : tracker) {
+            possibleItems.remove(item);
+            result = Math.max(findMaxVal(currWeight - weights[item], currVal + val[item]), result);
+            possibleItems.add(item);
         }
 
         memo[currWeight] = result;
@@ -64,6 +71,12 @@ public class KnapSack {
     private void initMemo() {
         for (int i = 0; i < memo.length; i++) {
             memo[i] = -1;
+        }
+    }
+
+    private void initPossibleItems() {
+        for (int i = 0; i < this.numItems; i++) {
+            this.possibleItems.add(i);
         }
     }
 }
