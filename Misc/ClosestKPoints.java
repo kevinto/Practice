@@ -66,7 +66,9 @@ class Point implements Comparable<Point>{
 
     @Override
     public int compareTo(Point that) {
-        // This makes the top of the heap a max number
+        // This makes the top of the heap a max number. Think of it as
+        // you are comparaing the param to curr object. if param wins then
+        // put on top in priority
         return Double.valueOf(that.distance).compareTo(distance);
     }
 
