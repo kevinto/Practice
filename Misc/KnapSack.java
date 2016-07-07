@@ -3,7 +3,7 @@ import static java.lang.System.*;
 /**
  * Created by Kevin on 7/6/16.
  *
- * Solves the knapsack problem
+ * Solves the knapsack problem. If we assume that we can have duplicate items
  */
 public class KnapSack {
     private static int memo[];
@@ -14,12 +14,20 @@ public class KnapSack {
 
     public static void main(String[] args) {
         int numItems = 3;
-        int capacity = 20;
-        memo = new int[capacity + 1];
-        int[] val = { 3, 4, 3 };
-        int[] weights = { 6, 7, 9 };
+//        int capacity = 20;
+//        memo = new int[capacity + 1];
+//        int[] val = { 3, 4, 3 };
+//        int[] weights = { 6, 7, 9 };
+//
+//        int result = new KnapSack(numItems, val, weights, capacity).findMaxVal();
+//        out.println("Max value we can have in the knapsack: " + result);
 
-        int result = new KnapSack(numItems, val, weights, capacity).findMaxVal();
+        int capacity = 50;
+        memo = new int[capacity + 1];
+        int[] val2 = { 60, 100, 120 };
+        int[] weights2 = { 10, 20, 30 };
+
+        int result = new KnapSack(numItems, val2, weights2, capacity).findMaxVal();
         out.println("Max value we can have in the knapsack: " + result);
     }
 
