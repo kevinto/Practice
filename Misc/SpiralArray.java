@@ -3,6 +3,7 @@ import java.util.List;
 
 /**
  * Created by Kevin on 7/3/16.
+ * Spiral Array Problem
  */
 public class SpiralArray {
     public static void main(String[] args) {
@@ -17,40 +18,40 @@ public class SpiralArray {
         System.out.println(res);
     }
 
-    public List<Integer> spiralOrder(int[][] matrix) {
+    private List<Integer> spiralOrder(int[][] matrix) {
         ArrayList<Integer> res = new ArrayList<>();
         if (matrix == null || matrix.length == 0) return res;
 
         int currTopRow = 0;
         int currBotRow = matrix.length - 1;
-        int currRightcol = matrix[0].length - 1;
-        int currLeftcol = 0;
+        int currRightCol = matrix[0].length - 1;
+        int currLeftCol = 0;
 
-        while (currTopRow <= currBotRow && currLeftcol <= currRightcol) {
-            // Print top row from beginning to end
-            for (int i = currLeftcol; i <= currRightcol; i++) {
+        while (currTopRow <= currBotRow && currLeftCol <= currRightCol) {
+            // Save the top
+            for (int i = currLeftCol; i <= currRightCol; i++) {
                 res.add(matrix[currTopRow][i]);
             }
 
-            // Print right column from the second row till the bottom
+            // Save the right col
             for (int i = currTopRow + 1; i <= currBotRow; i++) {
-                res.add(matrix[i][currRightcol]);
+                res.add(matrix[i][currRightCol]);
             }
 
-            // Print bottom
-            for (int i = currRightcol - 1; i >= currLeftcol; i--) {
+            // Save the bottom
+            for (int i = currRightCol - 1; i >= currLeftCol; i--) {
                 res.add(matrix[currBotRow][i]);
             }
 
-            // Print left column
+            // Save the left col
             for (int i = currBotRow - 1; i > currTopRow; i--) {
-                res.add(matrix[i][currLeftcol]);
+                res.add(matrix[i][currLeftCol]);
             }
 
             currTopRow++;
-            currLeftcol++;
             currBotRow--;
-            currRightcol--;
+            currLeftCol++;
+            currRightCol--;
         }
 
         return res;
