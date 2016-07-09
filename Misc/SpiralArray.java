@@ -7,9 +7,10 @@ import java.util.List;
 public class SpiralArray {
     public static void main(String[] args) {
         int[][] matrix = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
         };
 
         List<Integer> res = new SpiralArray().spiralOrder(matrix);
@@ -17,46 +18,39 @@ public class SpiralArray {
     }
 
     public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) return res;
 
-        List<Integer> res = new ArrayList<Integer>();
+        int currTopRow = 0;
+        int currBotRow = matrix.length - 1;
+        int currRightcol = matrix[0].length - 1;
+        int currLeftcol = 0;
 
-        if (matrix.length == 0) {
-            return res;
-        }
-
-        int rowBegin = 0;
-        int rowEnd = matrix.length-1;
-        int colBegin = 0;
-        int colEnd = matrix[0].length - 1;
-
-        while (rowBegin <= rowEnd && colBegin <= colEnd) {
-            // Traverse Right
-            for (int j = colBegin; j <= colEnd; j ++) {
-                res.add(matrix[rowBegin][j]);
+        while (currTopRow <= currBotRow && currLeftcol <= currRightcol) {
+            // Print top row from beginning to end
+            for (int i = currLeftcol; i <= currRightcol; i++) {
+                res.add(matrix[currTopRow][i]);
             }
-            rowBegin++;
 
-            // Traverse Down
-            for (int j = rowBegin; j <= rowEnd; j ++) {
-                res.add(matrix[j][colEnd]);
+            // Print right column from the second row till the bottom
+            for (int i = currTopRow + 1; i <= currBotRow; i++) {
+                res.add(matrix[i][currRightcol]);
             }
-            colEnd--;
 
-            if (rowBegin <= rowEnd) {
-                // Traverse Left
-                for (int j = colEnd; j >= colBegin; j --) {
-                    res.add(matrix[rowEnd][j]);
-                }
+            // Print bottom
+            for (int i = currRightcol - 1; i >= currLeftcol; i--) {
+                res.add(matrix[currBotRow][i]);
             }
-            rowEnd--;
 
-            if (colBegin <= colEnd) {
-                // Traver Up
-                for (int j = rowEnd; j >= rowBegin; j --) {
-                    res.add(matrix[j][colBegin]);
-                }
+            // Print left column
+            for (int i = currBotRow - 1; i > currTopRow; i--) {
+                res.add(matrix[i][currLeftcol]);
             }
-            colBegin ++;
+
+            currTopRow++;
+            currLeftcol++;
+            currBotRow--;
+            currRightcol--;
         }
 
         return res;
