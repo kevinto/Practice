@@ -28,25 +28,26 @@ public class ReverseSpirals {
         int currRightCol = matrix[0].length - 1;
 
         while (currTopRow <= currBotRow && currLeftCol <= currRightCol) {
-            // Save bottom row
+            // Save the top row starting from the end
             for (int i = currRightCol; i >= currLeftCol; i--) {
-                res.add(matrix[currBotRow][i]);
-            }
-
-            // Save left col
-            for (int i = currBotRow - 1; i >= currTopRow; i--) {
-                res.add(matrix[i][currLeftCol]);
-            }
-
-            // Save top row
-            for (int i = currLeftCol + 1; i <= currRightCol; i++) {
                 res.add(matrix[currTopRow][i]);
             }
 
-            // Save right col
-            for (int i = currTopRow + 1; i <= currBotRow - 1; i++) {
+            // Save the left col starting from the top
+            for (int i = currTopRow + 1; i <= currBotRow; i++) {
+                res.add(matrix[i][currLeftCol]);
+            }
+
+            // Save the bot row starting from the left
+            for (int i = currLeftCol + 1; i <= currRightCol; i++) {
+                res.add(matrix[currBotRow][i]);
+            }
+
+            // Save the right col starting from the bot
+            for (int i = currBotRow - 1; i > currTopRow; i--) {
                 res.add(matrix[i][currRightCol]);
             }
+
             currTopRow++;
             currBotRow--;
             currLeftCol++;
