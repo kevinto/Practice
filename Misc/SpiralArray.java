@@ -24,27 +24,27 @@ public class SpiralArray {
 
         int currTopRow = 0;
         int currBotRow = matrix.length - 1;
-        int currRightCol = matrix[0].length - 1;
         int currLeftCol = 0;
+        int currRightCol = matrix[0].length - 1;
 
         while (currTopRow <= currBotRow && currLeftCol <= currRightCol) {
-            // Save the top
+            // Save top row
             for (int i = currLeftCol; i <= currRightCol; i++) {
                 res.add(matrix[currTopRow][i]);
             }
 
-            // Save the right col
+            // Save right col
             for (int i = currTopRow + 1; i <= currBotRow; i++) {
                 res.add(matrix[i][currRightCol]);
             }
 
-            // Save the bottom
+            // Save bottom row
             for (int i = currRightCol - 1; i >= currLeftCol; i--) {
                 res.add(matrix[currBotRow][i]);
             }
 
-            // Save the left col
-            for (int i = currBotRow - 1; i > currTopRow; i--) {
+            // Save left col
+            for (int i = currBotRow - 1; i >= currTopRow + 1; i--) {
                 res.add(matrix[i][currLeftCol]);
             }
 
