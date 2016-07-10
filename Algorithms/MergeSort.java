@@ -20,13 +20,17 @@ import java.util.*;
 
 public class MergeSort {
     public static void main(String[] args) {
-        int[] arr1 = { 2, 6, 3, 5, 1 };
-        mergeSort(arr1, 0, arr1.length - 1);
-        System.out.println(Arrays.toString(arr1));
+//        int[] arr1 = { 2, 6, 3, 5, 1 };
+//        mergeSort(arr1, 0, arr1.length - 1);
+//        System.out.println(Arrays.toString(arr1));
+//
+//        int[] arr2 = { 9, 2, 6, 3, 5, 1 };
+//        mergeSort(arr2, 0, arr2.length - 1);
+//        System.out.println(Arrays.toString(arr2));
 
-        int[] arr2 = { 9, 2, 6, 3, 5, 1 };
-        mergeSort(arr2, 0, arr2.length - 1);
-        System.out.println(Arrays.toString(arr2));
+        int[] arr3 = { 9, 2};
+        mergeSort(arr3, 0, arr3.length - 1);
+        System.out.println(Arrays.toString(arr3));
     }
 
     public static void mergeSort(int arr[], int low, int high) {

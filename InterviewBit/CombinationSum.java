@@ -33,13 +33,17 @@ public class CombinationSum {
     private void combinationSum(ArrayList<Integer> arr, int target, ArrayList<Integer> path,
                                 int tracker, ArrayList<ArrayList<Integer>> res) {
         if (target == 0) {
-            if (!res.contains(path)) {
-                res.add(new ArrayList<>(path));
-            }
+            res.add(new ArrayList<>(path));
         } else if (target < 0) {
             return;
         }
 
+        // How does tracker remove the duplicate numbers?
+            // With the tracker we can still try the same number multiple times.
+            // Like 2-2-2. The tracker enables us to try all the combinations using the
+            // same number multiple numbers plus a new number. Like 2-2-2-3, 2-2-3, 2-3,
+            // We will not use the 2 again after we use the 3. This makes sure that we
+            // have unique combinations.
         for (int i = tracker; i < arr.size(); i++) {
             if (arr.get(i) > target) return;
 
