@@ -1,4 +1,4 @@
-package ch4TreesAndGraphsCURR;
+package ch4TreesAndGraphs;
 
 /*
  * Problem 4.1 Statement:

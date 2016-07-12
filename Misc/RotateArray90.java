@@ -19,10 +19,16 @@ public class RotateArray90 {
         };
 
         RotateArray90 r = new RotateArray90();
+        System.out.println("Before rotation: ");
+        r.printMatrix(matrix1);
         r.rotate(matrix1);
+        System.out.println("After rotation: ");
         r.printMatrix(matrix1);
 
+        System.out.println("Before rotation: ");
+        r.printMatrix(matrix2);
         r.rotate(matrix2);
+        System.out.println("After rotation: ");
         r.printMatrix(matrix2);
     }
 
@@ -37,26 +43,26 @@ public class RotateArray90 {
         if (matrix == null || matrix.length == 0) return;
 
         int n = matrix.length;
+
         for (int layer = 0; layer < n / 2; layer++) {
             int first = layer;
-            int last = n - 1 - first;
-
+            int last = n - layer - 1;
             for (int i = first; i < last; i++) {
                 int offset = i - first;
 
-                // Save top
+                // Save Top
                 int top = matrix[first][i];
 
-                // left -> top
+                // Left -> Top
                 matrix[first][i] = matrix[last - offset][first];
 
-                // bottom -> left
+                // Bottom -> Left
                 matrix[last - offset][first] = matrix[last][last - offset];
 
-                // right -> bottom
+                // Right -> Bottom
                 matrix[last][last - offset] = matrix[i][last];
 
-                // top -> right
+                // Top -> right
                 matrix[i][last] = top;
             }
         }

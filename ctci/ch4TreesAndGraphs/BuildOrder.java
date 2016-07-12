@@ -1,6 +1,5 @@
-package ch4TreesAndGraphsCURR;
+package ch4TreesAndGraphs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 

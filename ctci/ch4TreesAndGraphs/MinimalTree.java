@@ -1,4 +1,4 @@
-package ch4TreesAndGraphsCURR;
+package ch4TreesAndGraphs;
 
 /**
  * Created by Kevin on 5/13/16.
