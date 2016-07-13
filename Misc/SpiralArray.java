@@ -20,7 +20,9 @@ public class SpiralArray {
 
     private List<Integer> spiralOrder(int[][] matrix) {
         ArrayList<Integer> res = new ArrayList<>();
-        if (matrix == null || matrix.length == 0) return res;
+        if (matrix == null || matrix.length == 0) {
+            return res;
+        }
 
         int currTopRow = 0;
         int currBotRow = matrix.length - 1;
@@ -33,7 +35,7 @@ public class SpiralArray {
                 res.add(matrix[currTopRow][i]);
             }
 
-            // Save right col
+            // Save left col
             for (int i = currTopRow + 1; i <= currBotRow; i++) {
                 res.add(matrix[i][currRightCol]);
             }
@@ -43,7 +45,7 @@ public class SpiralArray {
                 res.add(matrix[currBotRow][i]);
             }
 
-            // Save left col
+            // Save right col
             for (int i = currBotRow - 1; i >= currTopRow + 1; i--) {
                 res.add(matrix[i][currLeftCol]);
             }
