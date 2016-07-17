@@ -4,7 +4,10 @@ import java.util.ArrayList;
  * Created by Kevin on 7/14/16.
  */
 public class LongestPathDiffBy1 {
+    private static ArrayList<Integer> longestSubStr;
     public static void main(String[] args) {
+        longestSubStr = new ArrayList<>();
+
         LongDiffNode root = new LongDiffNode(9);
         root.left = new LongDiffNode(8);
         root.right = new LongDiffNode(10);
@@ -13,38 +16,34 @@ public class LongestPathDiffBy1 {
         root.left.left.left = new LongDiffNode(5);
         root.left.left.left.left = new LongDiffNode(4);
 
-        findLongest(root);
+        System.out.println(findLongest(root));
         return;
     }
 
     public static String findLongest(LongDiffNode root) {
         if (root == null) return "";
 
-        ArrayList<ArrayList<Integer>> paths = new ArrayList<>();
-        findLongest(root, new ArrayList<>(), paths, Integer.MAX_VALUE);
-        // TODO: we can use a heap here to keep track if the longest path.
-        return "";
+        findLongest(root, new ArrayList<>(), Integer.MAX_VALUE);
+        return longestSubStr.toString();
     }
 
-    public static void findLongest(LongDiffNode root, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> paths, int prevVal) {
+    public static void findLongest(LongDiffNode root, ArrayList<Integer> path, int prevVal) {
         if (root == null) return;
         boolean diffby1 = Math.abs(prevVal - root.val) == 1;
         if (!diffby1 && !path.isEmpty()) {
-            paths.add(new ArrayList<>(path));
-            path = new ArrayList<>(); // if i convert to arraylist then i lose track of upstream
+            if (path.size() > longestSubStr.size()) longestSubStr = new ArrayList<>(path);
+            path = new ArrayList<>();
         }
         path.add(root.val);
 
         if (root.left == null && root.right == null) {
-            if (diffby1 && path.size() > 1) {
-                paths.add(new ArrayList<>(path));
-            }
+            if (path.size() > longestSubStr.size()) longestSubStr = new ArrayList<>(path);
             path.remove(path.size() - 1);
             return;
         }
 
-        findLongest(root.left, path, paths, root.val);
-        findLongest(root.right, path, paths, root.val);
+        findLongest(root.left, path, root.val);
+        findLongest(root.right, path, root.val);
         path.remove(path.size() - 1);
     }
 }
