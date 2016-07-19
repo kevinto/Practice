@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Kevin on 7/17/16.
  */
-public class ThreeSum {
+public class threeSum {
     public static void main(String[] args) {
         int[] test1 = { -1, 0, 1, 2, -1, -4 };
         System.out.println(threeSum(test1));
