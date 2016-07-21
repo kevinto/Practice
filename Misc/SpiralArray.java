@@ -19,43 +19,41 @@ public class SpiralArray {
     }
 
     private List<Integer> spiralOrder(int[][] matrix) {
-        ArrayList<Integer> res = new ArrayList<>();
-        if (matrix == null || matrix.length == 0) {
-            return res;
+        ArrayList<Integer> result = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) return result;
+
+        int currTop = 0;
+        int currBot = matrix.length - 1;
+        int currLeft = 0;
+        int currRight = matrix[0].length - 1;
+
+        while(currTop < currBot && currLeft < currRight) {
+            // Save top
+            for (int i = currLeft; i <= currRight; i++) {
+                result.add(matrix[currTop][i]);
+            }
+
+            // Save right
+            for (int i = currTop + 1; i <= currBot; i++) {
+                result.add(matrix[i][currRight]);
+            }
+
+            // Save bot
+            for (int i = currRight - 1; i >= currLeft; i--) {
+                result.add(matrix[currBot][i]);
+            }
+
+            // Save left
+            for (int i = currBot - 1; i > currTop; i--) {
+                result.add(matrix[i][currLeft]);
+            }
+
+            currTop++;
+            currBot--;
+            currLeft++;
+            currRight--;
         }
 
-        int currTopRow = 0;
-        int currBotRow = matrix.length - 1;
-        int currLeftCol = 0;
-        int currRightCol = matrix[0].length - 1;
-
-        while (currTopRow <= currBotRow && currLeftCol <= currRightCol) {
-            // Save top row
-            for (int i = currLeftCol; i <= currRightCol; i++) {
-                res.add(matrix[currTopRow][i]);
-            }
-
-            // Save left col
-            for (int i = currTopRow + 1; i <= currBotRow; i++) {
-                res.add(matrix[i][currRightCol]);
-            }
-
-            // Save bottom row
-            for (int i = currRightCol - 1; i >= currLeftCol; i--) {
-                res.add(matrix[currBotRow][i]);
-            }
-
-            // Save right col
-            for (int i = currBotRow - 1; i >= currTopRow + 1; i--) {
-                res.add(matrix[i][currLeftCol]);
-            }
-
-            currTopRow++;
-            currBotRow--;
-            currLeftCol++;
-            currRightCol--;
-        }
-
-        return res;
+        return result;
     }
 }
