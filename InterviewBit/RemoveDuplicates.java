@@ -1,28 +1,26 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 /**
- * Created by kevint on 7/18/2016.
+ * Created by Kevin on 7/23/16.
  */
-public class Solution {
+public class RemoveDuplicates {
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>();
         arr.add(5000);
         arr.add(5000);
         arr.add(5000);
 
-        int res = removeDuplicates(arr);
-        return;
+        System.out.println(removeDuplicates(arr));
+        System.out.println(arr);
     }
 
     public static int removeDuplicates(ArrayList<Integer> a) {
-        if (a.size() < 2) return a.size();
+        int size = a.size();
+        if (size < 2) return size;
 
-        int k = 0;
         int i = 1;
-        while (i < a.size()) {
+        int k = 0;
+        while (i < size) {
             if (a.get(k).equals(a.get(i))) {
                 i++;
             } else {
