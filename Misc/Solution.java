@@ -1,37 +1,36 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-/**
- * Created by kevint on 7/18/2016.
- */
 public class Solution {
     public static void main(String[] args) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        arr.add(5000);
-        arr.add(5000);
-        arr.add(5000);
+        boolean a = false;
+        a |= true;
 
-        int res = removeDuplicates(arr);
-        return;
+        System.out.println(new Solution().atoi(" 7 U 0 T7165  0128862 089 39 5"));
+        System.out.println(new Solution().atoi(" 7 U 0 T7165  0128862 089 39 5"));
+        System.out.println(new Solution().atoi(" 7 U 0 T7165  0128862 089 39 5"));
     }
 
-    public static int removeDuplicates(ArrayList<Integer> a) {
-        if (a.size() < 2) return a.size();
+    public int atoi(final String a) {
+        if (a.length() == 0) return 0;
 
-        int k = 0;
-        int i = 1;
-        while (i < a.size()) {
-            if (a.get(k).equals(a.get(i))) {
-                i++;
-            } else {
-                k++;
-                a.set(k, a.get(i));
-                i++;
-            }
+        String orig = a.trim();
+        char first = orig.charAt(0);
+        if (first - '0' <= 0 || first - '0' > 9) {
+            return 0;
         }
 
-        return k + 1;
+        double result = 0;
+        int i = 0;
+        while (i < orig.length() && orig.charAt(i) - '0' >= 0 && orig.charAt(i) -'0' <= 9) {
+            result = (result * 10) + (orig.charAt(i) - '0');
+            i++;
+        }
+
+        if (result > Integer.MAX_VALUE) {
+            return 0;
+        } else if (result < Integer.MIN_VALUE) {
+            return 0;
+        }
+
+        return (int)result;
     }
+
 }
