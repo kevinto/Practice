@@ -1,63 +1,71 @@
+import java.util.List;
+
 /**
  * Created by Kevin on 7/24/16.
  */
 public class InsSortLinkedList {
-    public ListNode insertionSortList(ListNode A) {
-        if (A == null) return null;
+    public static void main(String[] args) {
+        ListNode head = new ListNode(3);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(1);
+        head.next.next.next = new ListNode(4);
 
-        ListNode head = A;
-        ListNode node;
-        ListNode prev;
+        ListNode newHead = insertionSortList(head);
+        printList(newHead);
+        return;
+    }
+
+    public static ListNode insertionSortList(ListNode head) {
         ListNode dummyHead = new ListNode(0);
-        dummyHead.next = head;
+        ListNode curr = head;
+        ListNode next = null;
 
-        if (A.next == null) {
-            return A;
+        // Go through the original list and remove elements starting from the
+        // top of the list and add it into the sorted list.
+        while (curr != null) {
+            next = curr.next;
+            addToSorted(dummyHead, curr);
+            curr = next;
         }
 
-        node = A;
-        while (node.next != null) {
-            node = node.next;
-        }
-
-        prev = getPrev(dummyHead, node);
-
-        while(prev != null) {
-            ListNode temp = prev;
-
-            while (node.next != null && node.val > node.next.val) {
-                exchange(prev, node, node.next);
-                prev = prev.next;
-            }
-
-            node = temp;
-            prev = getPrev(dummyHead, node);
-        }
-
+        // The dummy allows us to easily track the changes in the start
+        // of the list due to the changes in ordering.
         return dummyHead.next;
     }
 
-    public ListNode exchange(ListNode prev, ListNode node, ListNode next) {
-        if (prev != null) {
-            prev.next = next;
+    public static void addToSorted(ListNode dummy, ListNode newNode) {
+        ListNode prev = dummy;
+        ListNode curr = dummy.next;
+
+        // Go through the sorted list and insert the newNode in the
+        // correct ascending order.
+        while (curr != null) {
+            if (newNode.val <= curr.val) {
+                prev.next = newNode;
+                newNode.next = curr;
+                return;
+            } else {
+                prev = curr;
+                curr = curr.next;
+            }
         }
 
-        node.next = next.next;
-        next.next = node;
-
-        return node;
+        // Only reach here if newNode is the max item. Add to end of
+        // the list.
+        prev.next = newNode;
+        newNode.next = null;
     }
 
-    public ListNode getPrev(ListNode head, ListNode node) {
-        if (head == node) return null;
-
-        while (head.next != node) {
-            head = head.next;
+    public static void printList(ListNode head) {
+        ListNode curr = head;
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
         }
-        return head;
+        System.out.println();
     }
 
-    class ListNode {
+    public static class ListNode {
         public int val;
         public ListNode next;
 
