@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
  */
 public class Explore {
     public static void main(String[] args) {
-        System.out.println(1 << 4);
+        String test = "blah";
+        System.out.println(test.substring(0, 4));
     }
 
     public static int[] rotateArray(ArrayList<Integer> A, int B) {

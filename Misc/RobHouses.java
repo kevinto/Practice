@@ -8,7 +8,9 @@ public class RobHouses {
     public static void main(String[] args) {
         int[] arr1 = {100, 100, 1, 2, 100};
         memo = new int[arr1.length];
-        System.out.println(findMax(arr1));
+        System.out.println("Find max using bottom up approach: " + findMax(arr1));
+        System.out.println("Find max using brute force approach: " + findMaxBruteForce(arr1));
+        System.out.println("Find max using top down approach: " + findMaxTopDown(arr1));
         System.out.println("path: " + findPath(arr1, findMax(arr1)));
 
         int[] arr2 = {1, 2, 3};
@@ -27,6 +29,32 @@ public class RobHouses {
         System.out.println("path: " + findPath(arr4, findMax(arr4)));
     }
 
+    public static int findMaxBruteForce(int[] arr) {
+        return findMaxBruteForceHelper(arr, 0);
+    }
+
+    public static int findMaxBruteForceHelper(int[] arr, int start) {
+        if (start >= arr.length) return 0;
+
+        return Math.max(arr[start] + findMaxBruteForceHelper(arr, start + 2),
+                findMaxBruteForceHelper(arr, start + 1));
+    }
+
+    public static int findMaxTopDown(int[] arr) {
+        int[] memoTopDown = new int[arr.length];
+        int max = findMaxTopDownHelper(arr, 0, memoTopDown);
+        return max;
+    }
+
+    public static int findMaxTopDownHelper(int[] arr, int start, int[] memoTopDown) {
+        if (start >= arr.length) return 0;
+        if (memoTopDown[start] != 0) return memoTopDown[start];
+
+        int max = Math.max(arr[start] + findMaxTopDownHelper(arr, start + 2, memoTopDown),
+                findMaxTopDownHelper(arr, start + 1, memoTopDown));
+        memoTopDown[start] = max;
+        return max;
+    }
     private static int[] memo;
 
     public static int findMax(int[] arr) {
