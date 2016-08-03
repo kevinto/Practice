@@ -9,7 +9,7 @@ public class TwoDMatrixMaxSubMatrix {
                 {-4, 1, -4, 1},
                 {-1, 8, 0, -2}
         };
-        System.out.println("brute force:" + findMaxBruteForce(testMatrix1));
+        System.out.println("brute force: " + findMaxBruteForce(testMatrix1));
         System.out.println("kadane's: " + findMaxOptimal(testMatrix1));
     }
 
@@ -42,7 +42,6 @@ public class TwoDMatrixMaxSubMatrix {
 
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
-                int sum = matrix[row][col];
                 if (row > 0) matrix[row][col] += matrix[row - 1][col];
                 if (col > 0) matrix[row][col] += matrix[row][col - 1];
                 if (row > 0 && col > 0) matrix[row][col] -= matrix[row - 1][col - 1];
