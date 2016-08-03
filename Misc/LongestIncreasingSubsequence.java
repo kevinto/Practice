@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * Created by Kevin on 8/2/16.
  */
@@ -24,8 +26,16 @@ public class LongestIncreasingSubsequence {
         return max + 1; // Assuming I didnt count i.
     }
 
-    public int findLongestRecursive(int[] arr, int next, int prev) {
+    private HashSet<String> tracker = new HashSet<>();
+    private int findLongestRecursive(int[] arr, int next, int prev) {
         if (next >= arr.length) return 0;
+
+        String temp = next + ", " + prev;
+        if (tracker.contains(temp)) {
+            System.out.println("repeated work for: " + temp);
+        } else {
+            tracker.add(temp);
+        }
 
         int res1 = 0;
         int res2 = 0;
