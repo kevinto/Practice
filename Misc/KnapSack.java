@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import static java.lang.System.*;
 
@@ -5,6 +6,10 @@ import static java.lang.System.*;
  * Created by Kevin on 7/6/16.
  *
  * Solves the knapsack problem. This implementation assumes that we do not keep duplicate items
+ * http://www.geeksforgeeks.org/dynamic-programming-set-10-0-1-knapsack-problem/
+ * https://www.youtube.com/watch?v=149WSzQ4E1g
+ * https://github.com/mission-peace/interview/blob/master/src/com/interview/dynamic/Knapsack01.java#L73
+ *
  */
 public class KnapSack {
     private static int memo[];
@@ -13,6 +18,7 @@ public class KnapSack {
     private int[] val;
     private int[] weights;
     private HashSet<Integer> possibleItems;
+    private static HashMap<CapAndNumItem, Integer> memoMap;
 
     public static void main(String[] args) {
         int numItems = 3;
@@ -31,30 +37,86 @@ public class KnapSack {
 
 //        int result = new KnapSack(numItems, val2, weights2, capacity).findMaxVal();
 //        out.println("Max value we can have in the knapsack: " + result);
-        int optimal2 = knapSackBacktrack(capacity, weights2, val2, val2.length);
+        int optimal2 = knapSackBacktrack(val2, weights2, capacity, val2.length - 1);
         out.println("Max value using backtracking: " + optimal2);
+
+        // hashmap memo test:
+        int capacity3 = 8;
+        memoMap = new HashMap<>();
+        int[] val3 = { 2, 4, 6, 9 };
+        int[] weights3 = { 2, 2, 4, 5 };
+        int optimal3 = new KnapSack().knapSackBacktrackWithMemo(val3, weights3, capacity3, val3.length - 1);
+        out.println("Max value using backtracking and hashmap memo: " + optimal3);
     }
 
-    private static int knapSackBacktrack(int W, int wt[], int val[], int n)
-    {
-        // Base Case
-        if (n == 0 || W == 0)
+    private static int knapSackBacktrack(int[] v, int[] w, int cap, int index) {
+        if (index < 0 || cap < 0) {
             return 0;
+        }
 
-        // If weight of the nth item is more than Knapsack capacity W, then
-        // this item cannot be included in the optimal solution
-        if (wt[n-1] > W)
-            return knapSackBacktrack(W, wt, val, n-1);
+        if (w[index] > cap) {
+            return knapSackBacktrack(v, w, cap, index - 1);
+        }
 
-            // Return the maximum of two cases:
-            // (1) nth item included
-            // (2) not included
-        else return Math.max(val[n-1] + knapSackBacktrack(W-wt[n-1], wt, val, n-1),
-                knapSackBacktrack(W, wt, val, n-1)
-        );
+        return Math.max(v[index] + knapSackBacktrack(v, w, cap - w[index], index - 1),
+                knapSackBacktrack(v, w, cap, index - 1));
     }
 
-    private KnapSack(int numItems, int[] val, int[] weights, int capacity) {
+    // For the map, why cant i use just the cap for memo?
+    //  - For example, the senario where you recurse down and dont pick any item. As you
+    //    go back the tree you pick 1 item. This compares scenarios where you pick 1 item only.
+    //    If i used cap as the key, then i would not recur down.
+    private int knapSackBacktrackWithMemo(int[] v, int[] w, int cap, int index) {
+        if (memoMap.containsKey(cap)) {
+            return memoMap.get(cap);
+        }
+        else if (index < 0 || cap < 0) {
+            return 0;
+        }
+
+        int maxVal = 0;
+        if (w[index] > cap) {
+            maxVal = knapSackBacktrackWithMemo(v, w, cap, index - 1);
+            memoMap.put(new CapAndNumItem(cap, v.length - index), maxVal);
+        }
+
+        maxVal = Math.max(v[index] + knapSackBacktrackWithMemo(v, w, cap - w[index], index - 1),
+                knapSackBacktrackWithMemo(v, w, cap, index - 1));
+        memoMap.put(new CapAndNumItem(cap, v.length - index), maxVal);
+        return maxVal;
+    }
+
+    class CapAndNumItem {
+        int cap;
+        int numItemLeft;
+        CapAndNumItem(int c, int n) {
+            cap = c;
+            numItemLeft = n;
+        }
+
+        // The bad thing about this implementation approach is that
+        // you cannot change this object once you put it in the hashmap.
+        // This is because the key changes if the object changes.
+        @Override
+        public int hashCode() {
+            int result = this.cap;
+            result = 31 * result + numItemLeft;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CapAndNumItem c = (CapAndNumItem)o;
+
+            if (cap != c.cap) return false;
+            return numItemLeft == c.numItemLeft;
+        }
+    }
+
+    private KnapSack() {
         this.numItems = numItems;
         this.val = val;
         this.weights = weights;
