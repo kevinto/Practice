@@ -23,7 +23,7 @@ public class BinaryTreeClass {
         insertNode(root, 4);
         insertNode(root, 7);
         insertNode(root, 9);
-        insertNode(root, 3);
+        BinaryTreeNode btest =  insertNode(root, 3);
         BinaryTreeNode nodeForSuccessor = insertNode(root, 5);
 
         // Search test
@@ -82,6 +82,7 @@ public class BinaryTreeClass {
         }
     }
 
+    // Here we are returning the newly created node.k
     private static BinaryTreeNode insertNode(BinaryTreeNode root, int value) {
         if (root == null) {
             return null;
@@ -111,6 +112,7 @@ public class BinaryTreeClass {
             }
         }
 
+        // Will this statement ever be hit?
         return root;
     }
 
