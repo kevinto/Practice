@@ -38,24 +38,11 @@ public class LongestIncreasingSubsequence {
 
         // Find the max len of the subseq
         int maxIndex = 0;
-        for (int i = 0; i < table.length; i++) {
+        for (int i = 1; i < table.length; i++) {
             if (table[i] > table[maxIndex]) {
                 maxIndex = i;
             }
         }
-
-        // MY messy path printing
-//        int curr = maxIndex;
-//        int next = path[maxIndex];
-//        while (curr != next) {
-//            System.out.print(arr[curr] + " ");
-//            curr = next;
-//            next = path[next];
-//            if (curr == next) {
-//                System.out.print(arr[curr] + " ");
-//            }
-//        }
-//        System.out.println();
 
         // Print actual solution
         int curr;
