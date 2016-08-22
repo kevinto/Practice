@@ -1,8 +1,37 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
+    class PointsOnAPlane {
+        ArrayList<Point> points = new ArrayList<>();
+        void addPoint(Point point) {
+            points.add(point);
+        }
+
+        Collection<Point> findNearest(Point center, int p) {
+            ArrayList<Point> res = new ArrayList<>();
+            PriorityQueue<Point> pq = new PriorityQueue<>();
+
+
+
+            return res;
+        }
+
+        class Point {
+            final int x;
+            final int y;
+
+            public Point(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            public int getDist(int x2, int y2) {
+                return (int)Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
+            }
+
+
+        }
+    }
     public static void main(String[] args) {
         String test1 = "helloworld";
         Set<String> testdict1 = new HashSet<>();
