@@ -1,7 +1,7 @@
-import java.util.*;
-import java.util.LinkedList;
-
-public class Solution {
+/**
+ * Created by Kevin on 10/29/16.
+ */
+public class BestPath {
     public static void main(String args[] ) throws Exception {
         int[][] board = {
                 { 1, 2, 3 },
@@ -78,14 +78,6 @@ public class Solution {
 
         return dpPrevious[0];
     }
-
-    private static class Node {
-        Node left, right;
-        int val;
-        Node(int x) {
-            val = x;
-        }
-
-    }
 }
+
 
