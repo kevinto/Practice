@@ -44,22 +44,17 @@ public class LongestCommonSubsequence {
         return sb.toString();
     }
 
-    private static boolean generatePath(String str1, int idx1, String str2, int idx2, int[][] dp, StringBuilder sb) {
+    private static void generatePath(String str1, int idx1, String str2, int idx2, int[][] dp, StringBuilder sb) {
         if (idx1 == dp.length - 1 || idx2 == dp[0].length - 1) {
-            return false;
-        } else if (dp[idx1][idx2] - 1 == dp[idx1 + 1][idx2] &&
-                dp[idx1][idx2] - 1 == dp[idx1][idx2 + 1]) {
+        } else if (dp[idx1][idx2] == dp[idx1 + 1][idx2] + 1 &&
+                dp[idx1][idx2] == dp[idx1][idx2 + 1] + 1) {
+//            System.out.println("found change point at: " + idx1 + " " + idx2);
             sb.append(str1.charAt(idx1));
             generatePath(str1, idx1 + 1, str2, idx2 + 1, dp, sb);
-            return true;
+        } else if (dp[idx1][idx2] == dp[idx1 + 1][idx2]) {
+            generatePath(str1, idx1 + 1, str2, idx2, dp, sb);
         } else {
-            boolean found = generatePath(str1, idx1 + 1, str2, idx2, dp, sb);
-
-            if (!found) {
-                generatePath(str1, idx1, str2, idx2 + 1, dp, sb);
-            }
-
-            return found;
+            generatePath(str1, idx1, str2, idx2 + 1, dp, sb);
         }
     }
 
