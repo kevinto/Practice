@@ -5,12 +5,46 @@ import java.util.Arrays;
  */
 public class LongestCommonSubsequence {
     public static void main(String[] args) {
-        getLCS("xyz", "byz");
+        System.out.println(getLCS("xyz", "byz"));
     }
 
-    private static String getLCS(String str1, String str2) {
-        System.out.println(getLCSBottomUpDp(str1, str2));
-        return "";
+    static String getLCS(String str1, String str2) {
+        int s1Length = str1.length();
+        int s2Length = str2.length();
+        int[][] dp = new int[s1Length + 1][s2Length + 1];
+
+        // Generate the DP table
+        for (int row = 1; row <= s1Length; row++) {
+            for (int col = 1; col <= s2Length; col++) {
+                if (str1.charAt(row - 1) == str2.charAt(col - 1)) {
+                    dp[row][col] = 1 + dp[row - 1][col - 1];
+                } else {
+                    dp[row][col] = Math.max(dp[row - 1][col], dp[row][col - 1]);
+                }
+            }
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            System.out.println(Arrays.toString(dp[i]));
+        }
+
+        // Traverse DP to find the LCS
+        StringBuilder sb = new StringBuilder();
+        findPath(dp, sb, str1, s1Length, s2Length);
+        return sb.reverse().toString();
+    }
+
+    static void findPath(int[][] dp, StringBuilder sb, String refString, int row, int col) {
+        if (row == 0 || col == 0) {
+            return;
+        } else if (dp[row][col] == dp[row - 1][col] + 1 && dp[row][col] == dp[row][col - 1] + 1) {
+            sb.append(refString.charAt(row - 1));
+            findPath(dp, sb, refString, row - 1, col - 1);
+        } else if (dp[row][col] == dp[row - 1][col]){
+            findPath(dp, sb, refString, row - 1, col);
+        } else if (dp[row][col] == dp[row][col - 1]){
+            findPath(dp, sb, refString, row, col - 1);
+        }
     }
 
     private static String getLCSBottomUpDp(String str1, String str2) {
@@ -38,9 +72,7 @@ public class LongestCommonSubsequence {
         StringBuilder sb = new StringBuilder();
         generatePath(str1, 0, str2, 0, dp, sb);
 
-//        for (int i = 0; i < dp.length; i++) {
-//            System.out.println(Arrays.toString(dp[i]));
-//        }
+
         return sb.toString();
     }
 
@@ -48,7 +80,6 @@ public class LongestCommonSubsequence {
         if (idx1 == dp.length - 1 || idx2 == dp[0].length - 1) {
         } else if (dp[idx1][idx2] == dp[idx1 + 1][idx2] + 1 &&
                 dp[idx1][idx2] == dp[idx1][idx2 + 1] + 1) {
-//            System.out.println("found change point at: " + idx1 + " " + idx2);
             sb.append(str1.charAt(idx1));
             generatePath(str1, idx1 + 1, str2, idx2 + 1, dp, sb);
         } else if (dp[idx1][idx2] == dp[idx1 + 1][idx2]) {
