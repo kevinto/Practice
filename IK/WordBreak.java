@@ -51,7 +51,7 @@ public class WordBreak {
             if (dp[dpIdx] != null) {
                 for (int i = dpIdx - 1; i >= 0; i--) {
                     String sub = word.substring(i, dpIdx);
-                    if (dict.contains(sub) && dp[dpIdx] != null) {
+                    if (dict.contains(sub)) {
                         if (dp[i] == null) {
                             dp[i] = new ArrayList<>();
                         }
