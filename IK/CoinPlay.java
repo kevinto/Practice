@@ -13,7 +13,36 @@ public class CoinPlay {
 
     static int maxWin(int[] coins) {
 //        return maxWinRecursive(coins, 0, coins.length - 1);
-        return maxWinBottomDp(coins, coins.length);
+//        return maxWinBottomDp(coins, coins.length);
+        return maxWinBottomDp2(coins);
+    }
+
+    static int maxWinBottomDp2(int[] coins) {
+        int[][] dp = new int[coins.length][coins.length];
+
+        // Left indicates available coin on the left side.
+        // Right indicates available coin on the right side.
+        for (int left = dp.length - 1; left >= 0; left--) {
+            for (int right = 0; right < dp.length; right++) {
+                if (left == right) {
+                    // For odd-numbered boards, set diagonal base case
+                    dp[left][right] = coins[left];
+                } else if (left + 1 == right) {
+                    // For even-numbered boards, set diagonal base case
+                    dp[left][right] = Math.max(coins[left], coins[right]);
+                } else if (left > right) {
+                    // Skip lower half of dp matrix
+                    dp[left][right] = 0;
+                } else {
+                    int chooseLeft = coins[left] + Math.min(dp[left + 2][right], dp[left + 1][right - 1]);
+                    int chooseRight = coins[right] + Math.min(dp[left][right - 2], dp[left + 1][right - 1]);
+
+                    dp[left][right] = Math.max(chooseLeft, chooseRight);
+                }
+            }
+        }
+
+        return dp[0][coins.length - 1];
     }
 
     static int maxWinBottomDp(int[] arr, int n)
