@@ -14,6 +14,19 @@ public class MaxSizeSubMatrix {
         System.out.println("recursive: " + maxSubmatrix(m1));
         System.out.println("full dp bottom up: " + maxSubmatrixFullBotUpDp(m1));
         System.out.println("dp bottom up with space savings: " + maxSubmatrixBotUpDpOptimalSpace(m1));
+
+        int[][] m2 = {
+                {0, 1, 1, 0, 1},
+                {1, 1, 0, 1, 0},
+                {0, 1, 1, 1, 0},
+                {1, 1, 1, 1, 0},
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0}
+        };
+
+        System.out.println("recursive: " + maxSubmatrix(m2));
+        System.out.println("full dp bottom up: " + maxSubmatrixFullBotUpDp(m2));
+        System.out.println("dp bottom up with space savings: " + maxSubmatrixBotUpDpOptimalSpace(m2));
     }
 
     static int maxSubmatrix(int[][] mtx) {
@@ -39,12 +52,20 @@ public class MaxSizeSubMatrix {
 
     static int maxSubmatrixFullBotUpDp(int[][] mtx) {
         int squareSize = 0;
-        int[][] dp = new int[mtx.length + 1][mtx[0].length + 1];
-        int[][] curr = new int[1][mtx[0].length + 1];
-        int[][] prev = new int[1][mtx[0].length + 1];
+        int[][] dp = new int[mtx.length][mtx[0].length];
 
-        for (int row = mtx.length - 1; row >= 0; row--) {
-            for (int col = mtx[0].length - 1; col >= 0; col--) {
+        // Fill out last row with mtx values
+        for (int i = 0; i < mtx[0].length; i++){
+            dp[mtx.length - 1][i] = mtx[mtx.length - 1][i];
+        }
+
+        // Fill out last col with mtx values
+        for (int j = 0; j < mtx.length; j++){
+            dp[j][mtx[0].length - 1] = mtx[j][mtx[0].length - 1];
+        }
+
+        for (int row = mtx.length - 2; row >= 0; row--) {
+            for (int col = mtx[0].length - 2; col >= 0; col--) {
                 if (mtx[row][col] != 0) {
                     dp[row][col] = min(dp[row + 1][col], dp[row][col + 1], dp[row + 1][col + 1]) + 1;
                     squareSize = Math.max(squareSize, dp[row][col]);
@@ -52,7 +73,7 @@ public class MaxSizeSubMatrix {
             }
         }
 
-//        printMatrix(dp);
+        printMatrix(dp);
         return squareSize;
     }
 
