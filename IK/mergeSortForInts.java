@@ -19,21 +19,21 @@ public class mergeSortForInts {
             return arr;
         }
 
-        MergeSort(arr, 0, arr.length - 1);
+        int[] helper = new int[arr.length];
+        MergeSort(arr, helper, 0, arr.length - 1);
         return arr;
     }
 
-    static void MergeSort(int[] arr, int start, int end) {
+    static void MergeSort(int[] arr, int[] helper, int start, int end) {
         if (start < end) {
             int mid = ((end - start) / 2) + start;
-            MergeSort(arr, start, mid);
-            MergeSort(arr, mid + 1, end);
-            Merge(arr, start, end);
+            MergeSort(arr, helper, start, mid);
+            MergeSort(arr, helper, mid + 1, end);
+            Merge(arr, helper, start, end);
         }
     }
 
-    static void Merge(int[] arr, int start, int end) {
-        int[] helper = new int[end - start + 1];
+    static void Merge(int[] arr, int[] helper, int start, int end) {
         int mid = ((end - start) / 2) + start;
         int first = start;
         int second = mid + 1;
