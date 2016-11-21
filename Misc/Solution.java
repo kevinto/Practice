@@ -3,89 +3,51 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String args[] ) throws Exception {
-        int[][] board = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 8, 9 }
-        };
-
-        System.out.println("2d dp arr: " + bestPathBottomUpDp(board));
-        System.out.println("2 1d dp arr: " + bestPathBottomUpDpSpaceSave(board));
-
-        int[][] board2 = {
-                { 2, 1, 5 },
-                { 3, 4, 6 },
-                { 1, 12, 3 }
-        };
-
-        System.out.println("2d dp arr: " + bestPathBottomUpDp(board2));
-        System.out.println("2 1d dp arr: " + bestPathBottomUpDpSpaceSave(board2));
+        int[] nums1 = { 1, 2 };
+        int[] nums2 = { 3, 4, 0, 0 };
+        int[] res = mergeFirstIntoAnother(nums1, nums2);
+        return;
     }
 
-    private static int bestPathBottomUpDp(int[][] board) {
-        if (board == null || board.length == 0) {
-            return 0;
-        }
+    static int[] mergeFirstIntoAnother(int[] intArrShort, int[] intArrLong) {
+        shiftToLastHalf(intArrLong);
 
-        int maxRows = board.length;
-        int maxCols = board[0].length;
-        int[][] dp = new int[maxRows][maxCols];
-        dp[maxRows - 1][maxCols - 1] = board[maxRows - 1][maxCols - 1];
-
-        for (int row = maxRows - 1; row >= 0; row--) {
-            for (int col = maxCols - 1; col >= 0; col--) {
-                if (row == maxRows - 1 && col == maxCols - 1) {
-                    continue;
-                } else if (row == maxRows - 1) {
-                    dp[row][col] = board[row][col] + dp[row][col + 1];
-                } else if (col == maxCols - 1) {
-                    dp[row][col] = board[row][col] + dp[row + 1][col];
-                } else {
-                    dp[row][col] = board[row][col] + Math.max(dp[row + 1][col], dp[row][col + 1]);
-                }
+        int len = intArrShort.length;
+        int first = 0;
+        int second = len;
+        int finalIdx = 0;
+        while (first < len && second < intArrLong.length) {
+            if (intArrShort[first] < intArrLong[second]) {
+                intArrLong[finalIdx++] = intArrShort[first++];
+            } else {
+                intArrLong[finalIdx++] = intArrLong[second++];
             }
         }
 
-        return dp[0][0];
-    }
-
-    private static int bestPathBottomUpDpSpaceSave(int[][] board) {
-        if (board == null || board.length == 0) {
-            return 0;
+        while (first < len) {
+            intArrLong[finalIdx++] = intArrShort[first++];
         }
 
-        int maxRows = board.length;
-        int maxCols = board[0].length;
-        int[] dpCurrent = new int[maxCols];
-        int[] dpPrevious = new int[maxCols];
-        dpCurrent[maxCols - 1] = board[maxRows - 1][maxCols - 1];
+        while (second < intArrLong.length) {
+            intArrLong[finalIdx++] = intArrLong[second++];
+        }
 
-        for (int row = maxRows - 1; row >= 0; row--) {
-            for (int col = maxCols - 1; col >= 0; col--) {
-                if (row == maxRows - 1 && col == maxCols - 1) {
-                    continue;
-                } else if (row == maxRows - 1) {
-                    dpCurrent[col] = board[row][col] + dpCurrent[col + 1];
-                } else if (col == maxCols - 1) {
-                    dpCurrent[col] = board[row][col] + dpPrevious[col];
-                } else {
-                    dpCurrent[col] = board[row][col] + Math.max(dpCurrent[col + 1], dpPrevious[col]);
-                }
+        return intArrLong;
+    }
+
+    static void shiftToLastHalf(int[] arr) {
+        int start = 0;
+        int copyIdx = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                copyIdx = i;
+                break;
             }
-            dpPrevious = dpCurrent;
-            dpCurrent = new int[maxCols];
         }
 
-        return dpPrevious[0];
-    }
-
-    private static class Node {
-        Node left, right;
-        int val;
-        Node(int x) {
-            val = x;
+        while (copyIdx < arr.length) {
+            arr[copyIdx++] = arr[start++];
         }
-
     }
 }
 
