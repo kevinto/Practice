@@ -3,50 +3,37 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String args[] ) throws Exception {
-        int[] nums1 = { 1, 2 };
-        int[] nums2 = { 3, 4, 0, 0 };
-        int[] res = mergeFirstIntoAnother(nums1, nums2);
-        return;
+        Node root1 = new Node(1);
+        root1.left = new Node(2);
+        root1.right = new Node(3);
+
+        Node root2 = new Node(1);
+        root2.left = new Node(2);
+        root2.right = new Node(4);
+
+        System.out.println(isIdentical(root1, root2));
     }
 
-    static int[] mergeFirstIntoAnother(int[] intArrShort, int[] intArrLong) {
-        shiftToLastHalf(intArrLong);
-
-        int len = intArrShort.length;
-        int first = 0;
-        int second = len;
-        int finalIdx = 0;
-        while (first < len && second < intArrLong.length) {
-            if (intArrShort[first] < intArrLong[second]) {
-                intArrLong[finalIdx++] = intArrShort[first++];
-            } else {
-                intArrLong[finalIdx++] = intArrLong[second++];
-            }
+    public static boolean isIdentical(Node root1, Node root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        } else if (root1 == null || root2 == null) {
+            return false;
+        } else if (root1.val != root2.val) {
+            return false;
         }
 
-        while (first < len) {
-            intArrLong[finalIdx++] = intArrShort[first++];
-        }
-
-        while (second < intArrLong.length) {
-            intArrLong[finalIdx++] = intArrLong[second++];
-        }
-
-        return intArrLong;
+        return isIdentical(root1.left, root2.left)
+                && isIdentical(root1.right, root2.right);
     }
 
-    static void shiftToLastHalf(int[] arr) {
-        int start = 0;
-        int copyIdx = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 0) {
-                copyIdx = i;
-                break;
-            }
-        }
+    static class Node {
+        Node left;
+        Node right;
+        int val;
 
-        while (copyIdx < arr.length) {
-            arr[copyIdx++] = arr[start++];
+        Node(int x) {
+            val = x;
         }
     }
 }
