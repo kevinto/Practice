@@ -15,6 +15,7 @@ public class WordBreak {
     static String[] wordBreak(String word, String[] strDict) {
         HashSet<String> dict = genDict(strDict);
 
+        boolean res = wordCanBeEvenlyBroken(word, dict);
         List<String>[] dpTable = possibleWords(word, dict);
         ArrayList<String> result = new ArrayList<>();
         ArrayList<String> path = new ArrayList<>();
@@ -41,11 +42,17 @@ public class WordBreak {
         }
     }
 
-    // This implementation puts a true value at the start of the word.
+    // This implementation puts a true value at the start of the word. Why does this
+    // implementation save on duplicate work?
+    //  -- This current code is o(n^2). This is because for every start position we
+    //     are trying to find all the possible end positions.
+    //  -- With the recursive solution, we encounter the same start positions multiple
+    //     times in a row. This happens when each for loop level is a word. This causes
+    //     us to start at the same position multiple times, potentially. CHECK REFERENCE PROBLEM NOTEBOOK
     static List<String>[] possibleWords(String word, HashSet<String> dict) {
         int wordLen = word.length();
         List<String>[] dp = new ArrayList[wordLen + 1];
-        dp[wordLen] = new ArrayList<>();
+        dp[wordLen] = new ArrayList<>(); // Where the last position list is CREATED!
 
         for (int dpIdx = wordLen; dpIdx >= 0; dpIdx--) {
             if (dp[dpIdx] != null) {
