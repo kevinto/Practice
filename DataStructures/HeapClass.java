@@ -7,22 +7,28 @@ public class HeapClass {
     public static void main(String[] args) {
         int[] test1 = { 11, 18, 1, 3, 4 };
         Heap heap = new Heap(test1);
+        heap.insert(-1);
         System.out.println(Arrays.toString(heap.arr));
-        return;
+
+        int[] test2 = { 100, 99, 98, 97 };
+        Heap heap2 = new Heap(test2);
+        System.out.println(Arrays.toString(heap2.arr));
     }
 
     static class Heap {
         public static int capacity = 50;
-        public static int emptyPos = 1;
+        public static int emptyPos;
 
         // Array will be populated starting at position 1.
-        public static int[] arr = new int[capacity + 1];
+        public static int[] arr;
 
         public Heap(int[] originalArray) {
             if (originalArray.length > capacity) {
                 return;
             }
 
+            emptyPos = 1;
+            arr = new int[capacity + 1];
             copyToInternalArray(originalArray);
 
             for(int i = (originalArray.length / 2); i > 0; i--) {
@@ -49,6 +55,29 @@ public class HeapClass {
                 swap(i, min);
                 heapify(min);
             }
+        }
+
+        public static void insert(int val) {
+            if (emptyPos > 50) {
+                return;
+            }
+
+            arr[emptyPos] = val;
+            emptyPos++;
+
+            bottomUpHeapify(emptyPos - 1);
+        }
+
+        private static void bottomUpHeapify(int pos) {
+            if (pos == 1) {
+                return;
+            }
+
+            int parentIdx = pos / 2;
+            if (arr[pos] < arr[parentIdx]) {
+                swap(parentIdx, pos);
+            }
+            bottomUpHeapify(parentIdx);
         }
 
         private static void swap(int leftChildIdx, int i) {
