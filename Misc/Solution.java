@@ -3,38 +3,31 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String args[] ) throws Exception {
-        Node root1 = new Node(1);
-        root1.left = new Node(2);
-        root1.right = new Node(3);
+        char[] arr = { '1', '9', '9', '1' };
+        incMid(arr);
+        System.out.println(Arrays.toString(arr));
 
-        Node root2 = new Node(1);
-        root2.left = new Node(2);
-        root2.right = new Node(4);
-
-        System.out.println(isIdentical(root1, root2));
+        char[] arr1 = { '1', '9', '9' };
+        incMid(arr1);
+        System.out.println(Arrays.toString(arr1));
     }
 
-    public static boolean isIdentical(Node root1, Node root2) {
-        if (root1 == null && root2 == null) {
-            return true;
-        } else if (root1 == null || root2 == null) {
-            return false;
-        } else if (root1.val != root2.val) {
-            return false;
+    public static void incMid(char[] nums) {
+        boolean carry;
+        int mid = (nums.length) / 2;
+        if (nums.length % 2 == 0) {
+            mid--;
         }
 
-        return isIdentical(root1.left, root2.left)
-                && isIdentical(root1.right, root2.right);
-    }
-
-    static class Node {
-        Node left;
-        Node right;
-        int val;
-
-        Node(int x) {
-            val = x;
-        }
+        do {
+            carry = nums[mid] == '9';
+            if (carry) {
+                nums[mid] = '0';
+                mid--;
+            } else {
+                nums[mid] = (char)(nums[mid] + 1);
+            }
+        } while (mid >= 0 && carry);
     }
 }
 
