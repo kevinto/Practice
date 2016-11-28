@@ -4,15 +4,47 @@
 public class NumPaths1sAnd0s {
     public static void main(String[] args) {
         int[][] test1 = {
-                {1, 1, 0},
+                {1, 1, 1},
                 {1, 0, 1},
-                {1, 0, 1}
+                {1, 1, 1}
         };
-        int numPaths1 = numPaths(test1);
-        System.out.println(numPaths1);
+        int numPaths1 = numPathsFullSpaceDp(test1);
+        System.out.println("full space dp answer: " + numPaths1);
+
+        int numPaths2 = numPathsMinSpaceDp(test1);
+        System.out.println("min space dp answer: " + numPaths2);
     }
 
-    private static int numPaths(int[][] board) {
+    private static int numPathsMinSpaceDp(int[][] board) {
+        if (board == null || board.length == 0) {
+            return 0;
+        }
+
+        int[] curr = new int[board[0].length];
+        int[] prev = new int[board[0].length];
+        for (int col = board[0].length - 1; col >= 0; col--) {
+            if (board[board.length - 1][col] == 0) {
+                break;
+            }
+            prev[col] = 1;
+        }
+
+        for (int row = board.length - 2; row >= 0; row--) {
+            for (int col = board[0].length - 1; col >= 0; col--) {
+                if (col == board[0].length - 1) {
+                    curr[col] = board[row][col] == 0 || prev[col] == 0 ? 0 : 1;
+                } else if (board[row][col] != 0) {
+                    curr[col] = curr[col + 1] + prev[col];
+                }
+            }
+            prev = curr;
+            curr = new int[board[0].length];
+        }
+
+        return prev[0];
+    }
+
+    private static int numPathsFullSpaceDp(int[][] board) {
         if (board == null || board.length == 0) {
             return 0;
         }
