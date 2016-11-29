@@ -143,3 +143,60 @@ public class NextServerNumber {
         return nums[nums.length - 1] + 1;
     }
 }
+
+/* 1, 2, 3
+# >> tracker = Tracker.new()
+# >> tracker.allocate('apibox')
+# "apibox1"
+# >> tracker.allocate('apibox')
+# "apibox2"
+# >> tracker.allocate('apibox')
+# "apibox3"
+# >> tracker.deallocate('apibox1')
+# null
+# >> tracker.deallocate('apibox')
+# error
+# >> tracker.allocate('apibox')
+# "apibox1"
+# >> tracker.allocate('apibox')
+# "apibox4"
+# >> tracker.allocate('site')
+# "site1"
+# >> tracker.allocate('site')
+# "site2"
+# >> tracker.allocate('site')
+# "site3"
+# >> tracker.deallocate('site2')
+# null
+
+what happens when we deallocate the last server?
+can we shift number mappings?
+
+hashmap of servers and their next number
+what should optimize?
+allocation or deallocation
+
+allocation:
+	optimize by keeping next number clean - requires remapping on deallocation
+
+deallocation:
+	do just deallocate and worry about numbers on allocation
+
+simple version is to optimize deallocation and utilize our function on allocation
+how do we hold this stuff:
+	hashmap of treesets. key is the server type. int values are sorted
+	arraylist the best choice?
+deallocation method:
+	check if valid name (means it has a number at the end)
+	check if we have the server type
+	check if we have the element
+	if yes remove it, if no return null
+
+allocation method:
+	check if server type is a valid name. no number at the end
+	if server type does not exist in hashset. create new keyval pair
+	if server does exist
+		convert treeset to array and pass through next server number method
+		add the new server name to the treelist
+	return new server name
+*/

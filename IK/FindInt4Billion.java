@@ -7,8 +7,10 @@ import java.util.Scanner;
  */
 public class FindInt4Billion {
     public static void main(String[] args) {
+        // Shifts the bits 31 to the left. Inc the number.
         int bitmap = 1 << 31;
         System.out.println(bitmap);
+
 //        System.out.println(bitmap == (1 << 31));
         System.out.println(bitmap & (1 << 30)); // Returns 0 because not set.
 
