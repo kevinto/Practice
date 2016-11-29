@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 /**
  * Created by Kevin on 11/7/16.
+ * Find the max square submatrix that consists of all 1s.
+ * Input matrix can contain 1s and 0s.
  */
 public class MaxSizeSubMatrix {
     public static void main(String[] args) {
