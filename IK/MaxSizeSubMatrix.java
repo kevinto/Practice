@@ -15,6 +15,7 @@ public class MaxSizeSubMatrix {
 
         System.out.println("recursive: " + maxSubmatrix(m1));
         System.out.println("full dp bottom up: " + maxSubmatrixFullBotUpDp(m1));
+        System.out.println("full dp bottom up (cleaner version): " + maxSubMatrixFullBottomUpDpCleaner(m1));
         System.out.println("dp bottom up with space savings: " + maxSubmatrixBotUpDpOptimalSpace(m1));
 
         int[][] m2 = {
@@ -28,6 +29,7 @@ public class MaxSizeSubMatrix {
 
         System.out.println("recursive: " + maxSubmatrix(m2));
         System.out.println("full dp bottom up: " + maxSubmatrixFullBotUpDp(m2));
+        System.out.println("full dp bottom up (cleaner version): " + maxSubMatrixFullBottomUpDpCleaner(m2));
         System.out.println("dp bottom up with space savings: " + maxSubmatrixBotUpDpOptimalSpace(m2));
     }
 
@@ -77,6 +79,23 @@ public class MaxSizeSubMatrix {
 
         printMatrix(dp);
         return squareSize;
+    }
+
+    public static int maxSubMatrixFullBottomUpDpCleaner(int[][] matrix) {
+        int[][] dp = new int[matrix.length + 1][matrix[0].length + 1];
+
+        int max = 0;
+        for(int row = matrix.length - 1; row >= 0; row--) {
+            for(int col = matrix[0].length - 1; col >= 0; col--) {
+                if (matrix[row][col] != 0) {
+                    dp[row][col] = Math.min(dp[row][col + 1],
+                            Math.min(dp[row + 1][col + 1], dp[row + 1][col])) + 1;
+                    max = Math.max(max, dp[row][col]);
+                }
+            }
+        }
+
+        return max;
     }
 
     static int maxSubmatrixBotUpDpOptimalSpace(int[][] mtx) {
