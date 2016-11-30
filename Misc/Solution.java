@@ -3,13 +3,59 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String args[] ) throws Exception {
-        char[] arr = { '1', '9', '9', '1' };
-        incMid(arr);
-        System.out.println(Arrays.toString(arr));
+        int[][] matrix = {
+                {1, 2, 3, 4},
+                {8, 9, 10, 11},
+                {12, 13, 14, 15},
+                {16, 17, 18, 19},
+        };
+        printSpiralTraversal(matrix);
+        System.out.println();
 
-        char[] arr1 = { '1', '9', '9' };
-        incMid(arr1);
-        System.out.println(Arrays.toString(arr1));
+        int[][] matrix1 = {
+                {1, 2, 3},
+                {8, 9, 10},
+                {12, 13, 14},
+        };
+        printSpiralTraversal(matrix1);
+    }
+
+    private static void printSpiralTraversal(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return;
+        }
+
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+
+        while(top <= bottom && left <= right) {
+            // Print top
+            for (int tempCol = left; tempCol <= right; tempCol++) {
+                System.out.print(matrix[top][tempCol] + " ");
+            }
+
+            // Print right
+            for (int tempRow = top + 1; tempRow <= bottom; tempRow++) {
+                System.out.print(matrix[tempRow][right] + " ");
+            }
+
+            // Print bottom
+            for (int tempCol = right - 1; tempCol >= left; tempCol--) {
+                System.out.print(matrix[bottom][tempCol] + " ");
+            }
+
+            // Print left
+            for (int tempRow = bottom - 1; tempRow > top; tempRow--) {
+                System.out.print(matrix[tempRow][left] + " ");
+            }
+
+            top++;
+            bottom--;
+            left++;
+            right--;
+        }
     }
 
     public static void incMid(char[] nums) {

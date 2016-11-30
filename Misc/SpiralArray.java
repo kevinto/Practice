@@ -7,14 +7,23 @@ import java.util.List;
  */
 public class SpiralArray {
     public static void main(String[] args) {
-        int[][] matrix = {
+        int[][] matrix1 = {
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
                 {13, 14, 15, 16}
         };
 
-        List<Integer> res = new SpiralArray().spiralOrder(matrix);
+        List<Integer> res = new SpiralArray().spiralOrder(matrix1);
+        System.out.println(res);
+
+        int[][] matrix2 = {
+            {1, 2, 3},
+            {5, 6, 7},
+            {9, 10, 11},
+            {13, 14, 15}
+        };
+        res = new SpiralArray().spiralOrder(matrix2);
         System.out.println(res);
     }
 
@@ -27,7 +36,7 @@ public class SpiralArray {
         int currLeft = 0;
         int currRight = matrix[0].length - 1;
 
-        while(currTop < currBot && currLeft < currRight) {
+        while(currTop <= currBot && currLeft <= currRight) {
             // Save top
             for (int i = currLeft; i <= currRight; i++) {
                 result.add(matrix[currTop][i]);
