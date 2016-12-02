@@ -35,7 +35,7 @@ public class FindInt4Billion {
         // There are 2^16 prefixes in int32. Each prefix has 2^16 suffixes.
         // Full up our buckets for the prefixes encountered.
         int prefixLength = (int)Math.pow(2, 16);
-        int[] buckets = new int[prefixLength];
+        short[] buckets = new short[prefixLength];
         for (int num : nums) {
             int prefix = num >> 16;
             buckets[prefix]++;
@@ -59,7 +59,7 @@ public class FindInt4Billion {
         // Buckets now represents all the 2^16 possible suffixes
         // for our chosen prefix. Fill up our buckets with all the suffixes
         // that come with our chosen prefix.
-        buckets = new int[prefixLength];
+        buckets = new short[prefixLength];
         for (int num : nums) {
             int prefix = num >> 16;
             if (prefix == selectedBucket) {

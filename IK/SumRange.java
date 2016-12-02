@@ -5,10 +5,22 @@
  */
 public class SumRange {
     public static void main(String[] args) {
-        int arr[] = {1, 3, 5, 7, 9, 11};
-        int n = arr.length;
-        SegmentTree tree = new SegmentTree(arr, n);
+        // For 6
+//        int[] arr1 = {1, 3, 5, 7, 9, 11};
+//        int n = arr1.length;
+//        SegmentTree tree = new SegmentTree(arr1, n);
 
+        // For 8
+        int[] arr2 = {1, 3, 5, 7, 9, 11, 12, 13};
+        SegmentTree tree2 = new SegmentTree(arr2, arr2.length);
+
+        // For 9
+        int[] arr3 = {1, 3, 5, 7, 9, 11, 12, 13, 14};
+        SegmentTree tree3 = new SegmentTree(arr3, arr3.length);
+
+        // There is a jump between 8 and 9
+        System.out.println("8 = " + (int) (Math.ceil(Math.log(8) / Math.log(2))));
+        System.out.println("9 = " + (int) (Math.ceil(Math.log(9) / Math.log(2))));
         return;
     }
 
