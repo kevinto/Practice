@@ -13,6 +13,8 @@ public class LongestIncreasingSubsequence {
         System.out.println("optimal: " + result2);
         int result3 = lis.longestSubsequenceWithActualSolution(arr);
         System.out.println("optimal roy: " + result3);
+
+        geeks4GeeksLis(arr);
     }
 
     public int findLongestDPBottomUp(int[] arr) {
@@ -129,11 +131,11 @@ public class LongestIncreasingSubsequence {
             max = Math.max(max, findLongestRecursive(arr, i + 1, i));
         }
 
-        return max + 1; // Assuming I didnt count i.
+        return max;
     }
 
     private int findLongestRecursive(int[] arr, int next, int prev) {
-        if (next >= arr.length) return 0;
+        if (next >= arr.length) return 1;
 
         int res1 = 0;
         if (arr[next] > arr[prev]) {
@@ -144,5 +146,44 @@ public class LongestIncreasingSubsequence {
         int res2 = findLongestRecursive(arr, next + 1, prev);
 
         return Math.max(res1, res2);
+    }
+
+    private static int maxLen;
+    private static void geeks4GeeksLis(int[] nums) {
+        maxLen = 0;
+        lisHelper(nums, nums.length);
+        System.out.println("geeksforgeeks recursive: " + maxLen);
+    }
+
+    // Go through each element and say that element is the end of
+    // the lis. Make a recursive call the portion between array
+    // start and that element. If the current element value is
+    // less than the "last" value, then we check if the lis
+    // ending at the current element + 1 has a greater length
+    // the previously found element.
+    // - PROS: This way is better than the other recursive method
+    //         because the params are simpler.
+    private static int lisHelper(int[] nums, int length) {
+        if (length == 1) {
+            return 1;
+        }
+
+        int currentLisLength = 1;
+        for (int i = 0; i < length - 1; i++) {
+            // Get the len of the lis ending at i
+            int subLis = lisHelper(nums, i);
+
+            // The '1 +' is saying that the current element is added
+            // to the current lis.
+            if (nums[i] < nums[length - 1] && currentLisLength < (1 + subLis)) {
+                currentLisLength = 1 + subLis;
+            }
+        }
+
+        if (maxLen < currentLisLength) {
+            maxLen = currentLisLength;
+        }
+
+        return currentLisLength;
     }
 }
