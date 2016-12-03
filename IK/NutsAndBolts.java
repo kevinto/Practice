@@ -26,8 +26,14 @@ public class NutsAndBolts {
             return;
         }
 
+        // Partition nuts based on the last value of bolts
         int nutPivotIndex = partition(nuts, bolts[end], start, end);
+
+        // Partition bolts based on the pivot index of nuts
         partition(bolts, nuts[nutPivotIndex], start, end);
+
+        // Once we get here the values at the pivot's position are in the correct position.
+        // Run the same thing against both sides of the pivot.
         sortBoltsNuts(nuts, bolts, start, nutPivotIndex - 1);
         sortBoltsNuts(nuts, bolts, nutPivotIndex + 1, end);
     }

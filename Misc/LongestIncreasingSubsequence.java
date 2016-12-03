@@ -15,6 +15,11 @@ public class LongestIncreasingSubsequence {
         System.out.println("optimal roy: " + result3);
 
         geeks4GeeksLis(arr);
+//        geeks4GeeksLisBottomUp(arr);
+
+        // Tests that the lis ends in the middle of the input.
+        int[] arr2 = {1, 2, -1};
+        System.out.println("arr2 max: " + geeks4GeeksLisBottomUp(arr2));
     }
 
     public int findLongestDPBottomUp(int[] arr) {
@@ -162,8 +167,10 @@ public class LongestIncreasingSubsequence {
     // ending at the current element + 1 has a greater length
     // the previously found element.
     // - PROS: This way is better than the other recursive method
-    //         because the params are simpler.
-    private static int lisHelper(int[] nums, int length) {
+    //         because the params are simpler. This way is also
+    //         easier to convert to a DP solution because don't have
+    //         to deal with extra parameters.
+    private static int lisHelper(int[] nums, int length) { // length here is the 0-based length.
         if (length == 1) {
             return 1;
         }
@@ -185,5 +192,30 @@ public class LongestIncreasingSubsequence {
         }
 
         return currentLisLength;
+    }
+
+    private static int geeks4GeeksLisBottomUp(int[] arr) {
+        int dp[] = new int[arr.length];
+
+        // Each element has a initial lis of 1
+        for (int i = 0; i < dp.length; i++) {
+            dp[i] = 1;
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            System.out.println("i = " + i);
+            for (int j = 0; j <= i; j++) {
+                System.out.println("j = " + j);
+                if (arr[j] < arr[i] && dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int val : dp) {
+            max = Math.max(max, val);
+        }
+        return max;
     }
 }
