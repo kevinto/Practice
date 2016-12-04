@@ -147,7 +147,7 @@ public class LinkedListIntersection {
         return last1 != last2;
     }
 
-    static class LinkedListNode {
+    private static class LinkedListNode {
         int val;
         LinkedListNode next;
 
