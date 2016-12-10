@@ -12,8 +12,8 @@ import java.util.*;
  *
  * Basic Structure:
  * 1. Find the middle point to divide the array into two halves.
- * 2. Recursively call merge sort on the first half.
- * 3. Recursively call merge sort on the second half.
+ * 2. Recursively call merge sortRecursive on the first half.
+ * 3. Recursively call merge sortRecursive on the second half.
  * 4. Merge the two halves from step 2 and 3.
  *
  */

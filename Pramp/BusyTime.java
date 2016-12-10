@@ -33,7 +33,7 @@ public class BusyTime {
         if (arr == null) return result;
 
         // Inline comparator implementation
-//        Arrays.sort(arr, new Comparator<Data>() {
+//        Arrays.sortRecursive(arr, new Comparator<Data>() {
 //            @Override
 //            public int compare(Data d1, Data d2) {
 //                return d1.time - d2.time;

@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
  * Date 08/20/2014
  * @author Tushar Roy
  *
- * Given a directed acyclic graph, do a topological sort on this graph.
+ * Given a directed acyclic graph, do a topological sortRecursive on this graph.
  *
  * Do DFS by keeping visited. Put the vertex which are completely explored into a stack.
  * Pop from stack to get sorted order.

@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * Created by kevint on 4/27/2016.
@@ -27,36 +28,66 @@ import java.util.Arrays;
 public class QuickSortRecursive {
     public static void main(String[] args) {
         int[] test1 = {3, 7, 8, 9, 1, 5};
-
         System.out.println("Before: " + Arrays.toString(test1));
         QSortRecursive qSort = new QSortRecursive();
-        qSort.sort(test1, 0, test1.length - 1);
+        qSort.sortRecursive(test1, 0, test1.length - 1);
         System.out.println("After: " + Arrays.toString(test1));
 
         System.out.println("");
 
         int[] test2 = {10, 7, 8, 99, 1, 5, 100, 200, 40, 89, 60};
         System.out.println("Before: " + Arrays.toString(test2));
-        qSort.sort(test2, 0, test2.length - 1);
+        qSort.sortIterative(test2, 0, test2.length - 1);
         System.out.println("After: " + Arrays.toString(test2));
+
+        int[] partitiontest3 = {5, 1, 1, 6, 6};
+        int result3 = qSort.partitionLeftMostElement(partitiontest3, 0, partitiontest3.length - 1);
+        System.out.println("partitiontest3: " + Arrays.toString(partitiontest3));
+        System.out.println("partitiontest3: pivot index = " + result3);
     }
 }
 
 class QSortRecursive {
-    void sort(int arr[], int low, int high) {
+    void sortRecursive(int arr[], int low, int high) {
         if (low < high) {
             // Find where we can split the two arrays
-            int partitioningIdx = partition(arr, low, high);
+            int partitioningIdx = partitionRightMostElement(arr, low, high);
 
             // Process the left side of the array
-            sort(arr, low, partitioningIdx - 1);
+            sortRecursive(arr, low, partitioningIdx - 1);
 
             // Process the right side of the array
-            sort(arr, partitioningIdx + 1, high);
+            sortRecursive(arr, partitioningIdx + 1, high);
         }
     }
 
-    int partition(int arr[], int low, int high) {
+    void sortIterative(int[] arr, int start, int end) {
+        Stack<QSRange> stack = new Stack<>();
+        stack.push(new QSRange(start, end));
+        while (!stack.empty()) {
+            QSRange curr = stack.pop();
+            int pivotIndex = partitionLeftMostElement(arr, curr.start, curr.end);
+
+            if (curr.start < pivotIndex - 1) {
+                stack.push(new QSRange(curr.start, pivotIndex - 1));
+            }
+
+            if (pivotIndex + 1 < curr.end) {
+                stack.push(new QSRange(pivotIndex + 1, curr.end));
+            }
+        }
+    }
+
+    static class QSRange {
+        int start;
+        int end;
+        QSRange (int s, int e) {
+            start = s;
+            end = e;
+        }
+    }
+
+    int partitionRightMostElement(int arr[], int low, int high) {
         int pivot = arr[high]; // Pivot to the rightmost element
 
         // i represents an element Idx that can be swapped
@@ -72,12 +103,46 @@ class QSortRecursive {
 
         // i tracks the last element that was smaller than
         // the pivot. Here, we swap the pivot with the number
-        // directly after tThe last number that was smaller
+        // directly after The last number that was smaller
         // than the pivot. If the pivot is already in the
         // correct place, then i is already equal to high.
         swap(arr, i, high);
 
         return i;
+    }
+
+    int partitionLeftMostElement(int[] arr, int start, int end) {
+        if (start >= end) {
+            return start;
+        }
+
+        int pivot = arr[start];
+        int i = start + 1;
+        int j = end;
+
+        while (i <= j) {
+            while (i <= j && arr[i] < pivot) {
+                i++;
+            }
+
+            while (i <= j && arr[j] > pivot) {
+                j--;
+            }
+
+            if (i <= j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
+            }
+        }
+
+        int temp = arr[start];
+        arr[start]  = arr[j];
+        arr[j] = temp;
+
+        return j;
     }
 
     void swap(int[] arr, int swapIdx1, int swapIdx2) {
