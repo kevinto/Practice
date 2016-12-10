@@ -1,7 +1,10 @@
 import java.util.*;
 import java.util.LinkedList;
 
-public class Solution {
+/**
+ * Created by kevinto on 12/10/16.
+ */
+public class CloneGraph {
     public static void main(String args[] ) throws Exception {
         Node root = new Node(1);
         Node child1 = new Node(2);
@@ -30,28 +33,19 @@ public class Solution {
         }
         Queue<Node> queue = new LinkedList();
         queue.offer(root);
+        Node newRoot = new Node(root.val);
         HashMap<Node, Node> oldNewMap = new HashMap<>();
-        Node newRoot = null;
-        HashSet<Node> visited = new HashSet<>();
+        oldNewMap.put(root, newRoot);
 
         while (!queue.isEmpty()) {
             Node curr = queue.poll();
-            Node newNode = new Node(curr.val);
-            if (newRoot == null) {
-                newRoot = newNode;
-            }
-
-            oldNewMap.put(curr, newNode);
-
             for (Node neighbor : curr.neighbors) {
                 if (oldNewMap.containsKey(neighbor)) {
-                    newNode.neighbors.add(oldNewMap.get(neighbor));
+                    oldNewMap.get(curr).neighbors.add(oldNewMap.get(neighbor));
                 } else {
-                    oldNewMap.put(neighbor, new Node(neighbor.val));
-                    newNode.neighbors.add(oldNewMap.get(neighbor));
-                }
-
-                if (!visited.contains(neighbor)) {
+                    Node copy = new Node(neighbor.val);
+                    oldNewMap.put(neighbor, copy);
+                    oldNewMap.get(curr).neighbors.add(copy);
                     queue.offer(neighbor);
                 }
             }
@@ -59,4 +53,3 @@ public class Solution {
         return newRoot;
     }
 }
-
