@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 /**
  * Created by kevinto on 12/10/16.
+ * http://www.programcreek.com/2012/12/leetcode-clone-graph-java/
  */
 public class CloneGraph {
     public static void main(String args[] ) throws Exception {
@@ -51,5 +52,53 @@ public class CloneGraph {
             }
         }
         return newRoot;
+    }
+
+    public static boolean isIdentical(Node root1, Node root2) {
+        HashSet<Node> visited = new HashSet<>();
+        return isIdentical(root1, root2, visited);
+    }
+
+    public static boolean isIdentical(Node root1, Node root2, HashSet<Node> visited) {
+        if (root1 == null && root2 == null) {
+            return true;
+        } else if (root1 == null || root2 == null) {
+            return false;
+        } else if (root1.neighbors.size() != root2.neighbors.size()) {
+            return false;
+        } else if (!allChildrenMatch(root1, root2)) {
+            return false;
+        }
+
+        boolean matches = true;
+        visited.add(root1);
+        for (Node neighbor1 : root1.neighbors) {
+            for (Node neighbor2 : root2.neighbors) {
+                if (!visited.contains(neighbor1) && neighbor1.val == neighbor2.val) {
+                    matches &= isIdentical(neighbor1, neighbor2);
+                }
+
+                if (!matches) {
+                    return false;
+                }
+            }
+        }
+
+        return matches;
+    }
+
+    private static boolean allChildrenMatch(Node root1, Node root2) {
+        HashSet<Integer> set1 = new HashSet<>();
+        for (Node child : root1.neighbors) {
+            set1.add(child.val);
+        }
+
+        for (Node child : root2.neighbors) {
+            if (!set1.contains(child.val)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
