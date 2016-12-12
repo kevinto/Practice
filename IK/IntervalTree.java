@@ -5,7 +5,13 @@
  */
 public class IntervalTree {
     public static void main(String[] args) {
+        Node root1 = new Node(5,0, 0);
+        root1.left = new Node(2, 0, 0);
+        root1.left.left = new Node(1,0,0);
+        root1.left.right = new Node(10,0,0);
 
+        Node result = getMinIterative(root1);
+        return;
     }
 
     private static Node TreeRoot;
@@ -24,12 +30,55 @@ public class IntervalTree {
     }
 
     public static void delete(int deleteLow, int deleteHigh) {
-        remove(TreeRoot, deleteLow, deleteHigh);
+        TreeRoot = remove(TreeRoot, deleteLow, deleteHigh);
     }
 
-    private static void remove(Node treeRoot, int deleteLow, int deleteHigh) {
-        // current working idea is to replace the current deleted node with the max of the left subtree
-        // if no left subtree, then the min of right subtree.
+    private static Node remove(Node root, int deleteLow, int deleteHigh) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.low < deleteLow) {
+            root.right =remove(root.right, deleteLow, deleteHigh);
+        } else if (root.low > deleteLow) {
+            root.left = remove(root.left, deleteLow, deleteHigh);
+        } else {
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            Node minNodeRightSubtree = getMinIterative(root.right);
+            root.low = minNodeRightSubtree.low;
+            root.high = minNodeRightSubtree.high;
+//            root.max = ??
+            // TODO think about the resetting maxes
+            root.right = remove(root.right, minNodeRightSubtree.low, minNodeRightSubtree.high);
+        }
+
+        return root;
+    }
+
+    private static Node getMinRecursive(Node root) {
+        if (root == null) {
+            return null;
+        } else if (root.left == null) {
+            return root;
+        }
+
+        return getMinRecursive(root.left);
+    }
+
+    private static Node getMinIterative(Node root) {
+        Node prev = null;
+        Node curr = root;
+
+        while (curr != null) {
+            prev = curr;
+            curr = curr.left;
+        }
+        return prev;
     }
 
     private static Node insert(Node root, int newLow, int newHigh) {
