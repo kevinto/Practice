@@ -20,18 +20,7 @@ public class IntervalTree {
             return;
         }
 
-
-
-        // Base case: Tree is empty, new node becomes TreeRoot
-
-        // Get low value of interval at TreeRoot
-
-        // If TreeRoot's low value is smaller, then new interval goes to
-        // left subtree
-
-            // Else, new node goes to right subtree.
-
-        // Update the max value of this ancestor if needed
+        insert(TreeRoot, newLow, newHigh);
     }
 
     private static Node insert(Node root, int newLow, int newHigh) {
@@ -45,16 +34,11 @@ public class IntervalTree {
             root.right = insert(root.right, newLow, newHigh);
         }
 
-        // Set maxes
-        int leftMax = Integer.MIN_VALUE;
-        int rightMax = Integer.MIN_VALUE;
-        if (root.left != null) {
-            leftMax = root.left.max;
+        // Set maxes - You only need to set maxes on the way back up.
+        // The maxes won't change unless the new node has a greater max.
+        if (root.max < newHigh) {
+            root.max = newHigh;
         }
-        if (root.right != null) {
-            rightMax = root.right.max;
-        }
-        root.max = Math.max(root.max, Math.max(leftMax, rightMax));
 
         return root;
     }
