@@ -44,29 +44,31 @@ public class Skyline {
 
     private static LinkedList<int[]> merge(LinkedList<int[]> leftList, LinkedList<int[]> rightList) {
         LinkedList<int[]> resultList = new LinkedList();
-        int h1 = 0, h2 = 0;
+
+        // How do these heights work?
+        int heightLeft = 0, heightRight = 0;
 
         while (leftList.size() > 0 && rightList.size() > 0) {
             int resultX, resultH;
             if (leftList.getFirst()[0] < rightList.getFirst()[0]) {
                 // leftList contains the leftmost coordinate
                 resultX = leftList.getFirst()[0];
-                h1 = leftList.getFirst()[1];
-                resultH = Math.max(h1, h2);
+                heightLeft = leftList.getFirst()[1];
+                resultH = Math.max(heightLeft, heightRight);
                 leftList.removeFirst();
             } else if (leftList.getFirst()[0] > rightList.getFirst()[0]) {
                 // rightList contains the rightMost coordinate
                 resultX = rightList.getFirst()[0];
-                h2 = rightList.getFirst()[1];
-                resultH = Math.max(h1, h2);
+                heightRight = rightList.getFirst()[1];
+                resultH = Math.max(heightLeft, heightRight);
                 rightList.removeFirst();
             } else {
                 // leftList and rightList have the same left coordinate
                 // the highest height wins in this case
                 resultX = leftList.getFirst()[0];
-                h1 = leftList.getFirst()[1];
-                h2 = rightList.getFirst()[1];
-                resultH = Math.max(h1, h2);
+                heightLeft = leftList.getFirst()[1];
+                heightRight = rightList.getFirst()[1];
+                resultH = Math.max(heightLeft, heightRight);
                 leftList.removeFirst();
                 rightList.removeFirst();
             }
