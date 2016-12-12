@@ -1,17 +1,135 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.LinkedList;
 
 /**
  * Created by kevinto on 12/11/16.
  */
 public class Skyline {
     public static void main(String[] args) {
-
+        int[][] buildings = {
+                {5, 12, 12},
+                {2, 9, 10}
+        };
+        List<int[]> result = getSkylinePriorityQueue(buildings);
+        List<int[]> result1 = getSkylineDivideAndConquer(buildings);
+        return;
     }
 
-    // ----------- Solution using a heap ------------------------------------
+    // ----------- Solution using a Merge Sort Like Divide and Conquer --------------------
+    public static List<int[]> getSkylineDivideAndConquer(int[][] buildings) {
+        if (buildings.length == 0)
+            return new LinkedList();
+        return recurSkyline(buildings, 0, buildings.length - 1);
+    }
+
+    private static LinkedList<int[]> recurSkyline(int[][] buildings, int start, int end) {
+        if (start < end) {
+            int mid = start + (end - start) / 2;
+
+            LinkedList<int[]> leftList = recurSkyline(buildings, start, mid);
+            LinkedList<int[]> rightList = recurSkyline(buildings, mid + 1, end);
+            return merge(leftList, rightList);
+        } else {
+            // When you get here, this means a stand alone building
+            LinkedList<int[]> rs = new LinkedList();
+
+            // Add left and height
+            rs.add(new int[] { buildings[start][0], buildings[start][2] });
+
+            // Add right/list and end height.
+            rs.add(new int[] { buildings[start][1], 0 });
+            return rs;
+        }
+    }
+
+    private static LinkedList<int[]> merge(LinkedList<int[]> leftList, LinkedList<int[]> rightList) {
+        LinkedList<int[]> resultList = new LinkedList();
+        int h1 = 0, h2 = 0;
+
+        while (leftList.size() > 0 && rightList.size() > 0) {
+            int resultX, resultH;
+            if (leftList.getFirst()[0] < rightList.getFirst()[0]) {
+                // leftList contains the leftmost coordinate
+                resultX = leftList.getFirst()[0];
+                h1 = leftList.getFirst()[1];
+                resultH = Math.max(h1, h2);
+                leftList.removeFirst();
+            } else if (leftList.getFirst()[0] > rightList.getFirst()[0]) {
+                // rightList contains the rightMost coordinate
+                resultX = rightList.getFirst()[0];
+                h2 = rightList.getFirst()[1];
+                resultH = Math.max(h1, h2);
+                rightList.removeFirst();
+            } else {
+                // leftList and rightList have the same left coordinate
+                // the highest height wins in this case
+                resultX = leftList.getFirst()[0];
+                h1 = leftList.getFirst()[1];
+                h2 = rightList.getFirst()[1];
+                resultH = Math.max(h1, h2);
+                leftList.removeFirst();
+                rightList.removeFirst();
+            }
+            if (resultList.size() == 0 || resultH != resultList.getLast()[1]) {
+                // Only add to the results when we have a change in heights
+                resultList.add(new int[] { resultX, resultH });
+            }
+        }
+        resultList.addAll(leftList);
+        resultList.addAll(rightList);
+        return resultList;
+    }
+
+    // ----------- Solution using a Max Heap Priority Queue --------------------
+    public static List<int[]> getSkylinePriorityQueue(int[][] buildings) {
+        List<int[]> result = new ArrayList<>();
+        List<int[]> heights = new ArrayList<>();
+
+        // b[0] - left
+        // b[1] - right
+        // b[2] - height
+        for(int[] building:buildings) {
+            // Add left with negative height
+            heights.add(new int[]{building[0], -building[2]});
+
+            // Add right with positive height
+            heights.add(new int[]{building[1], building[2]});
+        }
+
+        // If left not equal, then sort by left.
+        // Else if left is equal, then sort by heights.
+        // The heights for the left point are sorted as first.
+        Collections.sort(heights, (a, b) -> {
+            if(a[0] != b[0])
+                return a[0] - b[0];
+            return a[1] - b[1];
+        });
+
+        // Initiate a max heap
+        Queue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
+        pq.offer(0);
+
+        int prev = 0;
+        for(int[] height:heights) {
+            if(height[1] < 0) {
+                // This is a left point
+                pq.offer(-height[1]);
+            } else {
+                // This is a right point. Removing by specifying
+                // the height that we added before.
+                pq.remove(height[1]);
+            }
+            int curr = pq.peek();
+            if(prev != curr) {
+                // We found a new high
+                result.add(new int[]{height[0], curr});
+                prev = curr;
+            }
+        }
+        return result;
+    }
+
+    // ----------- Solution using a Tree heap ------------------------------------
     static class BuildingPoint implements Comparable<BuildingPoint> {
         int x;
         boolean isStart;
