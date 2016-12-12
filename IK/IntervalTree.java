@@ -23,6 +23,15 @@ public class IntervalTree {
         insert(TreeRoot, newLow, newHigh);
     }
 
+    public static void delete(int deleteLow, int deleteHigh) {
+        remove(TreeRoot, deleteLow, deleteHigh);
+    }
+
+    private static void remove(Node treeRoot, int deleteLow, int deleteHigh) {
+        // current working idea is to replace the current deleted node with the max of the left subtree
+        // if no left subtree, then the min of right subtree.
+    }
+
     private static Node insert(Node root, int newLow, int newHigh) {
         if (root == null) {
             return new Node(newLow, newHigh, newHigh);
