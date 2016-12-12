@@ -8,7 +8,8 @@ public class Skyline {
     public static void main(String[] args) {
         int[][] buildings = {
                 {5, 12, 12},
-                {2, 9, 10}
+                {15, 20, 10}
+//                {2, 9, 10}
         };
         List<int[]> result = getSkylinePriorityQueue(buildings);
         List<int[]> result1 = getSkylineDivideAndConquer(buildings);
@@ -46,6 +47,9 @@ public class Skyline {
         LinkedList<int[]> resultList = new LinkedList();
 
         // How do these heights work?
+        // Remember that there are end heights (0) for every building.
+        // If two intervals are merged then the end heights will set these two to
+        // double zeros so we can put a zero in the results
         int heightLeft = 0, heightRight = 0;
 
         while (leftList.size() > 0 && rightList.size() > 0) {
