@@ -30,7 +30,7 @@ public class ReverseLL {
         k3.next = null;
         
         System.out.println("Running recursive tests: ");
-        LinkNode reversedList2 = reverseRecursive(k1);
+        LinkNode reversedList2 = reverseRecursive1(k1);
         printList(reversedList2);
     }
     
@@ -46,7 +46,7 @@ public class ReverseLL {
     }
     
     // 1 -> 2 -> 3
-    public static LinkNode reverseRecursive(LinkNode head) {
+    public static LinkNode reverseRecursive1(LinkNode head) {
         // Base case
         if (head == null) {
             return null;
@@ -56,18 +56,32 @@ public class ReverseLL {
         }
         
         // Bug: This only returns the last element of the linked list.
-        // LinkNode temp = reverseRecursive(head.next);
+        // LinkNode temp = reverseRecursive1(head.next);
         // temp.next = head;
         // head.next = null;
         
         // This is correct
         // Explanation: http://stackoverflow.com/questions/354875/reversing-a-linked-list-in-java-recursively
-        LinkNode secondElement = head.next;
-        head.next = null;
-        LinkNode reverseRest = reverseRecursive(secondElement);
-        secondElement.next = head;
+        LinkNode secondElement = head.next; // save the next element
+        head.next = null; // unlink the current node.
+        LinkNode reverseRest = reverseRecursive1(secondElement); // go to the next node
+        secondElement.next = head; // set the next node's next to the current node
         
         return reverseRest;
+    }
+
+    // Alternative recursive implementation that i came up with. requires an extra param
+    public static LinkNode reverseRecursive(LinkNode head, LinkNode prev) {
+        if (head == null) {
+            return null;
+        } else if (head.next == null) {
+            head.next = prev;
+            return head;
+        }
+
+        LinkNode newHead = reverseRecursive(head.next, head);
+        head.next = prev;
+        return newHead;
     }
     
     public static void printList(LinkNode head) {
