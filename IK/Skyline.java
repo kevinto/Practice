@@ -127,7 +127,10 @@ public class Skyline {
             }
             int curr = pq.peek();
             if(prev != curr) {
-                // We found a new high
+                // The max height changed. Add this new height.
+                // If the entire heap was emptied, then the top of our heap is 0.
+                // The original heap node of 0, will never be removed because we
+                // dont have a height of 0.
                 result.add(new int[]{height[0], curr});
                 prev = curr;
             }
