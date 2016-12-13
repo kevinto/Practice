@@ -27,12 +27,8 @@ public class PrintDiagonals {
     }
 
     private static void printDiagonalHelper(int startRow, int startCol, String[][] matrix) {
-        int currRow = startRow;
-        int currCol = startCol;
-        while (currRow < matrix.length && currCol < matrix[0].length) {
-            System.out.print(matrix[currRow][currCol] + " ");
-            currRow++;
-            currCol++;
+        for (int i = startRow, j = startCol; i < matrix.length && j < matrix[0].length; i++, j++) {
+            System.out.print(matrix[i][j] + " ");
         }
         System.out.println("");
     }

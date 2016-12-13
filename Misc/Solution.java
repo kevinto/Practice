@@ -2,17 +2,32 @@ import java.util.*;
 import java.util.LinkedList;
 
 public class Solution {
-    public static void main(String args[] ) throws Exception {
+    public static void main(String[] args) {
+        int[][] matrix = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+        printDiagonals(matrix);
+    }
 
-        Node root = new Node(1);
-        Node child1 = new Node(2);
-        Node child2 = new Node(3);
+    public static void printDiagonals(int[][] matrix) {
+        // Diagonals starting from the left side
+        for (int i = matrix.length - 1; i >= 0; i--) {
+            printDiagonal(matrix, i, 0);
+        }
 
-        root.neighbors.add(child1);
-        child1.neighbors.add(child2);
-        Node clone = cloneGraph(root);
+        // Diagonals starting from the top
+        for (int j = 1; j < matrix[0].length; j++) {
+            printDiagonal(matrix, 0, j);
+        }
+    }
 
-        return;
+    public static void printDiagonal(int[][] matrix, int row, int col) {
+        for (int i = row, j = col; i < matrix.length && j < matrix[0].length; i++, j++) {
+            System.out.print(matrix[i][j] + " ");
+        }
+        System.out.println();
     }
 
     public static ArrayList<Integer> mergeSorted (ArrayList<ArrayList<Integer>> sortedLists) {
