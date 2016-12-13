@@ -32,14 +32,14 @@ public class ExpressionEvaluator {
     private static int evaluateExpression(String digits, char[] operators) {
         int result = 0;
         boolean multiplication = false;
-        int factor = 1;
+        int factor = 0;
 
         for(int i = 0; ; ++i) {
-            int operand = digits.charAt(i) - '0';
+            int digit = digits.charAt(i) - '0';
 
             // Take care of concat first
             while(i < operators.length && operators[i] == 'c')
-                operand = 10 * operand + digits.charAt(++i) - '0';
+                digit = 10 * digit + digits.charAt(++i) - '0';
 
             // Second, take care of multiplication.
             // Why don't we have a continue here?
@@ -47,20 +47,20 @@ public class ExpressionEvaluator {
             //  The pointer can be on a plus. We multiply before
             //  we deal with the plus.
             if (multiplication) {
-                operand *= factor;
+                digit *= factor;
                 multiplication = false;
             }
 
             // We reached the end, exit the loop.
             if (i == operators.length) {
-                result += operand;
+                result += digit;
                 break;
             }
 
             // Third, take care of adds. When we reach an add,
             // we know to add all the stuff on the left side.
             if (operators[i] == '+') {
-                result += operand;
+                result += digit;
                 continue;
             }
 
@@ -68,7 +68,7 @@ public class ExpressionEvaluator {
             //  Need to save the left as a factor, so I can
             //  multiply it by the right.
             multiplication = true;
-            factor = operand;
+            factor = digit;
         }
 
         return result;
