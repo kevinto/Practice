@@ -10,6 +10,28 @@ public class DutchFlagProblem {
         System.out.println((solve(test2)));
     }
 
+    // Three partitioning method.
+    /*
+    a[1..Lo-1] zeroes (red)
+    a[Lo..Mid-] ones (white)
+    a[Mid..Hi] unknown
+    a[Hi+1..N] twos (blue)
+    The unknown region is shrunk while maintaining these conditions
+
+    Lo := 1; Mid := 1; Hi := N;
+    while Mid <= Hi do
+      Invariant: a[1..Lo-1]=0 and a[Lo..Mid-1]=1 and a[Hi+1..N]=2; a[Mid..Hi] are unknown.
+      case a[Mid] in
+        0: swap a[Lo] and a[Mid]; Lo++; Mid++
+        1: Mid++
+        2: swap a[Mid] and a[Hi]; Hi–
+    *
+     * We maintain the invarient throughout the whole loop.
+     * Case 0 says that low is one element away from the all 0s zone.
+     * What if low invades our middle zone?
+     * when we invade our middle zone it is to be swapped with
+     * a 0. after swapping with a 0, we have a 1 that was swapped.
+    * */
     public static String solve(String str) {
         char[] arr = str.toCharArray();
         int low = 0;
@@ -19,7 +41,8 @@ public class DutchFlagProblem {
         while (mid <= high) {
             if (arr[mid] == 'R') {
                 swap(arr, mid, low);
-                mid++; // does not need to be re-evaluated because we started evaluating from the beginning
+                mid++; // does not need to be re-evaluated because we
+                        // started evaluating from the beginning. We already evaluated this to be 1.
                 low++;
             } else if (arr[mid] == 'G') {
                 mid++;
