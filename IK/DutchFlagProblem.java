@@ -37,4 +37,29 @@ public class DutchFlagProblem {
         arr[i1] = arr[i2];
         arr[i2] = temp;
     }
+
+    // My own recursive way of doing it.
+    public static void dutch(int[] nums, int startIdx, int numToSort) {
+        if (startIdx >= nums.length) {
+            return;
+        } else if (numToSort > 2) {
+            return;
+        }
+
+        int sortedIdx = startIdx;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[j] == numToSort) {
+                swap(nums, sortedIdx, j);
+                sortedIdx++;
+            }
+        }
+
+        dutch(nums, sortedIdx, numToSort + 1);
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
