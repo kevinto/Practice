@@ -95,4 +95,40 @@ public class NutsAndBolts {
             result[i] = arr1[i] + arr2[i];
         }
     }
+
+    // Similar to standard partition method. Here we pass the pivot element
+    // too instead of choosing it inside the method.
+    // Alt impl for quicksort partition. Here i is where all the lower numbers are.
+    private static int partition(char[] arr, int low, int high, char pivot)
+    {
+        int i = low;
+        char temp1, temp2;
+        for (int j = low; j < high; j++)
+        {
+            if (arr[j] < pivot){
+                temp1 = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp1;
+                i++;
+            } else if(arr[j] == pivot){
+                // put pivot into the high spot, unreachable.
+                // then go back a step, so we can process the new number.
+                temp1 = arr[j];
+                arr[j] = arr[high];
+                arr[high] = temp1;
+                j--;
+            }
+        }
+
+        // we can put the element into the spot at i because we always
+        // inc i after putting a lower number there. even when
+        // all the numbers are lower, i will be inc to the high pos.
+        temp2 = arr[i];
+        arr[i] = arr[high];
+        arr[high] = temp2;
+
+        // Return the partition index of an array based on the pivot
+        // element of other array.
+        return i;
+    }
 }
