@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by kevinto on 11/18/16.
  */
@@ -6,6 +8,8 @@ public class NutsAndBolts {
         String[] nuts = { "N3", "N2", "N1", "N4" };
         String[] bolts = { "B4", "B2", "B3", "B1" };
         String[] matched = match(nuts, bolts);
+        System.out.println("nuts: " + Arrays.toString(nuts));
+        System.out.println("bolts: " + Arrays.toString(bolts));
         return;
     }
 
