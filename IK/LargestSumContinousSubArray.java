@@ -19,6 +19,9 @@ public class LargestSumContinousSubArray {
         System.out.println("dp solution space optimized: " + maxSumSubArrayDPOptimalSpace(test2));
         System.out.println("Using Kadanes[shows this is wrong]: " + kadansPositiveOnly(test2));
         System.out.println("Using Kadanes modified: " + kadansModToWorkWithNegs(test2));
+
+        int[] test3 = {1, 5, -3};
+        System.out.println("recursive solution: " + maxSumSubArrayRecursive(test3));
     }
 
     private static int finalMax;
@@ -101,11 +104,18 @@ public class LargestSumContinousSubArray {
 
     // Alternative recursive method that is less complicated, and involves no forloop.
     // This is the easiest recursive definition to convert to a DP solution.
+    // This method involves going all the way to from the end of the array to the beginning.
+    // Then on the way back up the recursive stack, we say:
+    //  1. Do we want to add current with the best we found before?
+    //  OR
+    //  2. Do we want to start new and just return current?
     private static int maxSumSubArrayRecursive2(int[] nums, int start) {
         if (start < 0) {
             return 0;
         }
 
+        // The max is either the current number or the current number + the next segment.
+        // How does this problem deal with when the max doesnt involve the previously viewed number?
         int currMax = Math.max(maxSumSubArrayRecursive2(nums, start - 1) + nums[start], nums[start]);
         if (currMax > finalMax) {
             finalMax = currMax;
