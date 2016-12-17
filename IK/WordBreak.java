@@ -44,6 +44,7 @@ public class WordBreak {
 
     // This implementation puts a true value at the start of the word. Why does this
     // implementation save on duplicate work?
+    // This impl seems like it actually saves the word into the dp table.
     //  -- This current code is o(n^2). This is because for every start position we
     //     are trying to find all the possible end positions.
     //  -- With the recursive solution, we encounter the same start positions multiple
@@ -55,6 +56,9 @@ public class WordBreak {
         dp[wordLen] = new ArrayList<>(); // Where the last position list is CREATED!
 
         for (int dpIdx = wordLen; dpIdx >= 0; dpIdx--) {
+            // This if-check tells you that valid words exist at this end index,
+            // it is valid to try all combinations that end at this index. Recall
+            // this the char at the end index is exluded in the substring() call.
             if (dp[dpIdx] != null) {
                 for (int i = dpIdx - 1; i >= 0; i--) {
                     String sub = word.substring(i, dpIdx);
