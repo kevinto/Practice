@@ -3,121 +3,88 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String[] args) {
-        int[][] matrix = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
-        printDiagonals(matrix);
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+
+        head.arbit = head.next.next;
+        head.next.arbit = head;
+        head.next.next.arbit = head.next.next;
+
+        Node head2 = clone(head);
+        printLL(head2);
     }
 
-    public static void printDiagonals(int[][] matrix) {
-        // Diagonals starting from the left side
-        for (int i = matrix.length - 1; i >= 0; i--) {
-            printDiagonal(matrix, i, 0);
+    public static void printLL(Node head) {
+        Node curr = head;
+        while (curr != null && curr.next != null) {
+            System.out.println("curr: " + curr.val + ", next: " + curr.next.val + ", arbit " + curr.arbit.val);
+            curr = curr.next;
         }
 
-        // Diagonals starting from the top
-        for (int j = 1; j < matrix[0].length; j++) {
-            printDiagonal(matrix, 0, j);
+        System.out.println("curr: " + curr.val + ", next: null, arbit " + curr.arbit.val);
+    }
+
+    public static Node clone(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        create(head);
+        setArbit(head);
+        Node newList = separate(head);
+
+        return newList;
+    }
+
+    public static void create(Node head) {
+        Node curr = head;
+        while (curr != null) {
+            Node next = curr.next;
+            Node newNode = new Node(curr.val);
+            curr.next = newNode;
+            newNode.next = next;
+            curr = next;
         }
     }
 
-    public static void printDiagonal(int[][] matrix, int row, int col) {
-        for (int i = row, j = col; i < matrix.length && j < matrix[0].length; i++, j++) {
-            System.out.print(matrix[i][j] + " ");
+    public static void setArbit(Node head) {
+        Node curr = head;
+        while (curr != null) {
+            curr.next.arbit = curr.arbit.next;
+
+            // Curr will always be on an original node.
+            // This means that curr.next will always exist
+            // because that is a copy.
+            curr = curr.next.next;
         }
-        System.out.println();
     }
 
-    public static ArrayList<Integer> mergeSorted (ArrayList<ArrayList<Integer>> sortedLists) {
-        ArrayList<Integer> result = new ArrayList<>();
-        int numSortedLists = sortedLists.size();
-        PriorityQueue<HeapNode> pq = new PriorityQueue<>(numSortedLists);
+    public static Node separate(Node head) {
+        Node newHead = head.next;
+        Node currOld = head;
+        Node currNew = newHead;
 
-        for (int listNum = 0; listNum < numSortedLists; listNum++) {
-            if (sortedLists.get(listNum) == null) {
-                continue;
+        while (currOld != null) {
+            currOld = currOld.next.next;
+            if (currNew.next != null) {
+                currNew = currNew.next.next;
             }
-            int pos = 0;
-            int elementValue = sortedLists.get(listNum).get(pos);
-            HeapNode curr = new HeapNode(sortedLists.get(listNum).get(pos), listNum, pos);
-            pq.offer(curr);
+            currOld = currOld.next;
+            currNew = currNew.next;
         }
 
-        while (!pq.isEmpty()) {
-            HeapNode curr = pq.poll();
-
-            if (curr.elementPos < sortedLists.get(curr.listNum).size() - 1) {
-                pq.offer(new HeapNode(sortedLists.get(curr.listNum).get(curr.elementPos + 1), curr.listNum, curr.elementPos + 1));
-            }
-
-            result.add(curr.val);
-        }
-
-        return result;
-    }
-
-    private static class HeapNode implements Comparable<HeapNode> {
-        int listNum;
-        int elementPos;
-        int val;
-
-        HeapNode(int x, int listNum, int elementPos) {
-            this.val = x;
-            this.listNum = listNum;
-            this.elementPos = elementPos;
-        }
-
-        @Override
-        public int compareTo(HeapNode other) {
-            return this.val - other.val;
-        }
+        return newHead;
     }
 
     static class Node {
-        List<Node> neighbors;
+        Node next;
+        Node arbit;
         int val;
 
-        Node (int x) {
-            val = x;
-            neighbors = new ArrayList<>();
+        Node(int x) {
+            this.val = x;
         }
-    }
-
-    public static Node cloneGraph(Node root) {
-        if (root == null) {
-            return root;
-        }
-        Queue<Node> queue = new LinkedList();
-        queue.offer(root);
-        HashMap<Node, Node> oldNewMap = new HashMap<>();
-        Node newRoot = null;
-        HashSet<Node> visited = new HashSet<>();
-
-        while (!queue.isEmpty()) {
-            Node curr = queue.poll();
-            Node newNode = new Node(curr.val);
-            if (newRoot == null) {
-                newRoot = newNode;
-            }
-
-            oldNewMap.put(curr, newNode);
-
-            for (Node neighbor : curr.neighbors) {
-                if (oldNewMap.containsKey(neighbor)) {
-                    newNode.neighbors.add(oldNewMap.get(neighbor));
-                } else {
-                    oldNewMap.put(neighbor, new Node(neighbor.val));
-                    newNode.neighbors.add(oldNewMap.get(neighbor));
-                }
-
-                if (!visited.contains(neighbor)) {
-                    queue.offer(neighbor);
-                }
-            }
-        }
-        return newRoot;
     }
 }
 

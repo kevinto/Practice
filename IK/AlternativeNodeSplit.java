@@ -30,12 +30,11 @@ public class AlternativeNodeSplit {
             curr2 = curr2.next;
         }
 
-        printList("list1: ", head);
-        printList("list2: ", head2);
+        printList(head);
+        printList(head2);
     }
 
-    public static void printList(String output, Node head) {
-        System.out.print(output);
+    public static void printList(Node head) {
         Node curr = head;
         while (curr != null) {
             System.out.print(curr.val);
