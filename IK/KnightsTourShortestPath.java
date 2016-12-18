@@ -23,7 +23,7 @@ public class KnightsTourShortestPath {
         ChessTile curr = new ChessTile(-1, -1 , -1);
         while (!queue.isEmpty()) {
             curr = queue.poll();
-            board[curr.row][curr.col] = true;
+            visitedBoard[curr.row][curr.col] = true;
 
             if (curr.row == endRow && curr.col == endCol) {
                 break;
@@ -66,11 +66,11 @@ public class KnightsTourShortestPath {
     }
 
     private static boolean validKnightMove(int row, int col) {
-        if (row < 0 || col < 0 || row >= board.length || col >= board[0].length) {
+        if (row < 0 || col < 0 || row >= visitedBoard.length || col >= visitedBoard[0].length) {
             return false;
         }
 
-        return !board[row][col];
+        return !visitedBoard[row][col];
     }
 
     static class ChessTile {
@@ -78,15 +78,15 @@ public class KnightsTourShortestPath {
         int col;
         int distance;
 
-        ChessTile(int r, int c, int d) {
-            row = r;
-            col = c;
-            distance = d;
+        ChessTile(int createRow, int createCol, int distanceFromOrigin) {
+            row = createRow;
+            col = createCol;
+            distance = distanceFromOrigin;
         }
     }
 
-    static boolean[][] board;
+    static boolean[][] visitedBoard;
     private static void initBoard() {
-        board = new boolean[8][8];
+        visitedBoard = new boolean[8][8];
     }
 }

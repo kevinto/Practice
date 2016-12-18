@@ -30,7 +30,7 @@ public class SnakesAndLadders {
                     GameTile nextMove = new GameTile(next);
                     nextMove.distance = currentMove.distance + 1;
 
-                    // Reset the tile number if the board shows that we are teleporting
+                    // Reset the tile number if the visitedBoard shows that we are teleporting
                     if (board[nextMove.tileNumber] != 0) {
                         nextMove.tileNumber = board[nextMove.tileNumber];
                     }
