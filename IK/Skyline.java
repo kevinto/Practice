@@ -122,7 +122,9 @@ public class Skyline {
                 pq.offer(-height[1]);
             } else {
                 // This is a right point. Removing by specifying
-                // the height that we added before.
+                // the height that we added before. Will we ever
+                // overlap building intervals when they don't really overlap?
+                //  - No. because we remove that height before it ever does.
                 pq.remove(height[1]);
             }
             int curr = pq.peek();
