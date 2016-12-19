@@ -1,28 +1,25 @@
-import java.util.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Solution {
+/**
+ * Created by kevinto on 12/18/16.
+ */
+public class MergeOverlappingIntervals {
     public static void main(String[] args) {
         ArrayList<Interval> list = new ArrayList<>();
+        //list.add(new Interval(6, 8));
+        //list.add(new Interval(1, 3));
+        //list.add(new Interval(5, 7));
+        //list.add(new Interval(2, 4));
+
         list.add(new Interval(6, 8));
-        list.add(new Interval(1, 3));
-        list.add(new Interval(5, 7));
+        list.add(new Interval(1, 9));
         list.add(new Interval(2, 4));
+        list.add(new Interval(4, 7));
 
         ArrayList<Interval> result = merge(list);
         print(result);
     }
-
- /*
-1) Sort all intervals in decreasing order of start time.
-2) Traverse sorted intervals starting from first interval,
-   do following for every interval.
-      a) If current interval is not first interval and it
-         overlaps with previous interval, then merge it with
-         previous interval. Keep doing it while the interval
-         overlaps with the previous one.
-      b) Else add current interval to output list of intervals.
- */
 
     public static ArrayList<Interval> merge(ArrayList<Interval> oList) {
         if (oList == null) {
@@ -41,7 +38,7 @@ public class Solution {
                 Interval next = oList.get(j);
                 if (currStart <= next.start && currEnd >= next.start) {
                     currEnd = Math.max(currEnd, next.end);
-                    i = j + 1;
+                    i = j;
                 } else {
                     break;
                 }
@@ -76,15 +73,4 @@ public class Solution {
             return this.start - i2.start;
         }
     }
-
-    static class Node {
-        Node next;
-        Node arbit;
-        int val;
-
-        Node(int x) {
-            this.val = x;
-        }
-    }
 }
-
