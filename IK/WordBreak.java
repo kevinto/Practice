@@ -19,13 +19,13 @@ public class WordBreak {
         List<String>[] dpTable = possibleWords(word, dict);
         ArrayList<String> result = new ArrayList<>();
         ArrayList<String> path = new ArrayList<>();
-        dfs(dpTable, 0, path, result);
+        dfsToFindPath(dpTable, 0, path, result);
         String[] resultArr = new String[result.size()];
 
         return result.toArray(resultArr);
     }
 
-    private static void dfs(List<String>[] dpTable, int start, ArrayList<String> path, ArrayList<String> result) {
+    private static void dfsToFindPath(List<String>[] dpTable, int start, ArrayList<String> path, ArrayList<String> result) {
         if (dpTable[start] == null) {
             return;
         } else if (start == dpTable.length - 1) {
@@ -37,7 +37,7 @@ public class WordBreak {
 
         for (String word : dpTable[start]) {
             path.add(word);
-            dfs(dpTable, word.length() + start, path, result);
+            dfsToFindPath(dpTable, word.length() + start, path, result);
             path.remove(path.size() - 1);
         }
     }

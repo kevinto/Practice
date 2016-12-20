@@ -138,6 +138,23 @@ public class LargestSumContinousSubArray {
 
         return finalMax;
     }
+
+    public static int maxSumSubArrayRecursiveWithNoClassVar(int[] nums, int start) {
+        if (start >= nums.length) {
+            return Integer.MIN_VALUE;
+        }
+
+        int currMax = Integer.MIN_VALUE;
+        int currSum = 0;
+        for (int i = start; i < nums.length; i++) {
+            currSum += nums[i];
+            currMax = Math.max(currMax, currSum);
+            int otherMax = maxSumSubArrayRecursiveWithNoClassVar(nums, i + 1);
+            currMax = Math.max(currMax, otherMax);
+        }
+
+        return currMax;
+    }
 }
 
 
