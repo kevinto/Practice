@@ -53,7 +53,7 @@ public class TopologicalSort<T> {
         graph.addEdge(3, 8);
         graph.addEdge(8, 11);
 
-        TopologicalSort<Integer> sort = new TopologicalSort<Integer>();
+        TopologicalSortOwn<Integer> sort = new TopologicalSortOwn<Integer>();
         Deque<Vertex<Integer>> result = sort.topSort(graph);
         while(!result.isEmpty()){
             System.out.println(result.poll());
