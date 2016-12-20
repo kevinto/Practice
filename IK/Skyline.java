@@ -9,7 +9,6 @@ public class Skyline {
         int[][] buildings = {
                 {5, 12, 12},
                 {15, 20, 10}
-//                {2, 9, 10}
         };
         List<int[]> result = getSkylinePriorityQueue(buildings);
         List<int[]> result1 = getSkylineDivideAndConquer(buildings);
