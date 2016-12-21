@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 public class LongestSubstringWithKDistinctCharacters {
     public static void main(String[] args) {
-        String s1 = "eceba";
-        System.out.println(longestLengthSubWithHashAndQueue(s1));
+//        String s1 = "eceba";
+//        System.out.println(longestLengthSubWithHashAndQueue(s1));
 
         String s2 = "ecebaaab";
         System.out.println(longestLengthSubWithHashAndQueue(s2));
@@ -19,6 +19,7 @@ public class LongestSubstringWithKDistinctCharacters {
         HashMap<Character, Integer> map = new HashMap<>();
         int len = str.length();
         int maxLen = 0;
+        List<Character> subStr = new ArrayList<>();
 
         for (int i = 0; i < len; i++) {
             char curr = str.charAt(i);
@@ -37,10 +38,23 @@ public class LongestSubstringWithKDistinctCharacters {
                     }
                     beginningOfQueue = queue.remove();
                 }
+                map.put(curr, 1);
             }
             queue.add(curr);
-            maxLen = Math.max(maxLen, queue.size());
+
+            if (queue.size() > maxLen) {
+                maxLen = queue.size();
+                subStr = new ArrayList<>(queue);
+            }
         }
+
+        if (queue.size() == len && map.size() <= 1) {
+            // There is only 1 distinct character, just return an empty string.
+            System.out.println("");
+        } else {
+            System.out.println(subStr);
+        }
+
         return maxLen;
     }
 
