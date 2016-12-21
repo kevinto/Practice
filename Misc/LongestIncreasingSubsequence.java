@@ -182,8 +182,8 @@ public class LongestIncreasingSubsequence {
 
             // The '1 +' is saying that the current element is added
             // to the current lis.
-            if (nums[i] < nums[length - 1] && currentLisLength < (1 + subLis)) {
-                currentLisLength = 1 + subLis;
+            if (nums[i] < nums[length - 1]) {
+                currentLisLength = Math.max(currentLisLength, 1 + subLis);
             }
         }
 
@@ -217,5 +217,33 @@ public class LongestIncreasingSubsequence {
             max = Math.max(max, val);
         }
         return max;
+    }
+
+    // This implementation fail for the following test case:
+    // int[] arr = {23,24,10};
+    // - This only sets max length when we include the last element in the subsequence.
+    //   This is why a maxLen class variable is needed
+    public static int findLongestRecursiveWrong(int[] arr) {
+        return findLongestRecursiveWrong(arr, arr.length);
+    }
+
+    public static int findLongestRecursiveWrong(int[] arr, int len) {
+        if (len == 1) {
+            return 1;
+        }
+
+        int maxLen = 0;
+        //int currMax = 0;
+
+        for (int i = 0; i < len - 1; i++) {
+            int subMax = findLongestRecursiveWrong(arr, i);
+            if (arr[i] < arr[len - 1]) {
+                //currMax = Math.max(currMax, 1 + subMax);
+                maxLen = Math.max(maxLen, 1 + subMax);
+            }
+            //maxLen = Math.max(currMax, maxLen);
+        }
+
+        return maxLen;
     }
 }
