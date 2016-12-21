@@ -6,7 +6,8 @@ import java.util.HashSet;
 public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
-        int arr[] = {23,10,22,5,33,8,9,21,50,41,60,80,99, 22,23,24,25,26,27};
+//        int arr[] = {23,10,22,5,33,8,9,21,50,41,60,80,99, 22,23,24,25,26,27};
+        int arr[] = {23,24,10};
         int result1 = lis.findLongestRecursive(arr);
         System.out.println("brute force: " + result1);
         int result2 = lis.findLongestDPBottomUp(arr);
@@ -178,7 +179,7 @@ public class LongestIncreasingSubsequence {
         int currentLisLength = 1;
         for (int i = 0; i < length - 1; i++) {
             // Get the len of the lis ending at i
-            int subLis = lisHelper(nums, i);
+            int subLis = lisHelper(nums, i + 1);
 
             // The '1 +' is saying that the current element is added
             // to the current lis.
