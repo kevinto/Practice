@@ -176,6 +176,8 @@ public class LongestIncreasingSubsequence {
             return 1;
         }
 
+        // Notice we pass in the length and not the index of the last element we want to look at.
+        // That is why in order to get the last element you have to do num[length - 1]
         int currentLisLength = 1;
         for (int i = 0; i < length - 1; i++) {
             // Get the len of the lis ending at i
