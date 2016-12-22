@@ -6,12 +6,64 @@ import java.util.*;
 public class PalindromePairs {
     public static void main(String[] args) {
         String[] words1 = {"bat", "tab", "hello"};
-        List<List<Integer>> result = palindromePairs(words1);
+        List<List<Integer>> result = palindromePairsUsingMap(words1);
+        System.out.println(result);
+
+        result = palindromePairsUsingTrie(words1);
+        System.out.println(result);
+
+        palindromePairsUsingMapPrint(words1);
         return;
     }
 
+    public static void palindromePairsUsingMapPrint(String[] words) {
+        if (words == null || words.length < 2) {
+            return;
+        }
+
+        HashMap<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < words.length; i++) {
+            map.put(words[i], i);
+        }
+
+        for (int i = 0; i < words.length; i++) {
+            for (int idx = 0; idx <= words[i].length(); idx++) {
+                String str1 = words[i].substring(0, idx);
+                String str2 = words[i].substring(idx);
+                if (isPal(str1)) {
+                    String str2Reversed = new StringBuilder(str2).reverse().toString();
+                    if (map.containsKey(str2Reversed) && map.get(str2Reversed) != i) {
+                        System.out.println("Found: (" + i + ", " + map.get(str2Reversed) + ")");
+                        return;
+                    }
+                }
+
+                if (isPal(str2)) {
+                    String str1Reversed = new StringBuilder(str1).reverse().toString();
+                    if (map.containsKey(str1Reversed) && map.get(str1Reversed) != i) {
+                        System.out.println("Found: (" + i + ", " + map.get(str1Reversed) + ")");
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isPal(String str) {
+        int i = 0;
+        int j = str.length() - 1;
+
+        while (i <= j) {
+            if (str.charAt(i++) != str.charAt(j--)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // --------- This solution uses TrieNodes ------------------------------
-    class TrieNode {
+    static class TrieNode {
         TrieNode[] next;
         int index;
         List<Integer> list;
@@ -26,22 +78,23 @@ public class PalindromePairs {
         }
     }
 
-    public List<List<Integer>> palindromePairsUsingTrie(String[] words) {
+    public static List<List<Integer>> palindromePairsUsingTrie(String[] words) {
         List<List<Integer>> result = new ArrayList<>();
 
+        // Root will be like an empty head.
         TrieNode root = new TrieNode();
-        for (int i = 0; i < words.length; i++) {
-            addWord(root, words[i], i);
+        for (int wordIdx = 0; wordIdx < words.length; wordIdx++) {
+            addWord(root, words[wordIdx], wordIdx);
         }
 
-        for (int i = 0; i < words.length; i++) {
-            search(words, i, root, result);
+        for (int wordIdx = 0; wordIdx < words.length; wordIdx++) {
+            search(words, wordIdx, root, result);
         }
 
         return result;
     }
 
-    private void addWord(TrieNode root, String word, int index) {
+    private static void addWord(TrieNode root, String word, int index) {
         // Add word from the end to the beginning
         for (int i = word.length() - 1; i >= 0; i--) {
             int j = word.charAt(i) - 'a';
@@ -59,27 +112,27 @@ public class PalindromePairs {
         }
 
         // When we are done adding the word, we add the index.
-        root.list.add(index);
+        root.list.add(index); // If we are at the end of a word the next blank space is a palindrome.
         root.index = index;
     }
 
-    private void search(String[] words, int i, TrieNode root, List<List<Integer>> res) {
-        for (int j = 0; j < words[i].length(); j++) {
-            if (root.index >= 0 && root.index != i && isPalindrome(words[i], j, words[i].length() - 1)) {
-                res.add(Arrays.asList(i, root.index));
+    private static void search(String[] words, int wordIdx, TrieNode root, List<List<Integer>> result) {
+        for (int j = 0; j < words[wordIdx].length(); j++) {
+            if (root.index >= 0 && root.index != wordIdx && isPalindrome(words[wordIdx], j, words[wordIdx].length() - 1)) {
+                result.add(Arrays.asList(wordIdx, root.index));
             }
 
-            root = root.next[words[i].charAt(j) - 'a'];
+            root = root.next[words[wordIdx].charAt(j) - 'a'];
             if (root == null) return;
         }
 
         for (int j : root.list) {
-            if (i == j) continue;
-            res.add(Arrays.asList(i, j));
+            if (wordIdx == j) continue;
+            result.add(Arrays.asList(wordIdx, j));
         }
     }
 
-    private boolean isPalindrome(String word, int i, int j) {
+    private static boolean isPalindrome(String word, int i, int j) {
         while (i < j) {
             if (word.charAt(i++) != word.charAt(j--)) return false;
         }
@@ -88,7 +141,7 @@ public class PalindromePairs {
     }
 
     // Finds all palindrome pairs ---------- Uses HashMap
-    public static List<List<Integer>> palindromePairs(String[] words) {
+    public static List<List<Integer>> palindromePairsUsingMap(String[] words) {
         List<List<Integer>> result = new ArrayList<>();
         if (words == null || words.length < 2) {
             return result;
@@ -105,9 +158,12 @@ public class PalindromePairs {
 
             // Go through the letters of the chosen words.
             for (int j=0; j<=words[i].length(); j++) { // notice it should be "j <= words[i].length()"
+                // Break the word into two pieces, we are going to try all two piece breaks
                 String str1 = words[i].substring(0, j);
                 String str2 = words[i].substring(j);
                 if (isPalindrome(str1)) {
+                    // If the frontal cut is a palindrome, then we need to find another
+                    // word that is the reverse of the second part.
                     String str2Reversed = new StringBuilder(str2).reverse().toString();
                     if (map.containsKey(str2Reversed) && map.get(str2Reversed) != i) {
                         List<Integer> list = new ArrayList<>();
@@ -117,6 +173,8 @@ public class PalindromePairs {
                     }
                 }
                 if (isPalindrome(str2)) {
+                    // If the ending cut is a palindrome, then we need to find another
+                    // word that is the reverse of the first part.
                     String str1Reversed = new StringBuilder(str1).reverse().toString();
                     // check "str.length() != 0" to avoid duplicates
                     if (map.containsKey(str1Reversed) && map.get(str1Reversed) != i && str2.length() != 0) {
