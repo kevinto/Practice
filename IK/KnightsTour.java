@@ -6,16 +6,16 @@ import java.util.Arrays;
  */
 public class KnightsTour {
     public static void main(String[] args) {
-        System.out.println("recursive: " + numPhoneNumbers(1, 3));
-        System.out.println("bottom up dp: " + countNumbersDp(1, 3));
-        System.out.println("bottom up dp low mem: " + countNumbersDpLowMem(1, 3));
+        System.out.println("recursive: " + numPhoneNumbers(1, 10));
+        System.out.println("bottom up dp: " + countNumbersDp(1, 10));
+        System.out.println("bottom up dp low mem: " + countNumbersDpLowMem(1, 10));
     }
 
     static ArrayList<ArrayList<Integer>> traversalMap;
 
-    static int numPhoneNumbers(int startdigit, int phonenumberlength) {
+    static int numPhoneNumbers(int startDigit, int phoneNumberLength) {
         initTraversalMap();
-        return countNumbersRecursive(startdigit, phonenumberlength);
+        return countNumbersRecursive(startDigit, phoneNumberLength);
     }
 
     static int countNumbersDp(int currentStart, int phoneNumLen) {
@@ -79,7 +79,7 @@ public class KnightsTour {
     static void initTraversalMap() {
         traversalMap = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            traversalMap.add(new ArrayList<Integer>());
+            traversalMap.add(new ArrayList<>());
         }
 
         traversalMap.get(0).add(4);

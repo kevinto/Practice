@@ -3,7 +3,18 @@
  */
 public class LargestBst {
     public static void main(String[] args) {
+        Node root = new Node(1);
+        root.left = new Node(100);
+        root.right = new Node(3);
 
+        root.left.left = new Node(50);
+        root.left.right = new Node(200);
+        root.left.right.left = new Node(1);
+        root.left.right.right = new Node(3);
+
+        root.right.left = new Node(1);
+        root.right.right = new Node(100);
+        System.out.println(findLargestBST(root));
     }
 
     private static int largestBst;
@@ -14,7 +25,7 @@ public class LargestBst {
         return largestBst;
     }
 
-    // This solution is for the may or may not included all the descendents
+    // This solution is for the may or may not include all the descendants
     static int findLargestBSTThatIncludesSomeAllDesc(Node n, int min, int max) {
         if (n == null) {
             return 0;
@@ -34,21 +45,22 @@ public class LargestBst {
         }
     }
 
-    public void findLargestBST(Node root, int treeSize) {
+    public static int findLargestBST(Node root) {
         int[] min = new int[1];
         int[] max = new int[1];
-        int[] maxBSTSize = {treeSize};
+        int[] maxBSTSize = {0};
         boolean[] isBST = {false};
 
         findSizeOfLargestBST(root, min, max, isBST, maxBSTSize);
+        return maxBSTSize[0];
     }
 
-    // Return value is the size of the largest all descendants BST.
+    // Return value is the size of the largest all-descendants BST.
     // Implementation notes:
         // Doing a pre-order traversal. Visit left. Check if curr is greater than left's max.
         // Maintain min and max found so far. Visit right. Check if curr is less then right's min.
         // Maintain min and max found so far. Check if left and right are bst based on the recursive call's results.
-    private int findSizeOfLargestBST(Node currentNode, int[] min, int[] max, boolean[] isBST, int[] maxBSTSize)
+    private static int findSizeOfLargestBST(Node currentNode, int[] min, int[] max, boolean[] isBST, int[] maxBSTSize)
     {
         // Gets reset on every recursive call. We want to reset because we
         // don't want to mix with min and max from different subtrees.
