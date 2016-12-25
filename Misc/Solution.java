@@ -2,59 +2,62 @@ import java.util.*;
 import java.util.LinkedList;
 
 public class Solution {
-    static int max_lis_length; // stores the final LIS
+    public static void main(String[] args) {
+        ArrayList<Interval> list = new ArrayList<>();
+        //list.add(new Interval(6, 8));
+        //list.add(new Interval(1, 3));
+        //list.add(new Interval(5, 7));
+        //list.add(new Interval(2, 4));
 
-    // Recursive implementation for calculating the LIS
-    static int _lis(int arr[], int n)
-    {
-        // base case
-        if (n == 1)
-            return 1;
+        list.add(new Interval(1, 3));
+        list.add(new Interval(3, 5));
+        list.add(new Interval(6, 10));
+        list.add(new Interval(9, 15));
+        list.add(new Interval(100, 101));
 
-        int current_lis_length = 1;
-        for (int i=0; i<n-1; i++)
-        {
-            // Recursively calculate the length of the LIS
-            // ending at arr[i]
-            int subproblem_lis_length = _lis(arr, i);
+        List<Interval> result = merge(list);
+        for (int i = 0; i < result.size(); i++) {
+            Interval curr = result.get(i);
+            System.out.println(curr.Start + ", " + curr.End);
+        }
+    }
 
-            // Check if appending arr[n-1] to the LIS
-            // ending at arr[i] gives us an LIS ending at
-            // arr[n-1] which is longer than the previously
-            // calculated LIS ending at arr[n-1]
-            if (arr[i] < arr[n-1] &&
-                    current_lis_length < (1+subproblem_lis_length))
-                current_lis_length = 1+subproblem_lis_length;
+    // 1. sort by starting time increasing. Use stack to track current interval. If top of stack can be expended by current interval, expend it. If current interval cant merge, push it to stack.
+    public static List<Interval> merge(ArrayList<Interval> oList) {
+        List<Interval> res = new ArrayList<>();
+        if (oList == null || oList.size() < 2) {
+            return res;
         }
 
-        // Check if currently calculated LIS ending at
-        // arr[n-1] is longer than the previously calculated
-        // LIS and update max_lis_length accordingly
-        if (max_lis_length < current_lis_length)
-            max_lis_length = current_lis_length;
+        Collections.sort(oList, Comparator.comparingInt(a -> a.Start));
 
-        return current_lis_length;
+        Stack<Interval> stack = new Stack<>();
+        Interval firstElement = oList.get(0);
+        stack.push(new Interval(firstElement.Start, firstElement.End));
+
+        for (int i = 1; i < oList.size(); i++) {
+            Interval currTop = stack.peek();
+            Interval currElement = oList.get(i);
+
+            if (currTop.Start <= currElement.Start
+                    && (currTop.End >= currElement.End || currElement.Start <= currTop.End) ) {
+                currTop.End = Math.max(currTop.End, currElement.End);
+            } else {
+                stack.push(new Interval(currElement.Start, currElement.End));
+            }
+        }
+
+        return new ArrayList<Interval>(stack);
     }
 
-    // The wrapper function for _lis()
-    static int lis(int arr[], int n)
-    {
-        max_lis_length = 1; // stores the final LIS
+    private static class Interval {
+        public int Start;
+        public int End;
 
-        // max_lis_length is declared static above
-        // so that it can maintain its value
-        // between the recursive calls of _lis()
-        _lis( arr, n );
-
-        return max_lis_length;
-    }
-
-    // Driver program to test the functions above
-    public static void main(String args[])
-    {
-        int arr[] = {22,10,24};
-        int n = arr.length;
-        System.out.println("Length of LIS is " + lis( arr, n ));
+        Interval(int start, int end) {
+            this.Start = start;
+            this.End = end;
+        }
     }
 }
 
