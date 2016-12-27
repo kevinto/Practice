@@ -1,10 +1,47 @@
-public class Solution {
+import java.util.Arrays;
+
+/**
+ * Created by kevinto on 12/26/16.
+ */
+public class GuessHigherLowerII {
     public static void main(String[] args) {
-        System.out.println(getMoneyAmountRecursive(3));
+        System.out.println(getMoneyAmountRecursive(5));
+        System.out.println(getMoneyAmountDp(5));
+
+        System.out.println(getMoneyAmountRecursive(6));
+        System.out.println(getMoneyAmountDp(6));
+    }
+
+    public static int getMoneyAmountDp(int n) {
+        if (n <= 0) {
+            return -1;
+        }
+
+        int[][] dp = new int[n + 1][n + 1];
+        for (int row = n - 1; row > 0; row--) {
+            for (int col = row + 1; col <= n; col++) {
+                dp[row][col] = Integer.MAX_VALUE;
+                for(int i = row; i < col; i++) {
+                    if (row >= col) {
+                        continue;
+                    }
+
+                    int left = dp[row][i - 1];
+                    int right = dp[i + 1][col];
+                    int subMax = Math.max(left, right) + i;
+                    dp[row][col] = Math.min(dp[row][col], subMax);
+                }
+            }
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            System.out.println(Arrays.toString(dp[i]));
+        }
+        return dp[1][n];
     }
 
     public static int getMoneyAmountRecursive(int n){
-        return getMoney(1,n);
+        return getMoney(1, n);
     }
 
     private static int getMoney(int start, int end){
@@ -68,4 +105,3 @@ public class Solution {
         return currMax;
     }
 }
-

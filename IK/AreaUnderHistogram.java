@@ -5,7 +5,8 @@ import java.util.Stack;
  */
 public class AreaUnderHistogram {
     public static void main(String[] args) {
-        int[] nums = {6,2,5,4,5,1,6};
+//        int[] nums = {6,2,5,4,5,1,6};
+        int[] nums = {1, 2, 4, 5, 4, 5};
         System.out.println(getMaxArea(nums));
     }
 
@@ -22,7 +23,10 @@ public class AreaUnderHistogram {
         // Run through all bars of given histogram
         int index = 0;
         while (index < hist.length) {
-            // If this bar is higher than the bar on top stack, push it to stack
+            // If this bar is higher than the bar on top stack, push it to stack.
+            // This is because we are only calculating area when we encounter a smaller height.
+            // When we encounter a smaller height, we know the top of the stack forms the
+            // left boundary and the index + 1 forms the right boundary.
             if (stack.empty() || hist[stack.peek()] <= hist[index]) {
                 stack.push(index++);
 

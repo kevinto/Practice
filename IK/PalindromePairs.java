@@ -176,7 +176,9 @@ public class PalindromePairs {
                     // If the ending cut is a palindrome, then we need to find another
                     // word that is the reverse of the first part.
                     String str1Reversed = new StringBuilder(str1).reverse().toString();
-                    // check "str.length() != 0" to avoid duplicates
+                    // check "str.length() != 0" to avoid duplicates. when str2 len is 0,
+                    // the previous str1 already took care of the reverse. When j is at the
+                    // end of a word, str1 already takes care of the reverse of the entire word.
                     if (map.containsKey(str1Reversed) && map.get(str1Reversed) != i && str2.length() != 0) {
                         List<Integer> list = new ArrayList<>();
                         list.add(i);
