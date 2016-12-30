@@ -47,7 +47,7 @@ public class AlternatingPositiveNegative {
     }
 
     // This returns a new result array without modifying the input.
-    // It uses something like the merge sort pattern to find the answer
+    // It uses something like the mergeBySortingStart sort pattern to find the answer
     public static int[] negPos(int[] nums) {
         int[] res = new int[nums.length];
         int posIdx = getNextVal(nums, -1, false);
