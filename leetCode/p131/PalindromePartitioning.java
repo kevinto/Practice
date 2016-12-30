@@ -10,6 +10,7 @@ public class PalindromePartitioning {
     public static void main(String[] args) {
         String test = "aab";
         List<List<String>> list = partition(test);
+        System.out.println(list);
         return;
     }
 

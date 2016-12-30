@@ -3,15 +3,18 @@ package ch8DynamicProgramming;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Kevin on 6/26/16.
  */
 public class nQueens {
     public static void main(String[] args) {
-        int n = 4;
+        int n = 8;
         ArrayList<ArrayList<String>> validBoards = getValidConfigs(n);
-        return;
+        System.out.println(validBoards);
+
+        System.out.println(nqueensWithArrRepresentingColumns(4));
     }
 
     public static ArrayList<ArrayList<String>> getValidConfigs(int n) {
@@ -96,5 +99,55 @@ public class nQueens {
         }
 
         return res;
+    }
+
+    public static List<List<Integer>> nqueensWithArrRepresentingColumns(int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (n <= 0) {
+            return res;
+        }
+
+        int[] board = new int[n];
+        nqueensWithArrRepresentingColumns(n, board, res, 0);
+        return res;
+    }
+
+    private static void nqueensWithArrRepresentingColumns(int n, int[] board, List<List<Integer>> res, int currCol) {
+        if (currCol >= n) {
+            List<Integer> newList = new ArrayList<>();
+            for (int i = 0; i < board.length; i++) {
+                newList.add(board[i]);
+            }
+
+            res.add(newList);
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            board[currCol] = i;
+            if (isValid(board, currCol)) {
+                nqueensWithArrRepresentingColumns(n, board, res, currCol + 1);
+            }
+        }
+    }
+
+    private static boolean isValid(int[] board, int currCol) {
+        // Cant use the entire board length because we stop the path because we would have to assume that our right neighbor was populated correctly.
+        // We are populating left to right columns so we cannot check the rightmost columns of the current pointer yet.
+        for (int i = 0; i <= currCol; i++) {
+            // Check each col to see if any rows match
+            if (i != currCol && board[currCol] == board[i]) {
+                return false;
+            }
+
+            // Check diagonals
+            int rowDiff = Math.abs(board[currCol] - board[i]);
+            int colDiff = Math.abs(currCol - i);
+            if (i != currCol && rowDiff == colDiff) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
