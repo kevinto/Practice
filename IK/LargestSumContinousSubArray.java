@@ -28,7 +28,7 @@ public class LargestSumContinousSubArray {
     public static int maxSumSubArrayRecursive(int[] nums) {
         finalMax = Integer.MIN_VALUE;
 //        return maxSumSubArrayRecursive1(nums, 0);
-        maxSumSubArrayRecursive2(nums, nums.length - 1);
+        recursiveRightToLeftTraversal(nums, nums.length - 1);
         return finalMax;
     }
 
@@ -109,18 +109,35 @@ public class LargestSumContinousSubArray {
     //  1. Do we want to add current with the best we found before?
     //  OR
     //  2. Do we want to start new and just return current?
-    private static int maxSumSubArrayRecursive2(int[] nums, int start) {
+    private static int recursiveRightToLeftTraversal(int[] nums, int start) {
         if (start < 0) {
             return 0;
         }
 
         // The max is either the current number or the current number + the next segment.
         // How does this problem deal with when the max doesnt involve the previously viewed number?
-        int currMax = Math.max(maxSumSubArrayRecursive2(nums, start - 1) + nums[start], nums[start]);
+        // The currMax that is returned ALWAYS involves the current number. Notice nums[start] is always added.
+
+        // This line gives us the max if:
+        // - We chose the current number only.
+        // - We chose the current number as an ending to a sub array
+        // The beginning of our maxest subarray is returned because the current element + recur call is less
+        // then the curr element by itself.
+        // How does a break occur between the end of a potential max subarray and the beginning of another potential
+        // max subarray?
+        // -> break occurs when the curr element plus the recur value is less than the just returning the current
+        //    element itself.
+        int currMax = Math.max(recursiveRightToLeftTraversal(nums, start - 1) + nums[start], nums[start]);
+
+        // We need this global max check because we cant wait till the end to return the global max found so far.
+        // Since any number can be an end and, as an end, it can include all numbers before it.
         if (currMax > finalMax) {
             finalMax = currMax;
         }
 
+        // The return value either includes the sum of the previous segments + this segment OR
+        // the value of this segment only. if it is the value of this segment only then it is
+        // returning the start of a potential max subarray.
         return currMax;
     }
 
@@ -154,6 +171,39 @@ public class LargestSumContinousSubArray {
         }
 
         return currMax;
+    }
+
+    // Left to right traversal with no forloop.
+    private static int maxSoFar2;
+    public static int recursiveLeftToRightTraversal(int[] nums) {
+        maxSoFar2 = Integer.MIN_VALUE;
+        recursiveLeftToRightTraversal(nums, 0);
+        return maxSoFar2;
+    }
+
+    public static int recursiveLeftToRightTraversal(int[] nums, int end) {
+        if (end >= nums.length) {
+            return 0;
+        }
+
+        int currMax = Math.max(recursiveLeftToRightTraversal(nums, end + 1) + nums[end], nums[end]);
+        maxSoFar2 = Math.max(maxSoFar2, currMax);
+        return currMax;
+    }
+
+    public static int leftToRightDpConversion(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[nums.length + 1];
+        int finalMax = Integer.MIN_VALUE;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            dp[i] = Math.max(dp[i + 1] + nums[i], nums[i]);
+            finalMax = Math.max(dp[i], finalMax);
+        }
+
+        return finalMax;
     }
 }
 
