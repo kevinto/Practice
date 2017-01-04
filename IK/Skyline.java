@@ -7,12 +7,26 @@ import java.util.LinkedList;
 public class Skyline {
     public static void main(String[] args) {
         int[][] buildings = {
-                {5, 12, 12},
-                {15, 20, 10}
+//                {5, 12, 12},
+//                {15, 20, 10}
+                {5, 10, 10},
+                {7, 20, 20}
         };
         List<int[]> result = getSkylinePriorityQueue(buildings);
         List<int[]> result1 = getSkylineDivideAndConquer(buildings);
-        return;
+
+        System.out.println("Solution using a priority queue: ");
+        printListOfArrays(result);
+        System.out.println("Solution using a divide and conquer: ");
+        printListOfArrays(result1);
+    }
+
+    private static void printListOfArrays(List<int[]> list) {
+        Iterator<int[]> itr = list.iterator();
+        while(itr.hasNext()) {
+            int[] curr = itr.next();
+            System.out.println(curr[0] + ", " + curr[1]);
+        }
     }
 
     // ----------- Solution using a Merge Sort Like Divide and Conquer --------------------
@@ -114,7 +128,7 @@ public class Skyline {
         Queue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
         pq.offer(0);
 
-        int prev = 0;
+//        int prev = 0;
         for(int[] height:heights) {
             if(height[1] < 0) {
                 // This is a left point
@@ -126,14 +140,22 @@ public class Skyline {
                 //  - No. because we remove that height before it ever does.
                 pq.remove(height[1]);
             }
-            int curr = pq.peek();
-            if(prev != curr) {
+
+            // This block of code uses prev and curr to track if we already added something that is similar in height.
+//            int curr = pq.peek();
+//            if(prev != curr) {
                 // The max height changed. Add this new height.
                 // If the entire heap was emptied, then the top of our heap is 0.
                 // The original heap node of 0, will never be removed because we
                 // dont have a height of 0.
-                result.add(new int[]{height[0], curr});
-                prev = curr;
+//                result.add(new int[]{height[0], curr});
+//                prev = curr;
+//            }
+
+            // This block is more compact but a bit less readable. This block compares the
+            // element that was added last to the result list with the current top of the max heap.
+            if (result.size() == 0 || result.get(result.size() - 1)[1] != pq.peek()) {
+                result.add(new int[]{height[0], pq.peek()});
             }
         }
         return result;
