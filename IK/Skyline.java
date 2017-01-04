@@ -153,7 +153,7 @@ public class Skyline {
 //            }
 
             // This block is more compact but a bit less readable. This block compares the
-            // element that was added last to the result list with the current top of the max heap.
+            // element that was added last to the result list with the current top of the max heap.--
             if (result.size() == 0 || result.get(result.size() - 1)[1] != pq.peek()) {
                 result.add(new int[]{height[0], pq.peek()});
             }

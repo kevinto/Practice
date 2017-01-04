@@ -3,24 +3,27 @@
  */
 public class SwapKNodesInLinkedList {
     public static void main(String[] args) {
-        Node head = new Node(1);
-        head.next = new Node(2);
-        head.next.next = new Node(3);
-        head.next.next.next = new Node(4);
-        head.next.next.next.next = new Node(7);
-        head.next.next.next.next.next = new Node(0);
+        LinkedListNode head = new LinkedListNode(1);
+        head.next = new LinkedListNode(2);
+        head.next.next = new LinkedListNode(3);
+        head.next.next.next = new LinkedListNode(4);
+        head.next.next.next.next = new LinkedListNode(7);
+        head.next.next.next.next.next = new LinkedListNode(0);
 
         System.out.println("Before swap: ");
         printLL(head);
 
-        head = swapKNodes(head, 6);
+//        head = swapKNodes(head, 3); // failing for messy implementation
+        head = swapKNodes(head, 4); // failing for messy implementation
+//        head = swapKNodes(head, 6);
+//        head = swapKNodes(head, 1);
 
         System.out.println("After swap: ");
         printLL(head);
     }
 
     // My messy implementation using length counter
-    public static Node swapKNodes(Node head, int k) {
+    public static LinkedListNode swapKNodes(LinkedListNode head, int k) {
         if (head == null) {
             return head;
         }
@@ -32,8 +35,8 @@ public class SwapKNodesInLinkedList {
 
         // Get node before the first swap
         int currIdx = 1;
-        Node currNode = head;
-        Node beforeFirst = null;
+        LinkedListNode currNode = head;
+        LinkedListNode beforeFirst = null;
         while (currNode != null && currIdx <= k - 1) {
             beforeFirst = currNode;
             currNode = currNode.next;
@@ -43,30 +46,40 @@ public class SwapKNodesInLinkedList {
         // Get node before the second swap
         currIdx = 1;
         currNode = head;
-        Node beforeSecond = null;
+        LinkedListNode beforeSecond = null;
         while (currNode != null && currIdx <= count - k) {
             beforeSecond = currNode;
             currNode = currNode.next;
             currIdx++;
         }
 
-        Node newHead = head;
+        LinkedListNode newHead = head;
         if (beforeFirst == null ^ beforeSecond == null) {
             newHead = beforeFirst == null ? beforeSecond.next : beforeFirst.next;
         }
 
-        Node first = beforeFirst == null ? head : beforeFirst.next;
-        Node second = beforeSecond == null ? head : beforeSecond.next;
+        // Swap the nodes after the nodes we want to swap.
+        LinkedListNode first = beforeFirst == null ? head : beforeFirst.next;
+        LinkedListNode second = beforeSecond == null ? head : beforeSecond.next;
         swapNext(first, second);
 
+        // Swap the actual nodes we want to swap.
         swapNext(beforeFirst, beforeSecond);
+
+        // Take care of the case where the before node is null.
+        // If this is true, then we need to set the last node manually.
+        if (beforeFirst == null) {
+            beforeSecond.next = first;
+        } else if (beforeSecond == null) {
+            beforeFirst.next = second;
+        }
 
         return newHead;
     }
 
-    private static void swapNext(Node n1, Node n2) {
+    private static void swapNext(LinkedListNode n1, LinkedListNode n2) {
         if (n1 != null && n2 != null) {
-            Node temp = n1.next;
+            LinkedListNode temp = n1.next;
             n1.next = n2.next;
             n2.next = temp;
         } else if (n1 == null) {
@@ -76,9 +89,9 @@ public class SwapKNodesInLinkedList {
         }
     }
 
-    private static int getCount(Node head) {
+    private static int getCount(LinkedListNode head) {
         int sum = 0;
-        Node curr = head;
+        LinkedListNode curr = head;
         while (curr != null) {
             sum++;
             curr = curr.next;
@@ -86,8 +99,8 @@ public class SwapKNodesInLinkedList {
         return sum;
     }
 
-    private static void printLL(Node head) {
-        Node curr = head;
+    private static void printLL(LinkedListNode head) {
+        LinkedListNode curr = head;
         while(curr != null) {
             System.out.print(curr.val + " ");
             curr = curr.next;
@@ -95,11 +108,11 @@ public class SwapKNodesInLinkedList {
         System.out.println();
     }
 
-    private static class Node {
-        Node next;
+    private static class LinkedListNode {
+        LinkedListNode next;
         int val;
 
-        Node(int x) {
+        LinkedListNode(int x) {
             this.val = x;
         }
     }
