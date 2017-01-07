@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by kevinto on 11/22/16.
  * My solution is based on starting at the beginning of the array,
@@ -94,4 +96,84 @@ public class SumOfSubArrayPartitioning {
             System.out.println();
         }
     }
+
+    // This implementation of DP models the dp table as
+    // x-axis is the target values, y-axis as the pos values.
+    public static boolean subsetExistsDp1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return false;
+        }
+
+        int sum = 0;
+        for (int val : nums) {
+            sum += val;
+        }
+
+        if (sum % 2 == 1) {
+            return false;
+        }
+
+        int target = sum / 2;
+        boolean[][] dp = new boolean[nums.length + 1][target + 1];
+
+        // Init first col to be true
+        for (int i = 0; i < dp.length; i++) {
+            dp[i][0] = true;
+        }
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            for (int j = 1; j < dp[0].length; j++) {
+                dp[i][j] = dp[i + 1][j];
+
+                if (j - nums[i] >= 0) {
+                    dp[i][j] |= dp[i + 1][j - nums[i]];
+                }
+            }
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            System.out.println(Arrays.toString(dp[i]));
+        }
+
+        return dp[0][target];
+    }
+
+    // Given the dp1 table above this is how you find the path. Or in other words, this is how
+    // you find the exact subset.
+    /*
+    // Gets the actual subset
+    private static boolean[][] dp1;
+    public static List<Integer> dfsDp1(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        int sum = 0;
+        for (int val : nums) {
+            sum += val;
+        }
+
+        dfsDp1Helper(nums, res, 0, sum / 2);
+        return res;
+    }
+
+    private static boolean dfsDp1Helper(int[] nums, List<Integer> path, int row, int col) {
+        if (row < 0 || col < 0) {
+            return false;
+        } else if (col == 0) {
+            return true;
+        }
+
+        path.add(nums[row]);
+        col = col - nums[row];
+        row = row + 1;
+
+        while (row < dp1.length && col >= 0 && dp1[row][col] == true) {
+            row++;
+        }
+
+        if (dfsDp1Helper(nums, path, row - 1, col)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     */
 }
