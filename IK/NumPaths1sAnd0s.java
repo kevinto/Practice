@@ -5,7 +5,7 @@ public class NumPaths1sAnd0s {
     public static void main(String[] args) {
         int[][] test1 = {
                 {1, 1, 1},
-                {1, 0, 1},
+                {1, 1, 1},
                 {1, 1, 1}
         };
         int numPaths1 = numPathsFullSpaceDp(test1);

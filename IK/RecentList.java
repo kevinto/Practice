@@ -103,3 +103,76 @@ interface RecentListInterFace {
     void add(String id);
     List<String> getMostRecent();
 }
+
+/* Potentially cleaner solution:
+static class MriImpl implements MRI {
+        // add(String id) - adds a string
+        // getMostRecent() - returns the top 4. take care of not showing duplicates
+
+        private HashMap<String, Node> map;
+        private Node head;
+        private Node tail;
+        private final int MAX_SIZE = 4;
+
+        public MriImpl() {
+            map = new HashMap<>();
+            head = new Node("head");
+            tail = new Node("tail");
+
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        public void add(String str) {
+            if (map.containsKey(str)) {
+                moveToFront(map.get(str));
+            } else {
+                Node newNode = new Node(str);
+                map.put(str, newNode);
+                addNode(newNode);
+            }
+        }
+
+        public String getMostRecent() {
+            System.out.println("most recent: ");
+            int temp = MAX_SIZE;
+            Node curr = head.next;
+
+            while (curr != null && curr != tail && temp > 0) {
+                System.out.println(curr.val);
+                temp--;
+                curr = curr.next;
+            }
+
+            return "";
+        }
+
+        private void moveToFront(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+
+            node.prev = head;
+            node.next = head.next;
+            head.next.prev = node;
+            head.next = node;
+        }
+
+        private void addNode(Node node) {
+            node.prev = head;
+            node.next = head.next;
+
+            head.next.prev = node;
+            head.next = node;
+        }
+
+        private class Node {
+            Node next;
+            Node prev;
+            String val;
+
+            Node(String v) {
+                this.val = v;
+            }
+        }
+    }
+ */
