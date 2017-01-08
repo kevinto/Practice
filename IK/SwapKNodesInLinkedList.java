@@ -22,7 +22,74 @@ public class SwapKNodesInLinkedList {
         printLL(head);
     }
 
-    // My messy implementation using length counter
+    // -------- My clean implementation using no length counter ----------------
+    static LinkedListNode swapNodes(LinkedListNode head, int k) {
+        if (head == null) {
+            return null;
+        }
+
+        if (count(head) < k) {
+            return head;
+        }
+
+        LinkedListNode beforeFront = null;
+        LinkedListNode front;
+        LinkedListNode beforeBack = null;
+        LinkedListNode back = head;
+        LinkedListNode temp = head;
+        int ct = k;
+
+        while (ct > 1 && temp != null) {
+            beforeFront = temp;
+            temp = temp.next;
+            ct--;
+        }
+        front = temp;
+
+        // Uses temp to take advantage of the sliding window which when temp reaches the end,
+        // the beginning of the window is k distance from the end
+        while (temp != null && temp.next != null) {
+            beforeBack = back;
+            back = back.next;
+            temp = temp.next;
+        }
+
+        // We are deciding to swap the before nodes first before swapping the next of the front/back nodes.
+        return swapNodes(head, beforeFront, front, beforeBack, back);
+    }
+
+    private static LinkedListNode swapNodes(LinkedListNode head, LinkedListNode beforeFront, LinkedListNode front, LinkedListNode beforeBack, LinkedListNode back) {
+        if (beforeFront != null && beforeBack != null) {
+            beforeFront.next = back;
+            beforeBack.next = front;
+        } else if (beforeFront == null) {
+            head = back;
+            beforeBack.next = front;
+//        } else if (beforeBack == null) {
+        } else {
+            head = front;
+            beforeFront.next = back;
+        }
+
+        LinkedListNode temp = front.next;
+        front.next = back.next;
+        back.next = temp;
+
+        return head;
+    }
+
+    private static int count(LinkedListNode head) {
+        int sum = 0;
+        LinkedListNode curr = head;
+        while (curr != null) {
+            sum++;
+            curr = curr.next;
+        }
+
+        return sum;
+    }
+
+    // -------- My messy implementation using length counter ----------------
     public static LinkedListNode swapKNodes(LinkedListNode head, int k) {
         if (head == null) {
             return head;
