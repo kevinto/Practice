@@ -1,121 +1,115 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Solution {
     public static void main(String[] args) {
-        LruImpl lru = new LruImpl(3);
-        lru.set(1, "a");
-        lru.set(2, "b");
-        lru.set(3, "c");
-        lru.set(4, "d");
-        lru.get(2);
-        lru.set(5, "e");
+        //System.out.println(minWindow("AYZABOBECODXBANC", "ABC"));
 
-        System.out.println(lru.get(2));
-        System.out.println(lru.get(3));
+        System.out.println("original: " + "this is a test string");
+        System.out.println(minWindow("this is a test string", "tist"));
     }
 
-    static class LruImpl implements LRU{
-        private int capacity;
-        private int size;
-        private HashMap<Integer, Node> map;
-        private Node head;
-        private Node tail;
-
-        public LruImpl(int cap) {
-            this.capacity = cap;
-            this.size = 0;
-
-            map = new HashMap<>();
-            head = new Node("head");
-            tail = new Node("tail");
-
-            head.next = tail;
-            tail.prev = head;
+    public static String minWindow(String text, String match) {
+        if (text == null || match == null || text.length() == 0 || match.length() == 0) {
+            return "";
         }
 
-        public String get(int key) {
-            if (map.containsKey(key)) {
-                Node curr = map.get(key);
-                moveToFront(curr);
-                return curr.val;
+        // Build freq map and set
+        HashMap<Character, Integer> map = new HashMap<>();
+        HashSet<Character> set = new HashSet<>();
+        int matchLen = match.length();
+        for (int i = 0; i < matchLen; i++) {
+            char currChar = match.charAt(i);
+            if (map.containsKey(currChar)) {
+                map.put(currChar, map.get(currChar) + 1);
             } else {
-                return "not found...";
+                map.put(currChar, 1);
+            }
+            set.add(currChar);
+        }
+
+        // move front pointer to first valid char spot
+        int front = 0;
+        int textLen = text.length();
+        while (front < textLen && !map.containsKey(text.charAt(front))) {
+            front++;
+        }
+
+        if (front < textLen && map.containsKey(text.charAt(front))) {
+            char currChar = text.charAt(front);
+            if (map.get(currChar) == 1) {
+                map.remove(currChar);
+            } else {
+                map.put(currChar, map.get(currChar) - 1);
             }
         }
+        int end = front + 1;
 
-        public void set (int key, String val) {
-            if (map.containsKey(key)) {
-                Node curr = map.get(key);
-                curr.val = val;
-                moveToFront(curr);
-            } else {
-                if (size == capacity) {
-                    ageOff();
+        // load the first window with 2 conditions:
+        // map not empty and back ptr is less then the end of string
+        while (!map.isEmpty() && end < textLen) {
+            char currChar = text.charAt(end);
+            if (map.containsKey(currChar)) {
+                if (map.get(currChar) == 1) {
+                    map.remove(currChar);
+                } else {
+                    map.put(currChar, map.get(currChar) - 1);
                 }
 
-                Node newNode = new Node(key, val);
-                map.put(key, newNode);
-                addToFront(newNode);
-                size++;
+                if (map.isEmpty()) {
+                    break;
+                }
+            } else {
+                end++;
             }
         }
 
-        private void moveToFront(Node node) {
-            // Take out of current position
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-
-            addToFront(node);
+        // while front < back and back < text.length
+        // move back until it matches front
+        // move front to next valid letter
+        // record new window
+        // see if new window is min
+        int minFront = -1;
+        int minEnd = -1;
+        if (front < end && end < textLen) {
+            minFront = front;
+            minEnd = end;
         }
 
-        private void ageOff() {
-            if (size == 0) {
-                return;
-            } else if (size < capacity) {
-                return;
+        while (front < end && end < textLen) {
+            end++;
+            while (end < textLen && text.charAt(end) != text.charAt(front)) {
+                end++;
             }
 
-            size--;
-            Node toDel = tail.prev;
-            tail.prev = toDel.prev;
-
-            map.remove(toDel.key);
-        }
-
-        private void addToFront(Node node) {
-            node.prev = head;
-            node.next = head.next;
-
-            head.next.prev = node;
-            head.next = node;
-        }
-
-        static class Node {
-            Node next;
-            Node prev;
-            int key;
-            String val;
-
-            Node (int key, String val) {
-                this.val = val;
-                this.key = key;
+            if (end >= textLen) {
+                break;
             }
 
-            Node (String val) {
-                this.val = val;
+            front++;
+            while (front < textLen && front <= end && !set.contains(text.charAt(front))) {
+                front++;
+            }
+
+
+            if (front > end) {
+                break;
+            }
+
+            System.out.println("debug: " + text.substring(front, end + 1));
+
+            if ((end - front) < (minEnd - minFront)) {
+                minFront = front;
+                minEnd = end;
             }
         }
-    }
 
-    interface LRU {
-        // get(key) - Get the value (will always be positive)
-        //            of the key if the key exists in the cache, otherwise return -1.
-        String get(int key);
-
-        // set(key, value) - Set or insert the value if the key is not already present.
-        //                   When the cache reached its capacity, it should invalidate the
-        //                   least recently used item before inserting a new item.
-        void set (int key, String val);
+        // return the substring using the front and back ptr.
+        if (minFront != -1 && minEnd != -1) {
+            return text.substring(minFront, minEnd + 1);
+        } else {
+            return "";
+        }
     }
 }
 
