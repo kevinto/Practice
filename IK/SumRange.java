@@ -60,16 +60,16 @@ public class SumRange {
             return segmentTreeNodes[pos];
         }
 
-        // Return sum of elements in range from index qs (quey start) to
-        // qe (query end).  It mainly uses getSumUtil()
-        int getSum(int n, int qs, int qe)
+        // Return sum of elements in range from index startIndex (quey start) to
+        // endIndex (query end).  It mainly uses getSumUtil()
+        int getSum(int n, int startIndex, int endIndex)
         {
             // Check for erroneous input values
-            if (qs < 0 || qe > n - 1 || qs > qe) {
+            if (startIndex < 0 || endIndex > n - 1 || startIndex > endIndex) {
                 System.out.println("Invalid Input");
                 return -1;
             }
-            return getSumUtil(0, n - 1, qs, qe, 0);
+            return getSumUtil(0, n - 1, startIndex, endIndex, 0);
         }
 
         /*

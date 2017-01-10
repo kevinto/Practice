@@ -3,13 +3,17 @@
  */
 public class ZipLinkedList {
     public static void main(String[] args) {
+
         LinkedListNode head = new LinkedListNode(1);
         head.next = new LinkedListNode(2);
         head.next.next = new LinkedListNode(3);
         head.next.next.next = new LinkedListNode(4);
         head.next.next.next.next = new LinkedListNode(5);
         head.next.next.next.next.next = new LinkedListNode(6);
+        System.out.print("Original list: ");
+        printLL(head);
         zip(head);
+        System.out.print("Zipped list:   ");
         printLL(head);
 
         LinkedListNode head2 = new LinkedListNode(1);
@@ -17,7 +21,10 @@ public class ZipLinkedList {
         head2.next.next = new LinkedListNode(3);
         head2.next.next.next = new LinkedListNode(4);
         head2.next.next.next.next = new LinkedListNode(5);
+        System.out.print("Original list: ");
+        printLL(head2);
         zip(head2);
+        System.out.print("Zipped list:   ");
         printLL(head2);
     }
 
