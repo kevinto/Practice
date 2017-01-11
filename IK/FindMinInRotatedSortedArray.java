@@ -7,12 +7,22 @@ public class FindMinInRotatedSortedArray {
         int[] test2 = {4, 5, 1, 2, 3}; // 2 is shift point
         int[] test3 = {4, 5, 6, 7, 1}; // 4 is shift point
 
-        System.out.println(findShift(test1));
-        System.out.println(findShift(test2));
-        System.out.println(findShift(test3));
+        System.out.println(findMin(test1));
+        System.out.println(findMin(test2));
+        System.out.println(findMin(test3));
     }
 
     // TODO: the rest of the problem
+    public static int findMin(int[] arr) {
+        // TODO: input checking...
+
+        if (arr[0] < arr[arr.length - 1]) {
+            return arr[0];
+        } else {
+            int shiftIndex = findShift(arr);
+            return shiftIndex == -1 ? -1 : arr[shiftIndex];
+        }
+    }
 
     public static int findShift(int[] arr) {
         int start = 0;
