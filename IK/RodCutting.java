@@ -3,8 +3,10 @@
  */
 public class RodCutting {
     public static void main(String args[] ) throws Exception {
-        int[] profits = { 0, 1, 2, 4 };
-        int length = 10;
+//        int[] profits = { 0, 1, 2, 4 };
+//        int length = 10;
+        int[] profits = {0, 1, 2, 4, 6, 10};
+        int length = 6;
 
         System.out.println(bestProfitBottomUpDp(length, profits));
     }

@@ -4,11 +4,11 @@
 public class MatrixChainMultiplication {
     public static void main(String[] args) {
         int[] matrixInfo = {40, 20, 30, 10, 30};
-        System.out.println(getMin(matrixInfo, 1,matrixInfo.length - 1));
+        System.out.println(getMinRecursive(matrixInfo, 1,matrixInfo.length - 1));
         System.out.println(getMinDP(matrixInfo, matrixInfo.length));
     }
 
-    static int getMin(int p[], int startIdx, int endIdx)
+    static int getMinRecursive(int p[], int startIdx, int endIdx)
     {
         // When start and end are equal, this means that
         // there is only 1 matrix. If there is only one matrix,
@@ -33,8 +33,8 @@ public class MatrixChainMultiplication {
             // The product of two matrices is always the
             // (rows of 1st part) * (common part in the middle) * (cols of the 2nd part)
             // The common part in the middle is where the two matrices meet.
-            int count = getMin(p, startIdx, k)
-                    + getMin(p, k+1, endIdx)
+            int count = getMinRecursive(p, startIdx, k)
+                    + getMinRecursive(p, k+1, endIdx)
                     + p[startIdx-1]*p[k]*p[endIdx];
 
             min = Math.min(count, min);

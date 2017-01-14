@@ -3,112 +3,65 @@ import java.util.HashSet;
 
 public class Solution {
     public static void main(String[] args) {
-        //System.out.println(minWindow("AYZABOBECODXBANC", "ABC"));
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
 
-        System.out.println("original: " + "this is a test string");
-        System.out.println(minWindow("this is a test string", "tist"));
+        alternativeSplit(head);
     }
 
-    public static String minWindow(String text, String match) {
-        if (text == null || match == null || text.length() == 0 || match.length() == 0) {
-            return "";
+    public static void alternativeSplit(Node head) {
+        if (head == null) {
+            return;
         }
 
-        // Build freq map and set
-        HashMap<Character, Integer> map = new HashMap<>();
-        HashSet<Character> set = new HashSet<>();
-        int matchLen = match.length();
-        for (int i = 0; i < matchLen; i++) {
-            char currChar = match.charAt(i);
-            if (map.containsKey(currChar)) {
-                map.put(currChar, map.get(currChar) + 1);
+        Node head1 = head;
+        Node tail1 = head;
+        Node head2 = null;
+        Node tail2 = null;
+        Node curr = head;
+        int count = 1;
+
+        while (curr != null) {
+            if (count % 2 == 1) {
+                tail1.next = curr;
+                tail1 = curr;
             } else {
-                map.put(currChar, 1);
-            }
-            set.add(currChar);
-        }
-
-        // move front pointer to first valid char spot
-        int front = 0;
-        int textLen = text.length();
-        while (front < textLen && !map.containsKey(text.charAt(front))) {
-            front++;
-        }
-
-        if (front < textLen && map.containsKey(text.charAt(front))) {
-            char currChar = text.charAt(front);
-            if (map.get(currChar) == 1) {
-                map.remove(currChar);
-            } else {
-                map.put(currChar, map.get(currChar) - 1);
-            }
-        }
-        int end = front + 1;
-
-        // load the first window with 2 conditions:
-        // map not empty and back ptr is less then the end of string
-        while (!map.isEmpty() && end < textLen) {
-            char currChar = text.charAt(end);
-            if (map.containsKey(currChar)) {
-                if (map.get(currChar) == 1) {
-                    map.remove(currChar);
+                if (head2 == null) {
+                    head2 = curr;
+                    tail2 = curr;
                 } else {
-                    map.put(currChar, map.get(currChar) - 1);
+                    tail2.next = curr;
+                    tail2 = curr;
                 }
-
-                if (map.isEmpty()) {
-                    break;
-                }
-            } else {
-                end++;
             }
+
+            curr = curr.next;
+            count++;
         }
 
-        // while front < back and back < text.length
-        // move back until it matches front
-        // move front to next valid letter
-        // record new window
-        // see if new window is min
-        int minFront = -1;
-        int minEnd = -1;
-        if (front < end && end < textLen) {
-            minFront = front;
-            minEnd = end;
+        tail1.next = null;
+        tail2.next = null;
+
+        printLL(head1);
+        printLL(head2);
+    }
+
+    public static void printLL(Node head) {
+        Node curr = head;
+        while (curr != null) {
+            System.out.println(curr.val);
+            curr = curr.next;
         }
+    }
 
-        while (front < end && end < textLen) {
-            end++;
-            while (end < textLen && text.charAt(end) != text.charAt(front)) {
-                end++;
-            }
+    static class Node {
+        Node next;
+        int val;
 
-            if (end >= textLen) {
-                break;
-            }
-
-            front++;
-            while (front < textLen && front <= end && !set.contains(text.charAt(front))) {
-                front++;
-            }
-
-
-            if (front > end) {
-                break;
-            }
-
-            System.out.println("debug: " + text.substring(front, end + 1));
-
-            if ((end - front) < (minEnd - minFront)) {
-                minFront = front;
-                minEnd = end;
-            }
-        }
-
-        // return the substring using the front and back ptr.
-        if (minFront != -1 && minEnd != -1) {
-            return text.substring(minFront, minEnd + 1);
-        } else {
-            return "";
+        Node(int newVal) {
+            this.val = newVal;
         }
     }
 }

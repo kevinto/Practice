@@ -34,6 +34,48 @@ public class AlternativeNodeSplit {
         printList(head2);
     }
 
+    public static void alternativeSplitUsing5Pointers(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node head1 = head;
+        Node tail1 = head;
+        Node head2 = head.next;
+        Node tail2 = head.next;
+        Node curr = head2;
+        int count = 1;
+
+        while (curr != null && head2 != null) {
+            if (curr == head2) {
+                curr = curr.next;
+                continue;
+            }
+
+            if (count % 2 == 1) {
+                tail1.next = curr;
+                tail1 = curr;
+            } else {
+                tail2.next = curr;
+                tail2 = curr;
+            }
+
+            curr = curr.next;
+            count++;
+        }
+
+        tail1.next = null;
+
+        if (tail2 != null) {
+            tail2.next = null;
+        }
+
+        System.out.println("Printing list 1: ");
+        printList(head1);
+        System.out.println("Printing list 2: ");
+        printList(head2);
+    }
+
     public static void printList(Node head) {
         Node curr = head;
         while (curr != null) {
