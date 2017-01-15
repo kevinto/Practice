@@ -3,38 +3,28 @@ import java.util.HashSet;
 
 public class Solution {
     public static void main(String[] args) {
-        HashSet<Tile> visited = new HashSet<>();
-        visited.add(new Tile(1, 1));
-        if (visited.contains(new Tile(1, 1))) {
-            System.out.println("passed");
-        } else {
-            System.out.println("failed");
-        }
+        //String test = "ABABABA";
+        String test = "ABC";
+        System.out.println(longestRepeatedStr(test));
     }
 
-    private static class Tile {
-        int row;
-        int col;
-        int moves;
+    public static String longestRepeatedStr(String str) {
+        HashSet<String> set = new HashSet<>();
+        int len = str.length();
 
-        Tile(int row, int col) {
-            this.row = row;
-            this.col = col;
+        for (int start = 0; start < len; start++) {
+            for (int end = start; end <= len; end++) {
+                String curr = str.substring(start, end);
+                System.out.println(curr);
+                set.add(curr);
+            }
         }
 
-        Tile(int row, int col, int moves) {
-            this.row = row;
-            this.col = col;
-            this.moves = moves;
+        for (String val : set) {
+            //System.out.println(val);
         }
 
-        public boolean equals(Tile t2) {
-            return this.row == t2.row && this.col == t2.col;
-        }
-
-        public int hashCode() {
-            return 0;
-        }
+        return "";
     }
 }
 

@@ -2,6 +2,16 @@
  * Created by kevinto on 12/18/16.
  */
 public class MiddleElementOfLinkedList {
+    public static void main(String[] args) {
+        LinkedListNode head = new LinkedListNode(1);
+        head.next = new LinkedListNode(2);
+        head.next.next = new LinkedListNode(3);
+        head.next.next.next = new LinkedListNode(4);
+        head.next.next.next.next = new LinkedListNode(5);
+        head.next.next.next.next.next = new LinkedListNode(6);
+        System.out.println(findMiddleNode(head));
+    }
+
     static int findMiddleNode(LinkedListNode head) {
         if (head == null) {
             return -1;
