@@ -7,7 +7,15 @@ import java.util.List;
  */
 public class SumZero {
     public static void main(String[] args) {
-        int[] nums = {5, 1, 2,-3 ,7 ,-4};
+        int[] nums = {
+                0,
+                1,
+                2,
+                3,
+                4,
+                -10
+        };
+
         String[] res = sumZero(nums);
 
         for (int i = 0; i < res.length; i++) {
@@ -47,6 +55,13 @@ public class SumZero {
 
             if (map.containsKey(sum)) {
                 res.add(getSubArray(nums, map.get(sum) + 1, i));
+            } else if (sum == 0 && i > 0) {
+                if (nums[0] == 0) {
+                    res.add(getSubArray(nums, 1, i));
+                }
+                res.add(getSubArray(nums, 0, i));
+            } else if (nums[i] == 0) {
+                res.add(getSubArray(nums, i, i));
             } else {
                 map.put(sum, i);
             }
@@ -78,4 +93,5 @@ public class SumZero {
 
         return resArr;
     }
+
 }
