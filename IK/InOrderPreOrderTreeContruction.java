@@ -5,6 +5,19 @@ public class InOrderPreOrderTreeContruction {
     public static void main(String[] args) {
         int[] inOrder = {2,5,6,10,12,14,15};
         int[] preOrder = {10,5,2,6,14,12,15};
+        Node root = constructTree(inOrder, preOrder);
+
+        printTree(root);
+    }
+
+    private static void printTree(Node root) {
+        if (root == null) {
+            return;
+        }
+
+        printTree(root.left);
+        System.out.println(root.val);
+        printTree(root.right);
     }
 
     private static int preOrderIndex;

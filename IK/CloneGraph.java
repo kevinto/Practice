@@ -47,6 +47,11 @@ public class CloneGraph {
                     Node copy = new Node(neighbor.val);
                     oldNewMap.put(neighbor, copy);
                     oldNewMap.get(curr).neighbors.add(copy);
+
+                    // Keeping the enqueue in here is necessary because if the copy
+                    // does not exist in our map then we know we havent encountered
+                    // the current child before. If we have not encountered the current
+                    // child before then we can put it in queue for processing.
                     queue.offer(neighbor);
                 }
             }
