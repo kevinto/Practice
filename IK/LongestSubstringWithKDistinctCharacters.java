@@ -138,4 +138,43 @@ public class LongestSubstringWithKDistinctCharacters {
         // Return true if k is greater than or equal to val
         return (k >= val);
     }
+
+    // My implementation of windows approach
+    public static int getMaxDistinct(String str) {
+        if (str == null || str.length() == 0) {
+            return -1;
+        }
+
+        int len = str.length();
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+        int[] map = new int[256];
+        map[str.charAt(left)]++;
+        int ct = 1;
+
+        while (right < len) {
+            if (ct <= 3) {
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+
+            right++;
+            if (right < len) {
+                if (map[str.charAt(right)] == 0) {
+                    ct++;
+                }
+                map[str.charAt(right)]++;
+            }
+
+            while (ct > 3) {
+                if (map[str.charAt(left)] == 1) {
+                    ct--;
+                }
+                map[str.charAt(left)]--;
+                left++;
+            }
+        }
+
+        return maxLen;
+    }
 }
