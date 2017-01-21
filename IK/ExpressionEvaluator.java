@@ -46,6 +46,9 @@ public class ExpressionEvaluator {
             //  This multiplies the curr num with the previous num.
             //  The pointer can be on a plus. We multiply before
             //  we deal with the plus.
+            // Also, this is here to take care of the last operation
+            // being a multi. pos is increasing on every call. We need to
+            // take care of the last digit before we exit out.
             if (multiplication) {
                 digit *= factor;
                 multiplication = false;
