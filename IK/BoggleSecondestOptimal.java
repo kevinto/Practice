@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class BoggleSecondestOptimal {
     public static void main(String[] args) {
-        String[] dict = {"geeks", "for",                                "quiz", "go"};
+        String[] dict = {"geeks", "for", "quiz", "go"};
         String[][] board = new String[][] {
                 {"g", "i", "z"},
                 {"u", "e", "k"},
@@ -52,16 +52,49 @@ public class BoggleSecondestOptimal {
         StringBuilder sbPath = new StringBuilder();
         List<String> res = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; i < board[0].length; j++) {
-                findWordsHelper(i, j, visited, sbPath, res);
+            for (int j = 0; j < board[0].length; j++) {
+                if (root.children[board[i][j].charAt(0) - 'a'] != null) {
+                    findWordsHelper(i, j, visited, sbPath, res, board, root.children[board[i][j].charAt(0) - 'a']);
+                }
             }
         }
 
         return null;
     }
 
-    private static void findWordsHelper(int row, int col, HashSet<Point> visited, StringBuilder path, List<String> res) {
-        // TODO: Implement this.
+    private static void findWordsHelper(int row, int col, HashSet<Point> visited, StringBuilder path, List<String> res,
+                                        String[][] board, TrieNode root) {
+        if (row < 0 || col < 0 || row >= board.length || col >= board[0].length || root == null) {
+            return;
+        } else if (visited.contains(new Point(row, col))) {
+            return;
+        } else if (root.isWord) {
+            path.append(root.val);
+            res.add(path.toString());
+            path.deleteCharAt(path.length() - 1);
+            return;
+        }
+
+//        TrieNode matchingNode = root.children[board[row][col].charAt(0) - 'a'];
+        Point currPoint = new Point(row, col);
+        visited.add(currPoint);
+        path.append(board[row][col].charAt(0));
+
+        for (int i = row - 1; i <= row + 1; i++) {
+            for (int j = col - 1; j <= col + 1; j++) {
+                if (i < 0 || j < 0 || i >= board.length || j >= board[0].length
+                        || (i == row && j == col)) {
+                    continue;
+//                } else if (matchingNode.children[board[i][j].charAt(0) - 'a'] != null) {
+                } else if (root.children[board[i][j].charAt(0) - 'a'] != null) {
+                    findWordsHelper(i, j, visited, path, res, board, root.children[board[i][j].charAt(0) - 'a']);
+//                    findWordsHelper(i, j, visited, path, res, board, matchingNode);
+                }
+            }
+        }
+
+        path.deleteCharAt(path.length() - 1);
+        visited.remove(currPoint);
     }
 
     static class Point {
@@ -71,6 +104,33 @@ public class BoggleSecondestOptimal {
         Point(int r, int c) {
             this.row = r;
             this.col = c;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + this.row;
+            result = prime * result + this.col;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            } else if (obj == null) {
+                return false;
+            } else if (this.getClass() != obj.getClass()) {
+                return false;
+            }
+
+            Point other = (Point)obj;
+            if (this.row == other.row && this.col == other.col) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
