@@ -59,7 +59,13 @@ public class BoggleSecondestOptimal {
             }
         }
 
-        return null;
+        String[] finalResult = new String[res.size()];
+        int i = 0;
+        for (String str : res) {
+            finalResult[i++] = str;
+        }
+
+        return finalResult;
     }
 
     private static void findWordsHelper(int row, int col, HashSet<Point> visited, StringBuilder path, List<String> res,

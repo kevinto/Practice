@@ -173,10 +173,7 @@ public class LongestIncreasingSubsequence {
                 currentLisLength = Math.max(currentLisLength, 1 + subLis);
             }
         }
-
-        if (maxLen < currentLisLength) {
-            maxLen = currentLisLength;
-        }
+        maxLen = Math.max(maxLen, currentLisLength);
 
         return currentLisLength;
     }
