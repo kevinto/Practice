@@ -1,38 +1,63 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
-        String[] words1 = {"cat"};
-        palindromePairsUsingMap(words1);
+        String[] words = {"zk", "ze", "be", "e"};
+        findOrder(words);
+        return;
     }
 
-    public static void palindromePairsUsingMap(String[] words) {
-        List<List<Integer>> result = new ArrayList<>();
+    //private List<HashSet<Character>> adjList; // Bad choice because we need to represent letters here.
+    //  not numbers.
+    private static HashMap<Character, HashSet<Character>> adjList;
 
-        for (int i = 0; i < words.length; i++) {
-            int sum = 0;
-            for (int j = 0; j <= words[i].length(); j++) { // notice it should be "j <= words[i].length()"
-                String str1 = words[i].substring(0, j);
-                String str2 = words[i].substring(j);
-                System.out.println("str1: " + str1 + ", str2: " + str2);
-                sum += 1;
-            }
-            System.out.println("sumFirst: " + sum);
-            System.out.println();
-
-            sum = 0;
-            for (int j = 1; j <= words[i].length(); j++) { // notice it should be "j <= words[i].length()"
-                String str1 = words[i].substring(0, j);
-                String str2 = words[i].substring(j);
-                System.out.println("str1: " + str1 + ", str2: " + str2);
-                sum += 1;
-            }
-            System.out.println("sumSecond: " + sum);
-            System.out.println();
+    public static String findOrder(String[] dict) {
+        if (dict == null || dict.length == 0) {
+            return "";
         }
+
+        generateGraph(dict);
+        //return topSort();
+        return "";
+    }
+
+    private static void generateGraph(String[] dict) {
+        int first, second;
+        adjList = new HashMap<>();
+
+        for (int dictIdx = 0; dictIdx < dict.length - 1; dictIdx++) {
+            first = 0;
+            second = 0;
+
+            if (dict[dictIdx].charAt(first) != dict[dictIdx + 1].charAt(second)) {
+                addEdge(dict[dictIdx].charAt(first), dict[dictIdx + 1].charAt(second));
+                continue;
+            }
+
+            while (first < dict[dictIdx].length() && second < dict[dictIdx + 1].length()
+                    && dict[dictIdx].charAt(first) == dict[dictIdx + 1].charAt(second)) {
+
+                first++;
+                second++;
+
+                if (first < dict[dictIdx].length() && second < dict[dictIdx + 1].length()
+                        && dict[dictIdx].charAt(first) != dict[dictIdx + 1].charAt(second)) {
+
+                    addEdge(dict[dictIdx].charAt(first), dict[dictIdx + 1].charAt(second));
+                    break;
+                }
+            }
+
+        }
+    }
+
+    private static void addEdge(char begin, char end) {
+        if (!adjList.containsKey(begin)) {
+            adjList.put(begin, new HashSet<>());
+        }
+
+        HashSet<Character> set = adjList.get(begin);
+        set.add(end);
     }
 }
 
