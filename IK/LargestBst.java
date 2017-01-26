@@ -51,7 +51,7 @@ public class LargestBst {
         int[] maxBSTSize = {0};
         boolean[] isBST = {false};
 
-        findSizeOfLargestBST(root, min, max, isBST, maxBSTSize);
+        findSizeOfLargestBSTAllDescRequired(root, min, max, isBST, maxBSTSize);
         return maxBSTSize[0];
     }
 
@@ -60,7 +60,7 @@ public class LargestBst {
         // Doing a pre-order traversal. Visit left. Check if curr is greater than left's max.
         // Maintain min and max found so far. Visit right. Check if curr is less then right's min.
         // Maintain min and max found so far. Check if left and right are bst based on the recursive call's results.
-    private static int findSizeOfLargestBST(Node currentNode, int[] min, int[] max, boolean[] isBST, int[] maxBSTSize)
+    private static int findSizeOfLargestBSTAllDescRequired(Node currentNode, int[] min, int[] max, boolean[] isBST, int[] maxBSTSize)
     {
         // Gets reset on every recursive call. We want to reset because we
         // don't want to mix with min and max from different subtrees.
@@ -75,7 +75,7 @@ public class LargestBst {
 
         // In this call, min[0] and max[0] would be updated
         // isBST[0] would be updated if left sub-tree is BST
-        int leftTreeSize = findSizeOfLargestBST(currentNode.left, min, max, isBST, maxBSTSize);
+        int leftTreeSize = findSizeOfLargestBSTAllDescRequired(currentNode.left, min, max, isBST, maxBSTSize);
 
         // Check if left sub-tree is a BST and no node in left sub-tree is greater than current node
         // Check against left's max
@@ -88,7 +88,7 @@ public class LargestBst {
 
         // In this call, min[0] and max[0] would be updated
         // isBST[0] would be updated if right sub-tree is BST
-        int rightTreeSize = findSizeOfLargestBST(currentNode.right, min, max, isBST, maxBSTSize);
+        int rightTreeSize = findSizeOfLargestBSTAllDescRequired(currentNode.right, min, max, isBST, maxBSTSize);
 
         // Check if right sub-tree is a BST and no node in right sub-tree is less than current node
         // Check against right's min
