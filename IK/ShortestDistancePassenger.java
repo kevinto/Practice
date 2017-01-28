@@ -1,13 +1,16 @@
-import java.util.*;
+import java.util.Queue;
 import java.util.LinkedList;
 
-public class Solution {
+/**
+ * Created by kevinto on 1/28/17.
+ */
+public class ShortestDistancePassenger {
     public static void main(String[] args) {
         char[][] matrix = {
-                {'d', 'x', 'x', 'x', 'x'},
+                {'d', 'x', 'x', 'x', 'd'},
                 {'x', 'x', 'x', 'x', 'x'},
                 {'d', 'x', 'x', 'x', 'p'},
-                {'x', 'x', 'x', 'x', 'd'},
+                {'x', 'x', 'x', 'x', 'x'},
                 {'d', 'x', 'x', 'x', 'x'}
         };
         int[] passPos = {2, 4};
@@ -49,6 +52,7 @@ public class Solution {
                     queue.offer(new Pos(i, j, curr.distanceFromPassenger + 1));
                 }
             }
+            j = curr.col == 0 ? 0 : curr.col - 1;
         }
     }
 
@@ -76,4 +80,3 @@ public class Solution {
         }
     }
 }
-
