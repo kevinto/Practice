@@ -9,8 +9,8 @@ public class LargestBst {
 
         root.left.left = new Node(50);
         root.left.right = new Node(200);
-        root.left.right.left = new Node(1);
-        root.left.right.right = new Node(3);
+        root.left.right.left = new Node(150);
+        root.left.right.right = new Node(300);
 
         root.right.left = new Node(1);
         root.right.right = new Node(100);
@@ -77,9 +77,11 @@ public class LargestBst {
         // isBST[0] would be updated if left sub-tree is BST
         int leftTreeSize = findSizeOfLargestBSTAllDescRequired(currentNode.left, min, max, isBST, maxBSTSize);
 
+        // we need to save bool left and bool right because we need to check if the right bst is largest too. and isbst is reused......
         // Check if left sub-tree is a BST and no node in left sub-tree is greater than current node
         // Check against left's max
-        boolean isLeftValid = isBST[0] && (max[0] < currentNode.val);
+        //boolean isLeftValid = isBST[0] && (max[0] < currentNode.val);
+        isBST[0] &= (max[0] < currentNode.val);
 
         // Before updating min[0] and max[0] in right sub-tree save min and max values seen so far
         // Saves min and max from left subtree with the current node.
@@ -92,7 +94,8 @@ public class LargestBst {
 
         // Check if right sub-tree is a BST and no node in right sub-tree is less than current node
         // Check against right's min
-        boolean isRightValid = isBST[0] && (currentNode.val < min[0]);
+//        boolean isRightValid = isBST[0] && (currentNode.val < min[0]);
+        isBST[0] &= (currentNode.val < min[0]);
 
         // Before returning update min[0] which would be the minimum value seen in this sub-tree with root as currentNode
         // and update max[0] which would be the maximum value seen in this sub-tree before
@@ -101,10 +104,11 @@ public class LargestBst {
         max[0] = Math.max(tempMax, max[0]);
 
         // If this tree with root as currentNode is a valid BST
-        if (isLeftValid && isRightValid)
+//        if (isLeftValid && isRightValid)
+        if (isBST[0])
         {
             // This sub-tree at currentNode is also a BST
-            isBST[0] = true;
+//            isBST[0] = true;
 
             // Update max BST size accordingly
             if ((1 + leftTreeSize + rightTreeSize) > maxBSTSize[0])
