@@ -28,37 +28,79 @@ public class SlidingWindowMaximum {
             return null;
         }
         long[] maxes = new long[nums.length - windowSize + 1];
-        Deque<Integer> dq = new LinkedList();
+        Deque<Integer> deque = new LinkedList();
 
         // Add initial window
         for (int i = 0; i < windowSize; i++){
-            while (!dq.isEmpty() && nums[i] > nums[dq.getLast()]) {
-                dq.removeLast();
+            while (!deque.isEmpty() && nums[i] > nums[deque.getLast()]) {
+                deque.removeLast();
             }
-            dq.addLast(i);
+            deque.addLast(i);
         }
 
         for (int i = windowSize; i < nums.length; i++) {
             // Process the previous window
-            maxes[i - windowSize] = nums[dq.getFirst()];
+            maxes[i - windowSize] = nums[deque.getFirst()];
 
             // Clean back of queue
-            while (!dq.isEmpty() && nums[i] > nums[dq.getLast()]) {
-                dq.removeLast();
+            while (!deque.isEmpty() && nums[i] > nums[deque.getLast()]) {
+                deque.removeLast();
             }
 
             // Clean front of queue
-            while (!dq.isEmpty() && dq.getFirst() <= i - windowSize) {
-                dq.removeFirst();
+            while (!deque.isEmpty() && deque.getFirst() <= i - windowSize) {
+                deque.removeFirst();
             }
 
             // Add the current window
-            dq.addLast(i);
+            deque.addLast(i);
         }
 
         // Add the last window.
-        maxes[nums.length - windowSize] = dq.getFirst();
+        maxes[nums.length - windowSize] = deque.getFirst();
         return maxes;
+    }
+
+    // This is a solution for a different problem. This solution finds all the windows,
+    // even if the window slides out of bounds.
+    public static int[] windowMaxesWithDeque(int[] nums, int winSize) {
+        // TODO: Input checking
+
+        Deque<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < nums.length && i < winSize; i++) {
+            while (!queue.isEmpty() && nums[queue.getLast()] < nums[i]) {
+                queue.removeLast();
+            }
+            queue.addLast(i);
+        }
+
+        int[] res = new int[nums.length];
+        for (int i = winSize; i < nums.length; i++) {
+            res[i - winSize] = nums[queue.getFirst()];
+
+            // Clean up maxes that are out of bounds
+            while (!queue.isEmpty() && queue.getFirst() < i - winSize + 1) {
+                queue.removeFirst();
+            }
+
+            // Remove old vals that are less then current
+            while (!queue.isEmpty() && nums[queue.getLast()] < nums[i]) {
+                queue.removeLast();
+            }
+
+            queue.addLast(i);
+        }
+
+        for (int i = nums.length - winSize; i < nums.length; i++) {
+            while (!queue.isEmpty() && queue.getFirst() < i) {
+                System.out.println(queue.getFirst());
+                queue.removeFirst();
+            }
+
+            res[i] = nums[queue.getFirst()];
+        }
+
+        return res;
     }
 
     // This way makes the forloop a little cleaner by focusing on only 1 condition. This
@@ -66,6 +108,8 @@ public class SlidingWindowMaximum {
     // We first add the currmax (for previous window), then clean the window using the right
     // border, then add the element at the right border. However this way requires that you
     // add the remainder of the window at the end after the original forloop exits.
+    // This is a solution for a different problem. This solution finds all the windows,
+    // even if the window slides out of bounds.
     public static int[] windowMaxesWithHeapClean(int[] nums, int winSize) {
         int[] res = new int[nums.length];
         PriorityQueue<HeapObj> heap = new PriorityQueue<>((a, b) -> {
@@ -106,6 +150,8 @@ public class SlidingWindowMaximum {
     // window into the result array.
     // Our structure is basically start at the first window, check if valid, add it,
     // then go to the next window.
+    // This is a solution for a different problem. This solution finds all the windows,
+    // even if the window slides out of bounds.
     public static int[] windowMaxesWithHeap(int[] nums, int winSize) {
         // TODO: Input checking
 
