@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  * Created by kevinto on 12/3/16.
@@ -58,6 +59,90 @@ public class SlidingWindowMaximum {
         // Add the last window.
         maxes[nums.length - windowSize] = dq.getFirst();
         return maxes;
+    }
+
+    // This way makes the forloop a little cleaner by focusing on only 1 condition. This
+    // forloop tracks only the right border and inits at the new window next element.
+    // We first add the currmax (for previous window), then clean the window using the right
+    // border, then add the element at the right border. However this way requires that you
+    // add the remainder of the window at the end after the original forloop exits.
+    public static int[] windowMaxesWithHeapClean(int[] nums, int winSize) {
+        int[] res = new int[nums.length];
+        PriorityQueue<HeapObj> heap = new PriorityQueue<>((a, b) -> {
+            return b.val - a.val;
+        });
+
+        // Load first window
+        for (int i = 0; i < nums.length && i < winSize; i++) {
+            heap.offer(new HeapObj(i, nums[i]));
+        }
+
+        for (int i = winSize; i < nums.length; i++) {
+            res[i - winSize] = heap.peek().val;
+
+            while (!heap.isEmpty() && heap.peek().index < i - winSize - 1) {
+                heap.poll();
+            }
+
+            heap.offer(new HeapObj(i, nums[i]));
+        }
+
+        int right = nums.length - winSize;
+        while (right < nums.length) {
+            res[right] = heap.peek().val;
+
+            right++;
+            while (!heap.isEmpty() && heap.peek().index < right) {
+                heap.poll();
+            }
+        }
+
+        return res;
+    }
+
+    // This way loads the window first. The next for loop inits at the first window,
+    // checks if top contains an out of range element (pops if it does), adds a new
+    // object only if we are not in the initial window, and adds the max of the
+    // window into the result array.
+    // Our structure is basically start at the first window, check if valid, add it,
+    // then go to the next window.
+    public static int[] windowMaxesWithHeap(int[] nums, int winSize) {
+        // TODO: Input checking
+
+        int[] res = new int[nums.length];
+        PriorityQueue<HeapObj> heap = new PriorityQueue<>((a, b) -> {
+            return b.val - a.val;
+        });
+
+        // Load first window
+        for (int i = 0; i < nums.length && i < winSize; i++) {
+            heap.offer(new HeapObj(i, nums[i]));
+        }
+
+        for (int left = 0, right = winSize - 1; left < nums.length; left++, right++) {
+            while(!heap.isEmpty() && heap.peek().index < left) {
+                heap.poll();
+            }
+
+            // Need to not add the initial window again
+            if (left != 0 && right < nums.length) {
+                heap.offer(new HeapObj(right, nums[right]));
+            }
+
+            res[left] = heap.peek().val;
+        }
+
+        return res;
+    }
+
+    private static class HeapObj {
+        int index;
+        int val;
+
+        HeapObj(int index, int val) {
+            this.index = index;
+            this.val = val;
+        }
     }
 
     // Do this later as a coding exercise -> runtime = o(nlogn). this is because

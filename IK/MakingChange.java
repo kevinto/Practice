@@ -1,7 +1,10 @@
-import java.util.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Solution {
+/**
+ * Created by kevinto on 1/29/17.
+ */
+public class MakingChange {
     public static void main(String[] args) {
         System.out.println("test".substring(0,0));
         int[] denoms = {2,3,5,6};
@@ -34,11 +37,10 @@ public class Solution {
             return;
         }
 
-        int temp = money;
         for (int i = 0; i < denoms.length; i++) {
-            if ((temp - denoms[i] >= 0) && dp[temp - denoms[i]] + 1 == dp[temp]) {
+            if ((money - denoms[i] >= 0) && dp[money - denoms[i]] + 1 == dp[money]) {
                 path.add(denoms[i]);
-                getPath(path, res, i, denoms);
+                getPath(path, res, money - denoms[i], denoms);
                 path.remove(path.size() - 1);
             }
         }
@@ -82,4 +84,3 @@ public class Solution {
         return min;
     }
 }
-
