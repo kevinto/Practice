@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class PalindromePairs {
     public static void main(String[] args) {
-        String[] words1 = {"bat", "tab", "hello"};
+        String[] words1 = {"abcd", "dcba", "lls", "s", "sssll"};
         List<List<Integer>> result = palindromePairsUsingMap(words1);
         System.out.println(result);
 
@@ -34,7 +34,7 @@ public class PalindromePairs {
                     String str2Reversed = new StringBuilder(str2).reverse().toString();
                     if (map.containsKey(str2Reversed) && map.get(str2Reversed) != i) {
                         System.out.println("Found: (" + i + ", " + map.get(str2Reversed) + ")");
-                        return;
+//                        return;
                     }
                 }
 
@@ -42,7 +42,7 @@ public class PalindromePairs {
                     String str1Reversed = new StringBuilder(str1).reverse().toString();
                     if (map.containsKey(str1Reversed) && map.get(str1Reversed) != i) {
                         System.out.println("Found: (" + i + ", " + map.get(str1Reversed) + ")");
-                        return;
+//                        return;
                     }
                 }
             }
