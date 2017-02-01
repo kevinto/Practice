@@ -18,6 +18,15 @@ public class IsSumTree {
         System.out.println("Optimal: Is a sum tree. should return true: " + isSumTreeOptimal(root2));
     }
 
+    // Optimal is an evolution of the brute force. With the insight that
+    // you can get the sum of a subtree by doubling the root of that subtree
+    // You can only use this property when you are sure that the subtree
+    // is valid. This recursion goes down the to bottom of the tree and
+    // checks the validity in a post order method to make sure both
+    // subtrees are valid until you can use the property on the current root node.
+    // The critical question here is: What do you do if you know the left tree
+    // and the right tree are valid? How can you validate that the current
+    // value is correct by using this?
     public static boolean isSumTreeOptimal(Node root) {
         if (root == null || (root.left == null && root.right == null)) {
             return true;
