@@ -27,7 +27,7 @@ import java.util.Vector;
  * Brainstorm solutions:
  *      - Track the paths to both nodes. See if there are any common ancestors. Return
  *        the lowest common ancestor.
- *      -
+*      -
  *
  */
 
