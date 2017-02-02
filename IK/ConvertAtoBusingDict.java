@@ -141,4 +141,45 @@ public class ConvertAtoBusingDict {
         }
         return (countPosOne == 1) && (countNegOne == 1);
     }
+
+    // This takes care of words that differ in length by 1 letter
+    private static boolean wordsDiffBy1Ver2(String s1, String s2) {
+        if (Math.abs(s1.length() - s2.length()) > 1) {
+            return false;
+        }
+
+        int[] freq = new int[256];
+
+        for (int i = 0; i < s1.length(); i++) {
+            freq[s1.charAt(i)]++;
+        }
+
+        for (int i = 0; i < s2.length(); i++) {
+            freq[s2.charAt(i)]--;
+        }
+
+        int posOneCt = 0;
+        int negOneCt = 0;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] == 0) {
+                continue;
+            } else if (freq[i] == 1) {
+                posOneCt++;
+            } else if (freq[i] == -1) {
+                negOneCt++;
+            } else {
+                return false;
+            }
+        }
+
+        if (Math.abs(s1.length() - s2.length()) == 1) {
+            // One letter extra in one of the words. That means
+            // you should only have 1 letter difference in your
+            // frequency array.
+            return (posOneCt == 1 && negOneCt == 0)
+                    || (posOneCt == 0 && negOneCt == 1);
+        } else {
+            return posOneCt == 1 && negOneCt == 1;
+        }
+    }
 }
