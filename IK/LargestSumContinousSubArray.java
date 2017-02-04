@@ -11,6 +11,7 @@ public class LargestSumContinousSubArray {
         System.out.println("dp solution space optimized: " + maxSumSubArrayDPOptimalSpace(test1));
         System.out.println("Using Kadanes: " + kadansPositiveOnly(test1));
         System.out.println("Using Kadanes modified: " + kadansModToWorkWithNegs(test1));
+        System.out.println();
 
         System.out.println("Negative max test: ");
         int[] test2 = {-2, -3, -1, -2};
@@ -19,9 +20,12 @@ public class LargestSumContinousSubArray {
         System.out.println("dp solution space optimized: " + maxSumSubArrayDPOptimalSpace(test2));
         System.out.println("Using Kadanes[shows this is wrong]: " + kadansPositiveOnly(test2));
         System.out.println("Using Kadanes modified: " + kadansModToWorkWithNegs(test2));
+        System.out.println();
 
         int[] test3 = {1, 5, -3};
         System.out.println("recursive solution: " + maxSumSubArrayRecursive(test3));
+        System.out.println("Using Kadanes[shows this is wrong]: " + kadansPositiveOnly(test3));
+        System.out.println("Using Kadanes modified: " + kadansModToWorkWithNegs(test3));
     }
 
     private static int finalMax;
@@ -91,7 +95,7 @@ public class LargestSumContinousSubArray {
        int maxSoFar = nums[0];
        int maxEndingHere = nums[0];
 
-       for (int i = 0; i < nums.length; i++) {
+       for (int i = 1; i < nums.length; i++) {
            maxEndingHere = Math.max(maxEndingHere + nums[i], nums[i]);
            maxSoFar = Math.max(maxSoFar, maxEndingHere);
            if (maxEndingHere < 0) {
