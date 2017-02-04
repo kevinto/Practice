@@ -209,6 +209,42 @@ public class LargestSumContinousSubArray {
 
         return finalMax;
     }
+
+    // Clean working one during coding exercise:
+
+    /*
+    private static int finalMax;
+    public static int maxSumDp(int[] nums) {
+        finalMax = Integer.MIN_VALUE;
+        maxSumHelper(nums, nums.length - 1);
+        return finalMax;
+    }
+
+    private static int maxSumHelper(int[] nums, int end) {
+        if (end < 0) {
+            return 0;
+        }
+
+        int currMax = Math.max(nums[end], nums[end] + maxSumHelper(nums, end - 1));
+        finalMax = Math.max(finalMax, currMax);
+
+        return currMax;
+    }
+
+    public static int maxSumKadane(int[] nums) {
+        // TODO: Input Checking
+
+        int sum = nums[0], maxSum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            // We can choose to extend the current substring
+            // OR start over.
+            sum = Math.max(nums[i], sum + nums[i]);
+            maxSum = Math.max(maxSum, sum);
+        }
+
+        return maxSum;
+    }
+     */
 }
 
 
