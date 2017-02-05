@@ -5,6 +5,35 @@ public class WaysToDecode {
     public static void main(String[] args) {
         String test1 = "11111";
         System.out.println(new WaysToDecode().numDecodings(test1));
+        System.out.println(numDecodingsDp("1231124"));
+    }
+
+    public static int numDecodingsDp(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[str.length() + 1];
+        dp[str.length()] = 1;
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (str.charAt(i) == '0') {
+                dp[i] = 0;
+                continue;
+            }
+
+            if (str.charAt(i) - '0' > 0) {
+                dp[i] = dp[i + 1];
+            }
+
+            if (i + 1 < str.length()
+                    && ((str.charAt(i) - '0') * 10) + (str.charAt(i + 1) - '0') <= 26) {
+
+                dp[i] += dp[i + 2];
+            }
+        }
+
+        return dp[0];
     }
 
     public int numDecodings(String a) {
@@ -37,5 +66,25 @@ public class WaysToDecode {
         }
 
         return memo[n];
+    }
+
+
+    public int numDecodingsSlightlyDifferent(String str, int pos) {
+        if (pos >= str.length()) {
+            return 1;
+        }
+
+        int sum = 0;
+        if (str.charAt(pos) - '0' > 0) {
+            sum = numDecodingsSlightlyDifferent(str, pos + 1);
+        }
+
+        if (pos + 1 < str.length()
+                && ((str.charAt(pos) - '0') * 10) + (str.charAt(pos + 1) - '0') <= 26) {
+
+            sum += numDecodingsSlightlyDifferent(str, pos + 2);
+        }
+
+        return sum;
     }
 }
