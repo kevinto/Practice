@@ -17,9 +17,13 @@ public class SumOfSubArrayPartitioning {
 //        boolean result = subsetSum(test1, target1);
 //        System.out.println(result);
 
-        int[] test2 = {1, 2, 4, 3};
-        int target2 = 5;
-        boolean result2 = subsetSum(test2, target2);
+        int[] test2 = {2, 2, 8};
+//        int[] test2 = {1, 2, 4, 3};
+        int target2 = 6;
+//        int target2 = 5;
+        //boolean result2 = subsetSum(test2, target2);
+        //System.out.println(result2);
+        boolean result2 = subsetExistsDp1(test2);
         System.out.println(result2);
 
 //        int[] test3 = {6, 5, 4, 5};
@@ -136,6 +140,32 @@ public class SumOfSubArrayPartitioning {
         }
 
         return dp[0][target];
+    }
+
+    // Memory efficient solution to what we have above:
+    public static boolean subsetSumDpMemoryOptimized(int[] nums, int target) {
+        boolean[] prev = new boolean[target + 1];
+        boolean[] curr = null;
+        System.out.println("finding target: " + target);
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            curr = new boolean[target + 1];
+            for (int j = 0; j < curr.length; j++) {
+                if (j == 0) {
+                    curr[j] = true;
+                    continue;
+                }
+
+                curr[j] = prev[j];
+                if (j - nums[i] >= 0) {
+                    curr[j] |= prev[j - nums[i]];
+                }
+            }
+
+            prev = curr;
+        }
+
+        return prev[target];
     }
 
     // Given the dp1 table above this is how you find the path. Or in other words, this is how

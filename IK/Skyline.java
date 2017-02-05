@@ -7,18 +7,17 @@ import java.util.LinkedList;
 public class Skyline {
     public static void main(String[] args) {
         int[][] buildings = {
-//                {5, 12, 12},
-//                {15, 20, 10}
                 {5, 10, 10},
-                {7, 20, 20}
+                {7, 20, 20},
+                {25, 30, 10}
         };
         List<int[]> result = getSkylinePriorityQueue(buildings);
-        List<int[]> result1 = getSkylineDivideAndConquer(buildings);
+//        List<int[]> result1 = getSkylineDivideAndConquer(buildings);
 
         System.out.println("Solution using a priority queue: ");
         printListOfArrays(result);
-        System.out.println("Solution using a divide and conquer: ");
-        printListOfArrays(result1);
+//        System.out.println("Solution using a divide and conquer: ");
+//        printListOfArrays(result1);
     }
 
     private static void printListOfArrays(List<int[]> list) {
