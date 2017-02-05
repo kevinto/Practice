@@ -12,6 +12,32 @@ public class AlternativeNodeSplit {
         alternativeSplit(head);
     }
 
+    // Coding exercise problem using curr, next, and head pointers
+    public static void alternativeSplitUsingNextPointers(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node h1 = head;
+        Node h2 = head.next;
+        Node c1 = h1;
+        Node c2 = h2;
+
+        while (c2 != null) {
+            Node n1 = c2.next;
+            Node n2 = c2.next == null ? null : c2.next.next;
+
+            c1.next = c2.next;
+            c2.next = c2.next == null ? null : c2.next.next;
+
+            c1 = n1;
+            c2 = n2;
+        }
+
+        printList(h1);
+        printList(h2);
+    }
+
     public static void alternativeSplit(Node head) {
         if (head == null) {
             return;
