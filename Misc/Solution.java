@@ -3,22 +3,7 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.println("test".substring(0,0));
-        int[] denoms = {2,3,5,6};
-        int money = 10;
-
-        int recurMin = getMinRecursive(denoms, money);
-        System.out.println("Recursive min: " + recurMin);
-
-        int dpMin = getMinDp(denoms, money);
-        System.out.println("Dp min: " + dpMin);
-
-        for (int i = 0; i < dp.length; i++) {
-            System.out.print(dp[i] + " ");
-        }
-        System.out.println();
-
-        System.out.println(getPath(denoms, money));
+        System.out.print("test".substring(0,1));
     }
 
     public static List<List<Integer>> getPath(int[] denoms, int money) {

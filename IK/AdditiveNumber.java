@@ -88,4 +88,50 @@ public class AdditiveNumber {
         return result;
     }
     // ------------------ END - My iterative implementation with multiple pointers -------------------
+
+    /* Slightly cleaner coding exercise impl
+    public static boolean isAdditiveNumber(String str) {
+        // TODO: Input checking
+
+        int len = str.length();
+        for (int first = 0; first < len; first++) {
+            int firstNum = Integer.parseInt(str.substring(0, first + 1));
+
+            for (int second = first + 1; second < len; second++) {
+                int secondNum = Integer.parseInt(str.substring(first + 1, second + 1));
+
+                for (int third = second + 1; third < len; third++) {
+                    int thirdNum = Integer.parseInt(str.substring(second + 1, third + 1));
+
+                    boolean isValid = false;
+                    if (firstNum + secondNum == thirdNum) {
+                        isValid = validRest(str, secondNum, thirdNum, third + 1);
+                    }
+
+                    if (isValid) {
+                        return isValid;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean validRest(String str, int firstVal, int secondVal, int thirdStart) {
+        int len = str.length();
+        for (int third = thirdStart; third < len; third++) {
+            int thirdVal = Integer.parseInt(str.substring(thirdStart, third + 1));
+            if (firstVal + secondVal != thirdVal) {
+                return false;
+            }
+
+            firstVal = secondVal;
+            secondVal = thirdVal;
+            thirdStart = third + 1;
+        }
+
+        return true;
+    }
+     */
 }
