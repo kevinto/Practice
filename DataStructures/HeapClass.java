@@ -93,4 +93,70 @@ public class HeapClass {
             }
         }
     }
+
+    /*
+    // This method is supposed to let me heapify a node within a
+    // heap that i need to find and update
+    public static void updateHeap(int[] heap, HashMap<Integer, Integer> map,
+                                  int oldKey, int newKey) {
+        if (!map.containsKey(oldKey)) {
+            return;
+        }
+
+        int oldKeyIndex = map.get(oldKey);
+        map.remove(oldKey);
+        map.put(newKey, oldKeyIndex);
+        heap[oldKeyIndex] = newKey;
+
+        int parent = (oldKeyIndex - 1) / 2;
+        if (parent >= 0 && heap[parent] > heap[oldKeyIndex]) {
+            bottomUpHeapify(heap, oldKeyIndex);
+        } else {
+            topDownHeapify(heap, oldKeyIndex);
+        }
+    }
+
+    private static void topDownHeapify(int[] heap, int index) {
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+
+        while (left < heap.length || right < heap.length) {
+            if (left < heap.length && heap[left] <= heap[right]
+                    && heap[left] < heap[index]) {
+
+                swap(heap, left, index);
+                index = left;
+            } else if (right < heap.length && heap[right] < heap[left]
+                       && heap[right] < heap[index]){
+
+                swap(heap, right, index);
+                index = right;
+            } else {
+                break;
+            }
+
+            left = 2 * index + 1;
+            right = 2 * index + 2;
+        }
+    }
+
+    private static void bottomUpHeapify(int[] heap, int index) {
+        int parent = (index - 1) / 2;
+        while (parent >= 0 && parent != index) {
+            if (heap[parent] > heap[index]) {
+                swap(heap, parent, index);
+                index = parent;
+                parent = (index - 1) / 2;
+            } else {
+                break;
+            }
+        }
+    }
+
+    private static void swap(int[] nums, int i1, int i2) {
+        int temp = nums[i1];
+        nums[i1] = nums[i2];
+        nums[i2] = temp;
+    }
+     */
 }
