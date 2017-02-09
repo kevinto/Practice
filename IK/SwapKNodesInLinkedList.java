@@ -14,8 +14,8 @@ public class SwapKNodesInLinkedList {
         printLL(head);
 
 //        head = swapKNodes(head, 3); // failing for messy implementation
-        head = swapKNodes(head, 4); // failing for messy implementation
-//        head = swapKNodes(head, 6);
+//        head = swapKNodes(head, 4); // failing for messy implementation
+        head = swapKNodes(head, 6);
 //        head = swapKNodes(head, 1);
 
         System.out.println("After swap: ");
