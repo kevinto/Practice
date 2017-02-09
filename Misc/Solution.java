@@ -3,70 +3,61 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.print("test".substring(0,1));
+        System.out.println(minWindow("AYZABOBECODXBANC", "ABC"));
     }
 
-    public static List<List<Integer>> getPath(int[] denoms, int money) {
-        List<Integer> path = new ArrayList<>();
-        List<List<Integer>> res = new ArrayList<>();
-        getPath(path, res, money, denoms);
-        return res;
-    }
+    public static String minWindow(String text, String findText) {
+        // TODO: Input checking
 
-    public static void getPath(List<Integer> path, List<List<Integer>> res, int money, int[] denoms) {
-        if (money == 0) {
-            res.add(new ArrayList<>(path));
-            return;
-        }
+        int textLen = text.length();
+        int findTextLen = findText.length();
+        int[] map = genFreqMap(findText);
+        int count = 0;
+        int left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE;
+        int strStart = -1, strEnd = -1;
 
-        int temp = money;
-        for (int i = 0; i < denoms.length; i++) {
-            if ((temp - denoms[i] >= 0) && dp[temp - denoms[i]] + 1 == dp[temp]) {
-                path.add(denoms[i]);
-                getPath(path, res, i, denoms);
-                path.remove(path.size() - 1);
+        while (right < textLen) {
+            char currRight = text.charAt(right);
+            map[currRight]--;
+            if (map[currRight] >= 0) {
+                count++;
             }
-        }
-    }
+            right++;
 
-    private static int[] dp;
-    public static int getMinDp(int[] denoms, int money) {
-        dp = initDp(money);
-
-        for (int i = 1; i < dp.length; i++) {
-            for (int j = 0; j < denoms.length; j++) {
-                if (i - denoms[j] >= 0) {
-                    dp[i] = Math.min(dp[i], 1 + dp[i - denoms[j]]);
+            while (count == findTextLen && left < right) {
+                System.out.println("s: " + left + ", e: " + right);
+                char currLeft = text.charAt(left);
+                if (map[currLeft] + 1 == 1) {
+                    break;
                 }
+                left++;
+            }
+
+            if (count == findTextLen && right - left < minLen) {
+                minLen = right - left;
+                strStart = left;
+                strEnd = right;
+                System.out.println("s: " + strStart + ", e: " + strEnd);
             }
         }
 
-        return dp[money];
+        if (strStart != -1 && strEnd != -1) {
+            return text.substring(strStart, strEnd);
+        } else {
+            return "FoundNothing";
+        }
     }
 
-    private static int[] initDp(int money) {
-        int[] dp = new int[money + 1];
-        for (int i = 1; i < dp.length; i++) {
-            dp[i] = money;
+    private static int[] genFreqMap(String str) {
+        int[] map = new int[256];
+        int len = str.length();
+
+        for (int i = 0; i < len; i++) {
+            map[str.charAt(i)]++;
         }
-        return dp;
+
+        return map;
     }
-
-    public static int getMinRecursive(int[] denoms, int money) {
-        if (money == 0) {
-            return 0;
-        }
-
-        int min = money;
-        for (int i = 0; i < denoms.length; i++) {
-            if (money - denoms[i] >= 0) {
-                min = Math.min(min, 1 + getMinRecursive(denoms, money - denoms[i]));
-            }
-        }
-
-        return min;
-    }
-
-
 }
 

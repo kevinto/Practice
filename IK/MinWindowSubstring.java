@@ -66,4 +66,63 @@ public class MinWindowSubstring {
 
         return text.substring(minStart, minEnd + 1);
     }
+
+    // Implementation during coding exercise
+    public String minWindowDuringCodingExercise(String text, String findText) {
+        // TODO: Input checking
+        if (text == null || findText == null || findText.length() > text.length()) {
+            return "";
+        }
+
+        int textLen = text.length();
+        int findTextLen = findText.length();
+        int[] map = genFreqMap(findText);
+        int count = 0;
+        int left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE;
+        int strStart = -1, strEnd = -1;
+
+        while (right < textLen) {
+            char currRight = text.charAt(right);
+            map[currRight]--;
+            if (map[currRight] >= 0) {
+                count++;
+            }
+            right++;
+
+            while (count == findTextLen && left < right) {
+                char currLeft = text.charAt(left);
+
+                // Moved up left to the very last character that makes our window valid.
+                if (map[currLeft] + 1 == 1) {
+                    break;
+                }
+                map[currLeft]++;// Why did this cause a bug? Because left will move to the left and map will still contain extras for characters in our findText. Now our Map is wrong, and this causes left to go all the way up to right
+                left++;
+            }
+
+            if (count == findTextLen && right - left < minLen) {
+                minLen = right - left;
+                strStart = left;
+                strEnd = right;
+            }
+        }
+
+        if (strStart != -1 && strEnd != -1) {
+            return text.substring(strStart, strEnd);
+        } else {
+            return "";
+        }
+    }
+
+    private int[] genFreqMap(String str) {
+        int[] map = new int[256];
+        int len = str.length();
+
+        for (int i = 0; i < len; i++) {
+            map[str.charAt(i)]++;
+        }
+
+        return map;
+    }
 }
