@@ -102,4 +102,45 @@ public class AddTwoNumbers {
             this.val = val;
         }
     }
+
+    // Way cleaner coding exercise solution:
+    /*
+    static LinkedListNode addNumbers(LinkedListNode head1, LinkedListNode head2) {
+        LinkedListNode newHead = null;
+        LinkedListNode tail = null;
+        int carry = 0;
+        LinkedListNode curr1 = head1;
+        LinkedListNode curr2 = head2;
+
+        while (curr1 != null || curr2 != null) {
+            int curr1Val = curr1 == null ? 0 : curr1.val;
+            int curr2Val = curr2 == null ? 0 : curr2.val;
+            LinkedListNode newNode = new LinkedListNode(curr1Val + curr2Val + carry);
+            carry = 0;
+
+            if (newNode.val >= 10) {
+                carry = 1;
+                newNode.val -= 10;
+            }
+
+            if (newHead == null) {
+                newHead = newNode;
+                tail = newHead;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+
+            curr1 = curr1 == null ? null : curr1.next;
+            curr2 = curr2 == null ? null : curr2.next;
+        }
+
+        if (carry == 1) {
+            tail.next = new LinkedListNode(1);
+            tail = tail.next;
+        }
+
+        return newHead;
+    }
+     */
 }
