@@ -3,7 +3,9 @@
  */
 public class ExpressionEvaluator {
     public static void main(String[] args) {
-        char[] operators = {'c', '+', '*'};
+//        char[] operators = {'c', '+', '*'};
+//        char[] operators = {'+', 'c', '*'};
+        char[] operators = {'*', '+', 'c'};
         System.out.println(evaluateExpression("2222", operators));
     }
 
@@ -54,7 +56,9 @@ public class ExpressionEvaluator {
                 multiplication = false;
             }
 
-            // We reached the end, exit the loop.
+            // We reached the end, exit the loop. This works because it adds the
+            // results after multiplication and combination, and it also takes
+            // care of addition implicitly.
             if (i == operators.length) {
                 result += digit;
                 break;
