@@ -9,7 +9,31 @@ public class AlternativeNodeSplit {
         head.next.next.next = new Node(4);
         head.next.next.next.next = new Node(5);
         head.next.next.next.next.next = new Node(6);
-        alternativeSplit(head);
+        alternativeSplit2(head);
+    }
+
+
+    // Alternative code ex implementation.
+    public static void alternativeSplit2(Node head) {
+        Node h1 = head;
+        Node h2 = head.next;
+        Node c1 = h1;
+        Node c2 = h2;
+
+        while (c2 != null && c2.next != null) {
+            c1.next = c2.next;
+            c2.next = c2.next.next;
+
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+
+        if (c1 != null) {
+            c1.next = null;
+        }
+
+        printList(h1);
+        printList(h2);
     }
 
     // Coding exercise problem using curr, next, and head pointers
