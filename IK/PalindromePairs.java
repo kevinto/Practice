@@ -9,10 +9,10 @@ public class PalindromePairs {
         List<List<Integer>> result = palindromePairsUsingMap(words1);
         System.out.println(result);
 
-        result = palindromePairsUsingTrie(words1);
-        System.out.println(result);
-
-        palindromePairsUsingMapPrint(words1);
+//        result = palindromePairsUsingTrie(words1);
+//        System.out.println(result);
+//
+//        palindromePairsUsingMapPrint(words1);
         return;
     }
 

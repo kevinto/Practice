@@ -16,10 +16,9 @@ public class DiameterOfATree {
 
     private static DiameterReturnValue diameterRecursion(TreeNode root) {
         if (root == null) {
-            return null;
+            return new DiameterReturnValue(0, 0);
         } else if (root.sons == null || root.sons.size() == 0) {
-            DiameterReturnValue retObj = new DiameterReturnValue(root.distanceFromFather, 0);
-            return retObj;
+            return new DiameterReturnValue(root.distanceFromFather, 0);
         }
 
         int mostDistantSon = Integer.MIN_VALUE;

@@ -142,14 +142,13 @@ public class MergeTrees {
 
         flattenHelper(root.left);
 
-        if (flatHead == null) {
+        if (flatPrev == null) {
             flatHead = root;
-        }
-
-        if (flatPrev != null) {
-            root.left = flatPrev;
+        } else {
             flatPrev.right = root;
         }
+
+        root.left = flatPrev;
         flatPrev = root;
 
         flattenHelper(root.right);
