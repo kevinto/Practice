@@ -3,8 +3,12 @@
  */
 public class PascalTriangle {
     public static void main(String args[] ) throws Exception {
+        System.out.println("printPasUsingRecursion(6):");
         printPasUsingRecursion(6);
+        System.out.println("printPasUsingIterationWithCurrPrev(6):");
         printPasUsingIterationWithCurrPrev(6);
+        System.out.println("printPasCleanIteration(6):");
+        printPasCleanIteration(6);
     }
 
     public static int[] printPasUsingRecursion(int n) {
@@ -60,6 +64,26 @@ public class PascalTriangle {
 
             prev = curr;
             System.out.println();
+        }
+    }
+
+    public static void printPasCleanIteration(int n) {
+        int[] prev = new int[n];
+        for (int level = 1; level <= n; level++) {
+            int[] curr = new int[n];
+
+            for (int i = 0; i < level; i++) {
+                if (i == 0 || i == level - 1) {
+                    curr[i] = 1;
+                    System.out.print(curr[i] + " ");
+                } else {
+                    curr[i] = prev[i - 1] + prev[i];
+                    System.out.print(curr[i] + " ");
+                }
+            }
+
+            System.out.println();
+            prev = curr;
         }
     }
 }
