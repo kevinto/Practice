@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by kevinto on 12/27/16.
  */
@@ -13,10 +15,7 @@ public class Permutations {
 
     private static void printPermutations(int[] nums, int writeIndex) {
         if (writeIndex == nums.length) {
-            for (int num : nums) {
-                System.out.print(num + " ");
-            }
-            System.out.println();
+            System.out.println(Arrays.toString(nums));
             return;
         }
 

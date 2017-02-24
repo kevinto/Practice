@@ -77,9 +77,9 @@ public class FindInt4Billion {
             }
         }
 
-        int missingNum = 0;
-        missingNum |= (selectedBucket << 16); // Add the prefix
-        missingNum |= (suffix); // Add the suffix
+        int missingNum = (selectedBucket << 16) + suffix;
+//        missingNum |= (selectedBucket << 16); // Add the prefix
+//        missingNum |= (suffix); // Add the suffix
 
         return missingNum;
     }
