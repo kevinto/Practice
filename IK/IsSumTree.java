@@ -32,12 +32,14 @@ public class IsSumTree {
             return true;
         }
 
+        // Does a check for root, immediate left, and immediate right to check validity.
         int leftSum = getSumOptimal(root.left);
         int rightSum = getSumOptimal(root.right);
         if (leftSum + rightSum != root.val) {
             return false;
         }
 
+        // After we check root, recursively check the shildren
         boolean isSum = isSumTreeOptimal(root.left);
         isSum &= isSumTreeOptimal(root.right);
 
@@ -59,7 +61,7 @@ public class IsSumTree {
             return true;
         }
 
-        boolean isSum = root.val == getChildrenSums(root);
+        boolean isSum = root.val == getChildrenSums(root.left) + getChildrenSums(root.right);
         isSum &= isSumTreeBruteForce(root.left);
         isSum &= isSumTreeBruteForce(root.right);
 
@@ -71,10 +73,15 @@ public class IsSumTree {
             return 0;
         }
 
-        int leftSum = root.left == null ? 0 : root.left.val + getChildrenSums(root.left);
-        int rightSum = root.right == null ? 0 : root.right.val + getChildrenSums(root.right);
+        int leftSum = getChildrenSums(root.left);
+        int rightSum = getChildrenSums(root.right);
 
-        return leftSum + rightSum;
+        // Alt implementation that is less clean. The current implementation says given the root
+        // find the sum of all nodes in tree.
+//        int leftSum = root.left == null ? 0 : root.left.val + getChildrenSums(root.left);
+//        int rightSum = root.right == null ? 0 : root.right.val + getChildrenSums(root.right);
+
+        return leftSum + rightSum + root.val;
     }
 
     private static class Node {

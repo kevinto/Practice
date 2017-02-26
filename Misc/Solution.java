@@ -3,7 +3,13 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.println(minWindow("AYZABOBECODXBANC", "ABC"));
+        int[] map = {0, 1};
+        int val = 9;
+
+        while (val > 0) {
+            System.out.print((map[val % 2]) + " ");
+            val /= 2;
+        }
     }
 
     public static String minWindow(String text, String findText) {

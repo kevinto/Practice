@@ -40,7 +40,8 @@ public class QuickSortRecursive {
         qSort.sortIterative(test2, 0, test2.length - 1);
         System.out.println("After: " + Arrays.toString(test2));
 
-        int[] partitiontest3 = {5, 1, 1, 6, 6};
+        //int[] partitiontest3 = {5, 1, 1, 6, 6};
+        int[] partitiontest3 = {5, 6, 6, 6, 6};
         int result3 = qSort.partitionLeftMostElement(partitiontest3, 0, partitiontest3.length - 1);
         System.out.println("partitiontest3: " + Arrays.toString(partitiontest3));
         System.out.println("partitiontest3: pivot index = " + result3);
