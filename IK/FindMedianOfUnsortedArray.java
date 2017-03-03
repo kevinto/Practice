@@ -73,7 +73,6 @@ public class FindMedianOfUnsortedArray {
         return queue.poll();
     }
 
-    /*
     // My impl that deals with even len arr returning the mean of 2 mids
     double specialFindMed(int[] nums,  int start, int end) {
         if (start >= end) {
@@ -100,7 +99,10 @@ public class FindMedianOfUnsortedArray {
             return specialFindMed(nums, pivotPos + 1, end);
         }
     }
-     */
+
+    private int partitionLeftMostElement(int[] nums, int start, int end) {
+        return 0;
+    }
 }
 
 /*

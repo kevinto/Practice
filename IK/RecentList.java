@@ -109,15 +109,15 @@ static class MriImpl implements MRI {
         // add(String id) - adds a string
         // getMostRecent() - returns the top 4. take care of not showing duplicates
 
-        private HashMap<String, LinkedListNode> map;
-        private LinkedListNode head;
-        private LinkedListNode tail;
+        private HashMap<String, Node> map;
+        private Node head;
+        private Node tail;
         private final int MAX_SIZE = 4;
 
         public MriImpl() {
             map = new HashMap<>();
-            head = new LinkedListNode("head");
-            tail = new LinkedListNode("tail");
+            head = new Node("head");
+            tail = new Node("tail");
 
             head.next = tail;
             tail.prev = head;
@@ -127,7 +127,7 @@ static class MriImpl implements MRI {
             if (map.containsKey(str)) {
                 moveToFront(map.get(str));
             } else {
-                LinkedListNode newNode = new LinkedListNode(str);
+                Node newNode = new Node(str);
                 map.put(str, newNode);
                 addNode(newNode);
             }
@@ -136,7 +136,7 @@ static class MriImpl implements MRI {
         public String getMostRecent() {
             System.out.println("most recent: ");
             int temp = MAX_SIZE;
-            LinkedListNode curr = head.next;
+            Node curr = head.next;
 
             while (curr != null && curr != tail && temp > 0) {
                 System.out.println(curr.val);
@@ -147,7 +147,7 @@ static class MriImpl implements MRI {
             return "";
         }
 
-        private void moveToFront(LinkedListNode node) {
+        private void moveToFront(Node node) {
             node.prev.next = node.next;
             node.next.prev = node.prev;
 
@@ -157,7 +157,7 @@ static class MriImpl implements MRI {
             head.next = node;
         }
 
-        private void addNode(LinkedListNode node) {
+        private void addNode(Node node) {
             node.prev = head;
             node.next = head.next;
 
@@ -165,12 +165,12 @@ static class MriImpl implements MRI {
             head.next = node;
         }
 
-        private class LinkedListNode {
-            LinkedListNode next;
-            LinkedListNode prev;
+        private class Node {
+            Node next;
+            Node prev;
             String val;
 
-            LinkedListNode(String v) {
+            Node(String v) {
                 this.val = v;
             }
         }

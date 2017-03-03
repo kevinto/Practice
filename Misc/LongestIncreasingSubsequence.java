@@ -25,22 +25,25 @@ public class LongestIncreasingSubsequence {
     // This is my own implementation based on the geeks for
     // geeks recursive implementation.
     public int lisProperDp(int[] arr) {
+        int finalMax = 0;
         int[] dp = new int[arr.length + 1];
-        for (int i = 0; i < dp.length; i++) {
-            dp[i] = 1; // Every element has a start length of at least 1
-        }
 
-        for (int len = 0; len <= arr.length; len++) {
-            for (int subLen = 0; subLen < len - 1; subLen++) {
-                if (arr[subLen] < arr[len - 1]) {
-                    dp[len] = Math.max(dp[len], dp[subLen + 1] + 1);
+        // len represents the len from the beginning.
+        for (int len = 1; len <= arr.length; len++) {
+            dp[len] = 1; // Every element has a start length of at least 1
+
+            // we don't actually do this loop until len is 2.
+            // Check every element before the end of the len.
+            // If the condition is satisfied, then reuse the value we have
+            // in our dp table. we are using dp[i+1] because our dp table is
+            // represented as distance from the beginning, so the saved value
+            // for a specific element is dp[i+1].
+            for (int i = 0; i < len - 1; i++) {
+                if (arr[i] < arr[len - 1]) {
+                    dp[len] = Math.max(dp[len], dp[i + 1] + 1);
                 }
             }
-        }
-
-        int finalMax = 0;
-        for (int i = 0; i < dp.length; i++) {
-            finalMax = Math.max(finalMax, dp[i]);
+            finalMax = Math.max(finalMax, dp[len]);
         }
 
         return finalMax;
@@ -161,7 +164,12 @@ public class LongestIncreasingSubsequence {
         }
 
         // Notice we pass in the length and not the index of the last element we want to look at.
-        // That is why in order to get the last element you have to do num[length - 1]
+        // That is why in order to get the last element you have to do num[length - 1].
+        // If the currlength is truely the length, then it has to include the last element.
+        // this loop does 2 things:
+            // Gets the best sublength starting at the smallest length to the current length
+            // Adds the sub length to the current length only if that interim value is less than the last value.
+        // Note: This len means len from the end...
         int currentLisLength = 1;
         for (int i = 0; i < length - 1; i++) {
             // Get the len of the lis ending at i

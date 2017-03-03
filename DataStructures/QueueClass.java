@@ -27,11 +27,11 @@
 //}
 //
 //class Queuex {
-//    private LinkedListNode head = null;
-//    private LinkedListNode tail = null;
+//    private Node head = null;
+//    private Node tail = null;
 //
 //    void enqueue(int x) {
-//        LinkedListNode newNode = new LinkedListNode(x);
+//        Node newNode = new Node(x);
 //
 //        if (head == null) {
 //            head = newNode;
@@ -43,19 +43,19 @@
 //        }
 //    }
 //
-//    LinkedListNode dequeue() {
+//    Node dequeue() {
 //        if (head == null || tail == null) {
 //            return null;
 //        }
 //        else {
-//            LinkedListNode top = head;
+//            Node top = head;
 //            head = head.next;
 //            return top;
 //        }
 //    }
 //
 //    void printQueue() {
-//        LinkedListNode temp = head;
+//        Node temp = head;
 //        while (temp != null) {
 //            System.out.println(temp.value);
 //            temp = temp.next;

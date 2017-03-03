@@ -8,7 +8,7 @@ public class AddTwoNumbers {
         head1.next.next = new LinkedListNode(9);
 
         LinkedListNode head2 = new LinkedListNode(9);
-        //head2.next = new LinkedListNode(2);
+        //head2.next = new Node(2);
 
         LinkedListNode res = addNumbers(head1, head2);
         printLL(res);
@@ -105,17 +105,17 @@ public class AddTwoNumbers {
 
     // Way cleaner coding exercise solution:
     /*
-    static LinkedListNode addNumbers(LinkedListNode head1, LinkedListNode head2) {
-        LinkedListNode newHead = null;
-        LinkedListNode tail = null;
+    static Node addNumbers(Node head1, Node head2) {
+        Node newHead = null;
+        Node tail = null;
         int carry = 0;
-        LinkedListNode curr1 = head1;
-        LinkedListNode curr2 = head2;
+        Node curr1 = head1;
+        Node curr2 = head2;
 
         while (curr1 != null || curr2 != null) {
             int curr1Val = curr1 == null ? 0 : curr1.val;
             int curr2Val = curr2 == null ? 0 : curr2.val;
-            LinkedListNode newNode = new LinkedListNode(curr1Val + curr2Val + carry);
+            Node newNode = new Node(curr1Val + curr2Val + carry);
             carry = 0;
 
             if (newNode.val >= 10) {
@@ -136,7 +136,7 @@ public class AddTwoNumbers {
         }
 
         if (carry == 1) {
-            tail.next = new LinkedListNode(1);
+            tail.next = new Node(1);
             tail = tail.next;
         }
 

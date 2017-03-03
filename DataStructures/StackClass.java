@@ -11,7 +11,7 @@
 //        Stackx s = new Stackx();
 //        s.push(1);
 //        s.push(2);
-//        LinkedListNode poppedNode = s.pop();
+//        Node poppedNode = s.pop();
 //        s.printStack();
 //        System.out.println("popped node: " + poppedNode.value);
 //    }
@@ -19,7 +19,7 @@
 //
 //class Stackx {
 //    private int size = 0;
-//    private LinkedListNode head;
+//    private Node head;
 //
 //    int getSize() {
 //        return size;
@@ -27,23 +27,23 @@
 //
 //    void push(int value) {
 //        if (head == null) {
-//            head = new LinkedListNode(value);
+//            head = new Node(value);
 //            size++;
 //        }
 ////        else {
-//            LinkedListNode newHead = new LinkedListNode(value);
+//            Node newHead = new Node(value);
 //            newHead.next = head;
 //            head = newHead;
 //            size++;
 //        }
 //    }
 //
-//    LinkedListNode pop() {
+//    Node pop() {
 //        if (head == null) {
 //            return null;
 //        }
 //
-//        LinkedListNode retNode = head;
+//        Node retNode = head;
 //        head = head.next;
 //
 //        return retNode;
@@ -51,7 +51,7 @@
 //
 //    // For debugging
 //    void printStack() {
-//        LinkedListNode currPtr = head;
+//        Node currPtr = head;
 //        while (currPtr != null) {
 //            System.out.println(currPtr.value);
 //            currPtr = currPtr.next;

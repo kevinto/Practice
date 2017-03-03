@@ -12,7 +12,7 @@ public class ReverseLinkedListInGroups {
         head.next.next.next.next.next.next = new Node(7);
         head.next.next.next.next.next.next.next = new Node(8);
 
-//        LinkedListNode newHead = reverse(head, 3);
+//        Node newHead = reverse(head, 3);
         Node newHead = reverse(head, 5);
         printLL(newHead);
     }
