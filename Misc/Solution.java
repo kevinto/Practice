@@ -3,67 +3,104 @@ import java.util.LinkedList;
 
 public class Solution {
     public static void main(String[] args) {
-        int[] map = {0, 1};
-        int val = 9;
-
-        while (val > 0) {
-            System.out.print((map[val % 2]) + " ");
-            val /= 2;
-        }
+        boolean result = isMatch("aab","c*a*b");
+        return;
     }
 
-    public static String minWindow(String text, String findText) {
-        // TODO: Input checking
+    static boolean isMatch(String text, String pat) {
+        return isMatch(text, text.length() - 1, pat, pat.length() - 1);
+    }
 
-        int textLen = text.length();
-        int findTextLen = findText.length();
-        int[] map = genFreqMap(findText);
-        int count = 0;
-        int left = 0, right = 0;
-        int minLen = Integer.MAX_VALUE;
-        int strStart = -1, strEnd = -1;
+    static boolean isMatch(String text, int textPtr, String pat, int patPtr) {
+        if (patPtr < 0) {
+            return true;
+        }else if (textPtr < 0 || patPtr < 0) {
+            return false;
+        }
 
-        while (right < textLen) {
-            char currRight = text.charAt(right);
-            map[currRight]--;
-            if (map[currRight] >= 0) {
-                count++;
+        boolean result = false;
+        if (pat.charAt(patPtr) != '.' && pat.charAt(patPtr) != '*') {
+            if (text.charAt(textPtr) == pat.charAt(patPtr)) {
+                result = isMatch(text, textPtr - 1, pat, patPtr - 1);
+            } else {
+                result = false;
             }
-            right++;
+        } else if (pat.charAt(patPtr) == '.') {
+            result = isMatch(text, textPtr - 1, pat, patPtr - 1);
+        } else if (pat.charAt(patPtr) == '*') {
+            // Represents 0 of something. so skip over that something in the pat too
+            result = isMatch(text, textPtr, pat, patPtr - 2);
 
-            while (count == findTextLen && left < right) {
-                System.out.println("s: " + left + ", e: " + right);
-                char currLeft = text.charAt(left);
-                if (map[currLeft] + 1 == 1) {
-                    break;
+            if (patPtr == 0) {
+                return true;
+            } else if (pat.charAt(patPtr - 1) == '.') {
+                char curr = text.charAt(textPtr);
+                for (int i = textPtr - 1; i >= 0; i--) {
+                    if (text.charAt(i) != curr) {
+                        break;
+                    }
+
+                    result |= isMatch(text, i, pat, patPtr - 2);
                 }
-                left++;
-            }
+            } else {
+                char curr = pat.charAt(patPtr - 1);
+                for (int i = textPtr; i >= 0; i--) {
+                    if (text.charAt(i) != curr) {
+                        break;
+                    }
 
-            if (count == findTextLen && right - left < minLen) {
-                minLen = right - left;
-                strStart = left;
-                strEnd = right;
-                System.out.println("s: " + strStart + ", e: " + strEnd);
+                    result |= isMatch(text, i - 1, pat, patPtr - 1);
+                }
             }
         }
 
-        if (strStart != -1 && strEnd != -1) {
-            return text.substring(strStart, strEnd);
-        } else {
-            return "FoundNothing";
+        return result;
+    }
+
+    static void printPostOrderIterative(Node root) {
+        Node prev = null;
+        Stack<Node> stack = new Stack<>();
+        pushAllLeft(root, stack);
+
+        while (!stack.empty()) {
+            Node top = stack.peek();
+
+            if (top.right == prev || top.right == null) {
+                System.out.print(top.val + " ");
+                stack.pop();
+                prev = top;
+            } else { // if (top.right != null)
+                pushAllLeft(top.right, stack);
+            }
         }
     }
 
-    private static int[] genFreqMap(String str) {
-        int[] map = new int[256];
-        int len = str.length();
+    static void pushAllLeft(Node root, Stack<Node> stack) {
+        Node curr = root;
+        while (curr != null) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+    }
 
-        for (int i = 0; i < len; i++) {
-            map[str.charAt(i)]++;
+    static void printPostOrderRecursive(Node root) {
+        if (root == null) {
+            return;
         }
 
-        return map;
+        printPostOrderRecursive(root.left);
+        printPostOrderRecursive(root.right);
+        System.out.print(root.val + " ");
+    }
+
+    static class Node {
+        Node left;
+        Node right;
+        int val;
+
+        Node(int x) {
+            this.val = x;
+        }
     }
 }
 
