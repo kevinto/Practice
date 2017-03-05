@@ -25,7 +25,9 @@ public class ClosestKPoints {
 
     public static Collection<Point> getClosest(Collection<Point> points, int k) {
         // Create new priority queue with an initial capacity
-        PriorityQueue<Point> queue = new PriorityQueue<>(k);
+        PriorityQueue<Point> queue = new PriorityQueue<>(k, (a,b) -> {
+            return (int)(b.distance - a.distance);
+        });
 
 
         for (Point point : points) {
@@ -37,7 +39,8 @@ public class ClosestKPoints {
             } else {
                 // Top of the heap will be the max dist. If the current point is less than
                 // the head, then we are going to remove the head and add the current point.
-                if (queue.peek().compareTo(point) < 0) {
+                if (queue.peek().distance > point.distance) {
+//                    if (queue.peek().compareTo(point) < 0) {
                     queue.poll(); // retrieves and removes the head of queue
                     queue.offer(point); // Inserts into priority queue
                 }
@@ -48,7 +51,8 @@ public class ClosestKPoints {
     }
 }
 
-class Point implements Comparable<Point>{
+class Point {
+//    class Point implements Comparable<Point>{
     int x, y;
     double distance;
 
@@ -64,13 +68,13 @@ class Point implements Comparable<Point>{
         this.y = y;
     }
 
-    @Override
-    public int compareTo(Point that) {
-        // This makes the top of the heap a max number. Think of it as
-        // you are comparaing the param to curr object. if param wins then
-        // put on top in priority
-        return Double.valueOf(that.distance).compareTo(distance);
-    }
+//    @Override
+//    public int compareTo(Point that) {
+//        // This makes the top of the heap a max number. Think of it as
+//        // you are comparaing the param to curr object. if param wins then
+//        // put on top in priority
+//        return Double.valueOf(that.distance).compareTo(distance);
+//    }
 
     @Override
     public String toString() {
