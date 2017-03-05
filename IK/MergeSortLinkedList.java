@@ -36,7 +36,7 @@ public class MergeSortLinkedList {
     }
 
     static LinkedListNode mergeSortList(LinkedListNode head, int size) {
-        if (size == 0 || size == 1) {
+        if (size <= 1) {
             return head;
         }
 
@@ -63,27 +63,26 @@ public class MergeSortLinkedList {
         LinkedListNode resultTail = null;
 
         while (firstListPointer != null && secondListPointer != null) {
+            LinkedListNode curr = null;
             if (firstListPointer.val < secondListPointer.val) {
-                if (resultHead == null) {
-                    resultHead = firstListPointer;
-                    resultTail = resultHead;
-                } else {
-                    resultTail.next = firstListPointer;
-                    resultTail = resultTail.next;
-                }
+                curr = firstListPointer;
                 firstListPointer = firstListPointer.next;
             } else {
-                if (resultHead == null) {
-                    resultHead = secondListPointer;
-                    resultTail = resultHead;
-                } else {
-                    resultTail.next = secondListPointer;
-                    resultTail = resultTail.next;
-                }
+                curr = secondListPointer;
                 secondListPointer = secondListPointer.next;
             }
+
+            if (resultHead == null) {
+                resultHead = curr;
+                resultTail = resultHead;
+            } else {
+                resultTail.next = curr;
+                resultTail = resultTail.next;
+            }
+            curr.next = null;
         }
 
+        // TODO: Potential bug here in that result tail can be null when the first while loop isnt run.
         while (firstListPointer != null) {
             resultTail.next = firstListPointer;
             resultTail = resultTail.next;
