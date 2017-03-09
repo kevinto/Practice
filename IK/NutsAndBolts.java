@@ -5,8 +5,9 @@ import java.util.Arrays;
  */
 public class NutsAndBolts {
     public static void main(String args[] ) throws Exception {
-        String[] nuts = { "N3", "N2", "N1", "N4" };
-        String[] bolts = { "B4", "B2", "B3", "B1" };
+        // TODO: There is a bug here for the case where < < = < > >. You swap the left with the less than, but the pivot index is miss-set.
+        String[] nuts = { "N1", "N3", "N2", "B5", "N4" };
+        String[] bolts = { "B4", "B1", "B2", "B5", "B3" };
         String[] matched = match(nuts, bolts);
         System.out.println("nuts: " + Arrays.toString(nuts));
         System.out.println("bolts: " + Arrays.toString(bolts));
